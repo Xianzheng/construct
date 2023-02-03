@@ -47,9 +47,9 @@
 
                         {% endfor %}
                         <!-- 循环之后追加两个coloumn 更新修改-->
-                        <td><a href = '/testapp/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
+                        <td><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
 
-                        <td><a onclick = 'return delete_alert()' href = '/testapp/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
+                        <td><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
                     {% endif %}
                     
                 <tr>
@@ -65,7 +65,7 @@
         
         <div style = 'width:150px;margin: 10% auto;text-align: center;'>
 
-            <a href = '/testapp/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
+            <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
             <a href = '{{goback}}'>返回</a>
         </div>
 

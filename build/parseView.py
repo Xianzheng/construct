@@ -1,5 +1,8 @@
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
+from building import appName
+appName = "{}".format(appName)
+print(appName)
 def writeViewLoad():
     with open('./out/views.py','w',encoding='utf-8') as f:
         delimiter = r"'\\'"
@@ -11,6 +14,9 @@ from .tools import getmodelfield, loadData, getHeader
 from .models import *
 from .forms import *
 from pathlib import Path
+import os,django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings")
+django.setup()
 import sys
 exclude = ['username','email','is_staff','last_login','password','last_name','date_joined','is_active','is_superuser']
 
@@ -85,21 +91,22 @@ def {}_view(request):
                     'headerAndWidth':headerAndWidth,
                     'totalData':totalData,'status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'APPNAME'})
     except:
         renderFile = 'renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':'',
                     'totalData':'','status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'APPNAME'})
                 """
                 #nextLayout要改
                 #<td><a href = '{{nextLayout}}/{{i.id}}'>{{j}}</a></td>
                 #'nextLayout':'/testapp/table2' 这个玩意要动态输入
                 string = string.replace('{}',modelName).replace('{1}','\''+modelName+'\'').replace('{2}','\''+nextmodlename+'\'')
-                #print('\''+'table1'+'\'')
                 
+                #print('\''+'table1'+'\'')
+                string = string.replace('APPNAME',appName)
                 f.write(string)
             else:
                 modelName = modelnameLst[index]
@@ -177,7 +184,7 @@ def {1}_view(request,tableId):
                     'totalData':totalData,'status':0,
                     'tableId':tableId,'tableName':'分厂区',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'APPNAME'})
     except:
         renderFile = 'renderTable1.html'  
         return render(request,renderFile,
@@ -185,11 +192,12 @@ def {1}_view(request,tableId):
                     'totalData':[],'status':0,
                     'tableId':tableId,'tableName':'',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'#'})\n 
+                    'nextLayout':'#','appName':'APPNAME'})\n 
                 '''
                 string = string.replace('{3}','\''+modelName+'\'').replace('{2}','\''+rootName+'\'').replace('{1}',modelName)
                 string = string.replace('{4}','\''+nextmodlename+'\'')
                 string = string.replace('{modelnameLst}',str(modelnameLst)) #string.replace 智能替换字符串
+                string = string.replace('APPNAME',appName)
                 rootFilePath = '\''+str(BASE_DIR).split('\\')[-1]+'\''
                 d = '\\'
                 # print(repr(d))
@@ -252,8 +260,8 @@ def addSubTable_view(request,tableId,tableModel):
             
             rd = tableModel[0].lower() + tableModel[1:]
             if tableId == '0':
-                return redirect('/testapp/'+rd+'/')
-            return redirect('/testapp/'+rd+'/'+tableId)
+                return redirect('/APPNAME/'+rd+'/')
+            return redirect('/APPNAME/'+rd+'/'+tableId)
     else:
 
         path = request.path
@@ -265,10 +273,10 @@ def addSubTable_view(request,tableId,tableModel):
         goback = ''
         print(tableId)
         if tableId == '0':
-            goback = '/testapp/'+rd
+            goback = '/APPNAME/'+rd
             print('yes')
         else:
-            goback = '/testapp/'+rd+'/'+tableId
+            goback = '/APPNAME/'+rd+'/'+tableId
             print('no')
         print(goback)
         
@@ -276,9 +284,10 @@ def addSubTable_view(request,tableId,tableModel):
        
 
     return render(request,'form.html',{'form':form,
-    'tableName':title,'goback':goback})
+    'tableName':title,'goback':goback,'appName':'APPNAME'})
 """
         string = string.replace('{modelnameLst}',str(modelnameLst))
+        string = string.replace('APPNAME',appName)
         f.write(string)
 
 def writeUpdate():
@@ -322,10 +331,11 @@ def updateRow_view(request,modelName,rowId,tableId):
     goback = '/'+rootFilePath+'/'+modelName+'/'+tableId
     return render(request,'form.html',
     {'form':form,'tableName':title,
-    'tableId':tableId,'action':action,'goback':goback})\n
+    'tableId':tableId,'action':action,'goback':goback,'appName':'APPNAME'})\n
 
 """
         string = string.replace('{modelnameLst}',str(modelnameLst))
+        string = string.replace('APPNAME',appName)
         f.write(string)
 
 def writeDelete():

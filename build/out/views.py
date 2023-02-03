@@ -6,6 +6,9 @@ from .tools import getmodelfield, loadData, getHeader
 from .models import *
 from .forms import *
 from pathlib import Path
+import os,django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings")
+django.setup()
 import sys
 exclude = ['username','email','is_staff','last_login','password','last_name','date_joined','is_active','is_superuser']
 
@@ -45,14 +48,14 @@ def table1_view(request):
                     'headerAndWidth':headerAndWidth,
                     'totalData':totalData,'status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app1'})
     except:
         renderFile = 'renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':'',
                     'totalData':'','status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app1'})
                 
 @login_required(login_url="/acount/login/")
 def table2_view(request,tableId):
@@ -112,7 +115,7 @@ def table2_view(request,tableId):
                     'totalData':totalData,'status':0,
                     'tableId':tableId,'tableName':'分厂区',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app1'})
     except:
         renderFile = 'renderTable1.html'  
         return render(request,renderFile,
@@ -120,7 +123,7 @@ def table2_view(request,tableId):
                     'totalData':[],'status':0,
                     'tableId':tableId,'tableName':'',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'#'})
+                    'nextLayout':'#','appName':'app1'})
  
                 
 @login_required(login_url="/acount/login/")
@@ -181,7 +184,7 @@ def table3_view(request,tableId):
                     'totalData':totalData,'status':0,
                     'tableId':tableId,'tableName':'分厂区',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app1'})
     except:
         renderFile = 'renderTable1.html'  
         return render(request,renderFile,
@@ -189,7 +192,7 @@ def table3_view(request,tableId):
                     'totalData':[],'status':0,
                     'tableId':tableId,'tableName':'',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'#'})
+                    'nextLayout':'#','appName':'app1'})
  
                 
 @login_required(login_url="/acount/login/")
@@ -250,7 +253,7 @@ def table4_view(request,tableId):
                     'totalData':totalData,'status':0,
                     'tableId':tableId,'tableName':'分厂区',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName})
+                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app1'})
     except:
         renderFile = 'renderTable1.html'  
         return render(request,renderFile,
@@ -258,7 +261,7 @@ def table4_view(request,tableId):
                     'totalData':[],'status':0,
                     'tableId':tableId,'tableName':'',
                     'modelName':modelName,'goback': goback,
-                    'nextLayout':'#'})
+                    'nextLayout':'#','appName':'app1'})
  
                 
 @login_required(login_url="/login/")
@@ -295,8 +298,8 @@ def addSubTable_view(request,tableId,tableModel):
             
             rd = tableModel[0].lower() + tableModel[1:]
             if tableId == '0':
-                return redirect('/testapp/'+rd+'/')
-            return redirect('/testapp/'+rd+'/'+tableId)
+                return redirect('/app1/'+rd+'/')
+            return redirect('/app1/'+rd+'/'+tableId)
     else:
 
         path = request.path
@@ -308,10 +311,10 @@ def addSubTable_view(request,tableId,tableModel):
         goback = ''
         print(tableId)
         if tableId == '0':
-            goback = '/testapp/'+rd
+            goback = '/app1/'+rd
             print('yes')
         else:
-            goback = '/testapp/'+rd+'/'+tableId
+            goback = '/app1/'+rd+'/'+tableId
             print('no')
         print(goback)
         
@@ -319,7 +322,7 @@ def addSubTable_view(request,tableId,tableModel):
        
 
     return render(request,'form.html',{'form':form,
-    'tableName':title,'goback':goback})
+    'tableName':title,'goback':goback,'appName':'app1'})
 
 def updateRow_view(request,modelName,rowId,tableId):
     modelInstance = globals()[modelName]
@@ -341,7 +344,7 @@ def updateRow_view(request,modelName,rowId,tableId):
     goback = '/'+rootFilePath+'/'+modelName+'/'+tableId
     return render(request,'form.html',
     {'form':form,'tableName':title,
-    'tableId':tableId,'action':action,'goback':goback})
+    'tableId':tableId,'action':action,'goback':goback,'appName':'app1'})
 
 
 

@@ -10,6 +10,8 @@ from django.http.response import HttpResponse
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+
+appName = 'app1'
 import datetime
 # Create your views here.
 def writeToLog(request,string):
@@ -45,8 +47,14 @@ def login_view(request):
             print('用户 {} ip {} 登陆'.format(request.user.first_name,ip))
             string = '用户 {} ip {} 时间 {} 登陆 '.format(request.user.first_name,ip,getCurrentTime())
             writeToLog(request,string)
-            return redirect('/testapp/table1')#这里必须要127.0.0.1后的完整url
+            return redirect('/{}/table1'.format(appName))#这里必须要127.0.0.1后的完整url
     else:
+        from django.contrib.auth.models import User
+        if not User.objects.filter(username='admin'):
+            user=User.objects.create_superuser("admin","rock@51reboot.com","123456")
+            user.set_password("admin")
+            user.save()
+            print('account was created')
         form = AuthenticationForm()
         title = '动能消耗统计'
         background = 'image/download.jfif'
