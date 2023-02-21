@@ -1,0 +1,6 @@
+git branch -M main
+
+git remote add p1 https://github.com/Xianzheng/construct.git
+
+git push -u p1 main
+

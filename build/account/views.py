@@ -11,7 +11,15 @@ from django.http.response import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
-appName = 'app1'
+appName = 'app'
+appName = 'app'
+appName = 'app'
+appName = 'app'
+appName = 'testApp'
+appName = 'testApp'
+appName = 'app'
+appName = 'app'
+
 import datetime
 # Create your views here.
 def writeToLog(request,string):
