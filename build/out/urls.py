@@ -8,4 +8,5 @@ urlpatterns = [
     path('addSubTable/<tableId>/<tableModel>',addSubTable_view),
     path('updateRow/<modelName>/<rowId>/<tableId>',updateRow_view),
     path('deleteRow/<modelName>/<rowId>/<tableId>',deleteRow_view),
+    path('addApp/',addApp_view),
 ]

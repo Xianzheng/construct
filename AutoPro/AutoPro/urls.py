@@ -18,6 +18,9 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('newBee/',include('newBee.urls')),
+    path('newBee/',include('newBee.urls')),
+    path('newBee/',include('newBee.urls')),
     path('testApp/',include('testApp.urls')),
     path('app/',include('app.urls')),
     path('',include('account.urls')),

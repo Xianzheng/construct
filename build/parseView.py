@@ -14,6 +14,8 @@ from .tools import getmodelfield, loadData, getHeader
 from .models import *
 from .forms import *
 from pathlib import Path
+from django.http.response import HttpResponse
+from django.core.management import call_command
 import os,django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings")
 django.setup()
@@ -379,6 +381,18 @@ def deleteRow_view(request,modelName,rowId,tableId):
     print(goback)
        
     return redirect(goback)\n
+
+def addApp_view(request):
+    creat_app = 'newBee'
+    root = os.getcwd()
+    os.chdir(root + '/mystatic/files')
+    print(os.getcwd())
+    os.system('python building.py '+creat_app)
+    os.chdir(root)
+    call_command('makemigrations',creat_app)
+    call_command('migrate',creat_app)
+    # call_command('runserver')
+    return HttpResponse('done')
 
 """
         string = string.replace('{modelnameLst}',str(modelnameLst))

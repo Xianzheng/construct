@@ -1,9 +1,11 @@
-import os
+import os, sys
 from tools import mycopy, addAppToSetting, addAppurlsToProjectUrls, addCodeToFile, changeContent
 from bs import mycopyAndPaste
 import shutil
 from glob import glob
 import time
+from django.http.response import HttpResponse
+from django.core.management import call_command
 projectName = 'AutoPro' #项目名
 currentPath = os.getcwd()#当前目录页】
 previousPath = '\\'.join(currentPath.split('\\')[:-3])#上一层目录
@@ -14,7 +16,62 @@ appName = 'app'
 # print(previousPath)
 # print(projectPath)
 # print(projectMainPath)
-""
+
+def createApp(appName):
+    print(appName)
+    #切换到项目目录
+    os.chdir(projectPath)
+    #如果没有创建过就创建app
+    if not os.path.isdir(appName):
+        call_command('startapp',appName)
+        print('dsfadsfasfasddfafd')
+    # if not os.path.isdir(appName):
+    #     return HttpResponse('None')
+
+    # 切换至生成项目目录
+    os.chdir(currentPath)
+    #运行parsing 文件生成app 所需文件
+    os.system('python parseModel.py')
+    os.system('python parseForm.py')
+    os.system('python parseUrls.py')
+    os.system('python parseView.py')
+    os.system('python tools.py')
+
+    
+    #迁移out文件进入app
+    coped_fileName = './out/'
+    print(projectName)
+    print(appName)
+    print('../{}/{}/'.format(projectName,appName))
+    # print(os.getcwd())
+    # return HttpResponse('/{}/{}/'.format(projectName,appName))
+    # mycopy('./{}/'.format(coped_fileName),'/{}/{}/'.format(projectName,appName))
+    mycopy('./{}/'.format(coped_fileName),'../../{}/'.format(appName))
+    
+    #配置url到mainUrl,切换到项目的主url
+    os.chdir(projectMainPath)
+    added_url = "path('{}/',include('{}.urls')),".format(appName,appName) 
+    addUrlToMainUrl(added_url)
+
+    #配置setting,在settings的INSTALL_APP中导入App
+    added_app = '\'{}\','.format(appName)
+    addAppToInstall(added_app)
+    
+    #在app中装入template
+    os.chdir(projectPath+'/{}'.format(appName))#切换到项目目录
+    #如果templates文件夹不在项目中不，存在创建templates文件夹在项目中
+    if not os.path.isdir('templates'):
+        os.makedirs('templates')
+    
+    os.chdir(currentPath)
+    
+    coped_fileName = 'templates'
+    print(os.getcwd())
+    #复制building的template的所有文件到project的 templates中
+    mycopy('./{}/'.format(coped_fileName),'../../{}/{}/'.format(appName,coped_fileName))
+
+    # shutil.copy(currentPath+'./tools.py',projectPath+'/{}/'.format(appName)) 
+    
 def addUrlToMainUrl(added_url):
     #添加added_urls到main project的urls.py的urlpatterns中
     added_filePath = './urls.py'
@@ -57,55 +114,16 @@ def migrateAccount():
     added_app = '\'account\','
     addAppToInstall(added_app)
 
-def createApp(appName):
-    #切换到项目目录
-    os.chdir(projectPath)
-    #如果没有创建过就创建app
-    if not os.path.isdir(appName):
-        os.system('python manage.py startapp '+appName)
 
-    # 切换至生成项目目录
-    os.chdir(currentPath)
-    #运行parsing 文件生成app 所需文件
-    os.system('python parseModel.py')
-    os.system('python parseForm.py')
-    os.system('python parseUrls.py')
-    os.system('python parseView.py')
-    os.system('python tools.py')
-
-    #迁移out文件进入app
-    coped_fileName = './out/'
-    mycopy('./{}/'.format(coped_fileName),'../{}/{}/'.format(projectName,appName))
-
-    #配置url到mainUrl,切换到项目的主url
-    os.chdir(projectMainPath)
-    added_url = "path('{}/',include('{}.urls')),".format(appName,appName) 
-    addUrlToMainUrl(added_url)
-
-    #配置setting,在settings的INSTALL_APP中导入App
-    added_app = '\'{}\','.format(appName)
-    addAppToInstall(added_app)
-
-    #在app中装入template
-    os.chdir(projectPath+'/{}'.format(appName))#切换到项目目录
-    #如果templates文件夹不在项目中不，存在创建templates文件夹在项目中
-    if not os.path.isdir('templates'):
-        os.makedirs('templates')
-    
-    os.chdir(currentPath)
-    
-    coped_fileName = 'templates'
-    #复制building的template的所有文件到project的 templates中
-    mycopy('./{}/'.format(coped_fileName),'../{}/{}/{}/'.format(projectName,appName,coped_fileName))
-    
 if __name__ == '__main__':
-    pass
+    
+    name = sys.argv[1]
     # createProject()
 
     # migrateAccount()
 
     #在django project中创建app，在app中写入template文件夹，由parsing文件填入内容，并在setting的installed app装上，应该就可以用了
-    # createApp('testApp')
+    createApp(name)
     # #指定登陆后的appName
     # addCodeToFile(filePath=currentPath +'/account/views.py',index=20,add_content="appName = {}\n".format('\''+appName+'\''))
     
