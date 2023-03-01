@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--
+    为了让 Bootstrap 开发的网站对移动设备友好，确保适当的绘制和触屏缩放，
+    需要在网页的 head 之中添加 viewport meta 标签,一般将bootstrap的css和js文件放进来的时候会自动生成
+    -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+  <!--width=device-width 表示宽度是设备屏幕的宽度。
+        initial-scale=1.0 表示初始的缩放比例。
+        shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
+  <title>bootstrap测试</title>
+
+  <link href="{% static 'bootstrap/css/bootstrap.css'%}" type="text/css" rel="stylesheet">
+
+  <style>
+    .container {
+      width: 500px;
+      height: 500px;
+      margin: 50px auto;
+      border: 1px solid;
+    }
+  </style>
+</head>
+
+<body>
+  <div class='container'>
+    <h2 style='text-align: center; margin-bottom:20px;'>创建应用</h2>
+    <h5>添加应用名<h5>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">添加应用名</span>
+          </div>
+          <input type="text" class="form-control" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+        </div>
+        <div>
+          <label class="form-label" for="customFile">上传配置文件</label>
+          <input type="file" class="form-control" id="customFile" />
+        </div>
+      <h5>配置文件示例子</h5>
+
+        <div> <!--实例module-->
+          <!-- Button trigger modal -->
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+            示例
+          </button>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document" style="width:800px;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">drawModels.txt</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div id="_modalDialog_body" class="modal-body" style="width:800px" ;>
+                  <!--  设置这个div的大小，超出部分显示滚动条 -->
+                  <div id="selectTree" class="ztree" style="width:800px;overflow:auto; ">
+                    table1:id auto,title string vb-用水量 max-100 ,year date vb-更改日期<br />
+                    table2:id auto,title string,table1 foreignKey<br />
+                    table3:id auto,name string,age string,table2 foreignKey<br />
+                    table4:id auto,name string,age string,table3 foreignKey<br />
+                  </div>
+
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style = "width:100px;margin:0 auto">
+          <input class="btn btn-primary" type="submit" value="Create">
+        </div>
+  </div>
+
+  </div>
+  <!--jquery文件务必在bootstrap.js文件前引入-->
+  <script src="{% static 'bootstrap/js/jquery.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
+</body>
+
+</html>

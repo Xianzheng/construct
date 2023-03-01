@@ -40,6 +40,7 @@ def writeUrlBody():
         f.write("    path('updateRow/<modelName>/<rowId>/<tableId>',updateRow_view),\n")
         f.write("    path('deleteRow/<modelName>/<rowId>/<tableId>',deleteRow_view),\n")
         f.write("    path('addApp/',addApp_view),\n")
+        f.write("    path('updateDB/',updateDB_view),\n")
         f.write(']\n')
         f.close()
 

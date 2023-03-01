@@ -9,4 +9,5 @@ urlpatterns = [
     path('updateRow/<modelName>/<rowId>/<tableId>',updateRow_view),
     path('deleteRow/<modelName>/<rowId>/<tableId>',deleteRow_view),
     path('addApp/',addApp_view),
+    path('updateDB/',updateDB_view),
 ]

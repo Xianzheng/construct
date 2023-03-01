@@ -38,7 +38,7 @@ def createApp(appName):
     addUrlToMainUrl(added_url)
 
     #配置setting,在settings的INSTALL_APP中导入App
-    added_app = '\'{}\','.format(appName)
+    added_app = '\'{}\','.format(appName+'.apps.'+appName.capitalize()+'Config')
     addAppToInstall(added_app)
 
     #在app中装入template
@@ -98,7 +98,7 @@ def migrateAccount():
 
     
 if __name__ == '__main__':
-    projectName = 'newPro' #项目名
+    projectName = 'newBee1' #项目名
     currentPath = os.getcwd()#当前目录页】
     previousPath = '\\'.join(currentPath.split('\\')[:-1])#上一层目录
     projectPath = previousPath+'\{}'.format(projectName)#生成项目目录

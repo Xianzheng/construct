@@ -49,7 +49,7 @@ def createApp(appName):
     addUrlToMainUrl(added_url)
 
     #配置setting,在settings的INSTALL_APP中导入App
-    added_app = '\'{}\','.format(appName)
+    added_app = '\'{}\','.format(appName+'.apps.'+appName.capitalize()+'Config')
     addAppToInstall(added_app)
     
     #在app中装入template

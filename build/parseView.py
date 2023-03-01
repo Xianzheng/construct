@@ -383,16 +383,27 @@ def deleteRow_view(request,modelName,rowId,tableId):
     return redirect(goback)\n
 
 def addApp_view(request):
-    creat_app = 'newBee'
-    root = os.getcwd()
-    os.chdir(root + '/mystatic/files')
-    print(os.getcwd())
-    os.system('python building.py '+creat_app)
-    os.chdir(root)
-    call_command('makemigrations',creat_app)
-    call_command('migrate',creat_app)
-    # call_command('runserver')
-    return HttpResponse('done')
+    if request.method == 'POST':
+
+        creat_app = 'testAdd6'
+        root = os.getcwd()
+        os.chdir(root + '/mystatic/files')
+        print(os.getcwd())
+        os.system('python building.py '+creat_app)
+        os.chdir(root)
+        
+        call_command("makemigrations")
+        call_command("migrate")
+        return HttpResponse('done')
+    else:
+    
+        return render(request,'addApp.html')
+
+def updateDB_view(request):
+    call_command("makemigrations")
+    call_command("migrate")
+    return HttpResponse('done update')
+
 
 """
         string = string.replace('{modelnameLst}',str(modelnameLst))
