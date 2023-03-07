@@ -1,13 +1,34 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="", initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--
+          为了让 Bootstrap 开发的网站对移动设备友好，确保适当的绘制和触屏缩放，
+          需要在网页的 head 之中添加 viewport meta 标签,一般将bootstrap的css和js文件放进来的时候会自动生成
+          -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+        <!--width=device-width 表示宽度是设备屏幕的宽度。
+              initial-scale=1.0 表示初始的缩放比例。
+              shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
+        <title>bootstrap测试</title>
+      
+        <link href="{% static 'bootstrap/css/bootstrap.css'%}" type="text/css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css'%}" />
     <title>动能消耗统计系统</title>
     <style>
+       *{
+            margin:0;
+            padding:0;
+        }
+        
+        html{
+            height:100%;
+        }
+        body{
+            height:100%;
+        }
         input{
             width: 300px;
             height: 34px;
@@ -130,6 +151,14 @@
             margin-bottom: 10px;
         }
 
+        .addAppContainer {
+        width: 500px;
+        height: 500px;
+        margin: 50px auto;
+        background-color: #e3f2fd;
+        /* border: 1px solid; */
+        }
+
         .footer{
             
             position: fixed;
@@ -137,13 +166,37 @@
             bottom: 0px;
             width: 100%;
             height: 40px;
-            background-color: #6cf;
             z-index: 9999;
             
         }
+
+        
     </style>
 
 <script type="text/javascript" language="JavaScript">
+    function auto(){
+        const formData = new FormData();
+    
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+        const resp = fetch('/app/getApp/', {
+        body: formData, 
+        method: "POST",
+        }).then(res => res.json())
+        .then(res => {
+            console.log(res.msg[0])
+            res.msg.forEach(element => {
+                let ele = document.getElementById('leftNavbar_content')
+                let addTag = document.createElement('a')
+                addTag.setAttribute('class','nav-link')
+                addTag.innerText = element
+                addTag.setAttribute('href','/'+element+'/table1/')
+                ele.append(addTag)
+            });
+            
+        })
+    }
+    window.onload = auto()
+
     function delete_alert()
     {
          if(confirm("确定要删除吗?"))
@@ -170,37 +223,24 @@
 </script>
 </head>
 <body>
-    
-    <table style = 'margin: 0 auto; margin-bottom: 50px;'>
-        
-        <tr style = "border:none">
-            <td  id = "a" class = "branch" >
-                <a href = "/{{appName}}/table1/" >总表</a>
-            </td>
 
-            {% if user.is_authenticated %}
-                <td class = "branch">
-                    <a id = 'f' value = 'f' href = "/logout/">登出</a>
-                </td>
-            {% endif %}
-        </tr>
+    
 
-    </table>
-    
-    
-    
+      
+    {% include 'navbar.html' %}
+    {% include './base/leftNav.html' %}
+
+    <div style = " height: 300px;margin-top:100px"> 
     {% block content %}
     {% endblock %}
-    
+    </div>
         
-    </div> 
-    <table class = 'footer' style = 'margin: 0 auto'>
-        <tr style = "border:none">
-            <td>
-                <span>技术支持：湖北华舟应急装备科技有限公司  联系电话：15072365968 </span>
-            </td>
-        </tr>
-    </table>
+    {% include 'footer.html' %}
+    
+
+    <!--jquery文件务必在bootstrap.js文件前引入-->
+  <script src="{% static 'bootstrap/js/jquery.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
 
 </body>
 </html>

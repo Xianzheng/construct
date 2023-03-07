@@ -4,6 +4,7 @@ from bs import mycopyAndPaste
 import shutil
 from glob import glob
 import time
+import sys
 appName = 'app'
 
 # print(currentPath)
@@ -38,20 +39,15 @@ def createApp(appName):
     addUrlToMainUrl(added_url)
 
     #配置setting,在settings的INSTALL_APP中导入App
-    added_app = '\'{}\','.format(appName+'.apps.'+appName.capitalize()+'Config')
+    added_app = '\'{}\','.format(appName)
     addAppToInstall(added_app)
 
     #在app中装入template
-    os.chdir(projectPath+'/{}'.format(appName))#切换到项目目录
-    #如果templates文件夹不在项目中不，存在创建templates文件夹在项目中
-    if not os.path.isdir('templates'):
-        os.makedirs('templates')
     
     os.chdir(currentPath)
-    
-    coped_fileName = 'templates'
-    #复制building的template的所有文件到project的 templates中
-    mycopy('./{}/'.format(coped_fileName),'../{}/{}/{}/'.format(projectName,appName,coped_fileName))
+    #复制building的template的所有文件到project app的 templates中
+    # mycopy('./{}/'.format(coped_fileName),'../{}/{}/{}/'.format(projectName,appName,coped_fileName))
+    mycopyAndPaste(currentPath +'/templates',projectPath+'/{}/templates'.format(appName))
 
 def addUrlToMainUrl(added_url):
     #添加added_urls到main project的urls.py的urlpatterns中
@@ -98,7 +94,7 @@ def migrateAccount():
 
     
 if __name__ == '__main__':
-    projectName = 'newBee1' #项目名
+    projectName = sys.argv[1]
     currentPath = os.getcwd()#当前目录页】
     previousPath = '\\'.join(currentPath.split('\\')[:-1])#上一层目录
     projectPath = previousPath+'\{}'.format(projectName)#生成项目目录

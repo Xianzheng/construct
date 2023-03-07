@@ -32,3 +32,34 @@ call_command("migrate")
 # 由于bootstrap的代码过于多用prettier调节格式比较方便
 
 #选中调节的代码 ctrl + shift + p 搜索 formmat
+
+'''
+
+2023/3/2
+写script脚本一定要写成<script></script>
+
+加入corsheaders,做一些修改
+
+上传应该有两种方法一种通过form提交还有fetch/ajax,比较熟悉
+fetch就用fetch这个应该还能加强
+
+由于在template中html应该不是传统的html,所以提交的时候需要加上csrf token
+如果用前后端分离的形式提交则不用（后面待测试）
+在template中自带 {{csrf_token}}
+
+在template中提交数据,也就是django整体一体化
+可分为form提交或fetch/ajax提交,都需在html中有 
+{% csrf_token %}/{{token_token}}的出现
+
+
+
+'''
+
+'''
+
+#添加不用修改程序 自动创建项目内置完善的setting js,jquery,bootstrap
+'''
+
+'''
+parsing view 肯定要改
+'''

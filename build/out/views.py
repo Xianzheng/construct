@@ -373,11 +373,29 @@ def deleteRow_view(request,modelName,rowId,tableId):
 
 
 def addApp_view(request):
+    
     if request.method == 'POST':
 
-        creat_app = 'testAdd6'
-        root = os.getcwd()
-        os.chdir(root + '/mystatic/files')
+        import json
+        appName = request.POST.get('name')
+        obj = request.FILES.get('key', '1')
+        print(obj)
+        print(appName)
+        print(os.getcwd())
+        os.chdir(os.getcwd()+'//mystatic//files//draw')
+        f = open(obj.name,'wb')
+        for chunk in obj.chunks():
+            f.write(chunk)
+        f.close()
+
+        
+        creat_app = appName
+        root = BASE_DIR
+        tem = str(root).split('\\')[:-1]
+        temp = '//'.join(tem)
+        
+        os.chdir(temp+ '\\mystatic\\files')
+        # print(root)
         print(os.getcwd())
         os.system('python building.py '+creat_app)
         os.chdir(root)
@@ -387,11 +405,21 @@ def addApp_view(request):
         return HttpResponse('done')
     else:
     
-        return render(request,'addApp.html')
+        return render(request,'addApp.html',{'appName':'app'})
 
 def updateDB_view(request):
     call_command("makemigrations")
     call_command("migrate")
     return HttpResponse('done update')
+
+def getApp_view(request):
+    import json
+    projectname = str(BASE_DIR).split('\\')[-2]
+    lst = []
+    temp = os.listdir()
+    for i in temp:
+        if i not in ['account','mystatic',projectname] and not i.count('.'):
+            lst.append(i)
+    return HttpResponse(json.dumps({'msg':lst}))
 
 
