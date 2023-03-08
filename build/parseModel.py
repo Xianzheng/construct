@@ -56,6 +56,7 @@ def writeAttribute(**attri):#*agr,**kagr
     if itemtype == 'foreignKey':
         string = '    '+'bind'+' = '+\
             "models.ForeignKey({},default=None,on_delete=models.CASCADE)".format(itemname)
+        # string = addField('vb',remainder,string)
 
     
     

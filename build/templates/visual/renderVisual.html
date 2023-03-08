@@ -1,17 +1,10 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>第一个 ECharts 实例</title>
-    <!-- 引入 echarts.js -->
-    <script src = "{% static 'js/echarts.min.js'%}"></script>
+{% extends '../baseTemp.html' %}
+
+{% block content %}
+
     
-</head>
-<body>
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 600px;height:400px;"></div>
-    <div id="main1" style = "width: 600px;height:400px"></div>
+    <div id="main" style="width: 600px;height:400px;margin:0 auto"></div>
+    <div id="main1" style = "width: 600px;height:400px;margin:0 auto"></div>
     <script type="text/javascript">
         
         // 基于准备好的dom，初始化echarts实例
@@ -56,5 +49,4 @@
         ]
         })
     </script>
-</body>
-</html>
+{% endblock %}

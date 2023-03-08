@@ -60,10 +60,10 @@ def createApp(appName):
     
     os.chdir(currentPath)
     
-    coped_fileName = 'templates'
-    print(os.getcwd())
-    #复制building的template的所有文件到project的 templates中
-    mycopy('./{}/'.format(coped_fileName),'../../{}/{}/'.format(appName,coped_fileName))
+    # coped_fileName = 'templates'
+    # print(os.getcwd())
+    # #复制building的template的所有文件到project的 templates中
+    # mycopy('./{}/'.format(coped_fileName),'../../{}/{}/'.format(appName,coped_fileName))
 
     # shutil.copy(currentPath+'./tools.py',projectPath+'/{}/'.format(appName)) 
     

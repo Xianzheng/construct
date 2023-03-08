@@ -40,8 +40,8 @@ def writeUrlBody():
         f.write("    path('addSubTable/<tableId>/<tableModel>',addSubTable_view),\n")
         f.write("    path('updateRow/<modelName>/<rowId>/<tableId>',updateRow_view),\n")
         f.write("    path('deleteRow/<modelName>/<rowId>/<tableId>',deleteRow_view),\n")
-        f.write("    path('visual1_view/',visual1_view),\n")
-        f.write("    path('visual2_view/',visual2_view),\n")
+        f.write("    path('visual1/',visual1_view),\n")
+        f.write("    path('visual2/',visual2_view),\n")
         f.write(']\n')
         f.close()
 

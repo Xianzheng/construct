@@ -12,6 +12,6 @@ urlpatterns = [
     path('addApp/',addApp_view),
     path('updateDB/',updateDB_view),
     path('getApp/',getApp_view),
-    path('visual1_view/',visual1_view),
-    path('visual2_view/',visual2_view),
+    path('visual1/',visual1_view),
+    path('visual2/',visual2_view),
 ]

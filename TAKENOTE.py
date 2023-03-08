@@ -62,4 +62,6 @@ fetch就用fetch这个应该还能加强
 
 '''
 parsing view 肯定要改
+没有float:left视图显示不出来
+drawModel的逗号一定式英文的
 '''
