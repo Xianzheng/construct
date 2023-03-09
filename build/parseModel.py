@@ -52,6 +52,11 @@ def writeAttribute(**attri):#*agr,**kagr
     if attri['type'] == 'date':
         string = '    '+ attri['name']+'= models.DateTimeField()'
         string = addField('vb',remainder,string)
+    
+
+    if attri['type'] == 'float':
+        string = '    '+ attri['name']+'= models.FloatField(default = 0.0,)'
+        string = addField('vb',remainder,string)
 
     if itemtype == 'foreignKey':
         string = '    '+'bind'+' = '+\

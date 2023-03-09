@@ -33,12 +33,12 @@ def mycopy(src_dir,dst_dir):
 def addAppToSetting(added_filePath,added_app,add_to_path):
     print('add app',added_app)
     
-    with open(added_filePath,'r') as f:
+    with open(added_filePath,'r',encoding='utf-8') as f:
         content = f.readlines()
         index = content.index('INSTALLED_APPS = [\n') + 7
         
         content.insert(index,'    {}\n'.format(added_app))
-        with open(add_to_path,'w') as f1:
+        with open(add_to_path,'w',encoding='utf-8') as f1:
             f1.write('')
             f1.write(''.join(content))
             f1.close()
@@ -48,14 +48,14 @@ def addAppToSetting(added_filePath,added_app,add_to_path):
     
 
 def addAppurlsToProjectUrls(added_filePath,added_app,add_to_path):
-    with open(added_filePath,'r') as f:
+    with open(added_filePath,'r',encoding='utf-8') as f:
         content = f.readlines()
         index = content.index('urlpatterns = [\n') + 2
         if 'from django.urls import path\n' in content:
             index1 = content.index('from django.urls import path\n')
             content[index1] = 'from django.urls import path,include\n'
         content.insert(index,'    {}\n'.format(added_app))
-        with open(add_to_path,'w') as f1:
+        with open(add_to_path,'w',encoding='utf-8') as f1:
             f1.write(''.join(content))
             f1.close()
     f.close()

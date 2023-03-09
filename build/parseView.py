@@ -412,15 +412,16 @@ def addApp_view(request):
         
         call_command("makemigrations")
         call_command("migrate")
-        return HttpResponse('done')
+        return HttpResponse(json.dumps({'msg':'successful create'}))
     else:
     
         return render(request,'addApp.html',{'appName':'APPNAME'})
 
 def updateDB_view(request):
+    import json
     call_command("makemigrations")
     call_command("migrate")
-    return HttpResponse('done update')
+    return HttpResponse(json.dumps({'msg':'done update'}))
 
 def getApp_view(request):
     import json

@@ -57,7 +57,7 @@ class {}_Form(forms.ModelForm):
                 print(attriName)
                 addString = """
         widgets = {
-                    {}: forms.widgets.DateInput(attrs={'type':'date'}),
+                    {}: forms.widgets.DateInput(attrs={'type':{}}),
                 }
                 """
                 addString = addString.replace('{}','\''+attriName+'\'')
