@@ -72,7 +72,7 @@ def createProject():
     mycopyAndPaste(currentPath +'/mystatic',projectPath+'/mystatic')
     os.chdir(projectMainPath)
     #修改setting中的projectName
-    changeContent('./settings.py','project',projectName)
+    changeContent('./settings.py','appbackend',projectName)
 
 def migrateAccount():
     '''

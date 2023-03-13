@@ -1,0 +1,12 @@
+
+<div  class="dropdown">
+    <a style="margin-left:5%" class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      分析数据
+    </a>
+  
+    <div class="dropdown-menu" style="margin-left:10%"aria-labelledby="dropdownMenuLink">
+      {% for i in namelst%}
+      <a class="dropdown-item" href="#">{{i}}</a>
+      {% endfor%}
+    </div>
+  </div>

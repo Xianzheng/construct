@@ -79,7 +79,7 @@ def {}_view(request):
         #render style
         width = [200,250]
         #render到那个template
-        renderFile = 'renderTable1.html' 
+        renderFile = './table/renderTable1.html' 
         #render header内容
         headerAndWidth = zip(header,width)
         #得到表的value
@@ -95,7 +95,7 @@ def {}_view(request):
                     'tableName':'厂区表','tableId':0,
                     'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'APPNAME'})
     except:
-        renderFile = 'renderTable1.html'  
+        renderFile = './table/renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':'',
                     'totalData':'','status':0,
@@ -177,7 +177,7 @@ def {1}_view(request,tableId):
         # header1 是models原生attribute名，header是轉換過的verbose_name
         #render style
         width = [100,100,100,100,100,100]
-        renderFile = 'renderTable1.html' 
+        renderFile = './table/renderTable1.html' 
         headerAndWidth = zip(header,width)
         totalData = loadData(objLst, header1)
         # print('line 65',totalData)
@@ -188,7 +188,7 @@ def {1}_view(request,tableId):
                     'modelName':modelName,'goback': goback,
                     'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'APPNAME'})
     except:
-        renderFile = 'renderTable1.html'  
+        renderFile = './table/renderTable1.html'  
         return render(request,renderFile,
                     {'headerAndWidth':[],
                     'totalData':[],'status':0,
