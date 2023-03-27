@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--
+    为了让 Bootstrap 开发的网站对移动设备友好，确保适当的绘制和触屏缩放，
+    需要在网页的 head 之中添加 viewport meta 标签,一般将bootstrap的css和js文件放进来的时候会自动生成
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+    <!--width=device-width 表示宽度是设备屏幕的宽度。
+        initial-scale=1.0 表示初始的缩放比例。
+        shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
+    <title>bootstrap测试</title>
+    
+    <link href="{% static 'bootstrap/css/bootstrap.css'%}"  type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="alert alert-primary" role="alert">
+        A simple primary alert—check it out!
+      </div>
+    <!--jquery文件务必在bootstrap.js文件前引入-->
+    <script src="{% static 'bootstrap/js/jquery.js'%}" ></script>
+    <script src="{% static 'bootstrap/js/bootstrap.js'%}" ></script>
+</body>
+</html>

@@ -89,3 +89,53 @@ bootstrap id 找不到,可以用className,然后.id
     ele.append(addTag2)
 </script>
 '''
+
+'''
+
+echarts和djangoView 配合：
+
+在views中return 必须是{"msg":json.dumps({"msg":data})}
+
+在template的script才能收到
+var dataName = {{msg|safe}}
+
+echars 中 legends数据必须和series 的 name一样才能显示
+legend: {data:[dataName.name]},
+series: [{name: dataName.name,type: 'bar',data: yRes}]
+'''
+
+'''
+url中
+ path('visual/<tableId>',visual_view),
+view中
+def visual(request,tableId):
+    pass
+
+tableId应该不算参数
+
+
+<script>
+    function V1_jumpTo(name){
+      console.log('hello jump to',name)
+      fetch('/武汉分公司气耗/visual1/',{
+      method:"POST",
+      body:JSON.stringify({'name':name})
+    }).then(res => res.json())
+      .then(res => {
+        //alert('更新成功')
+        window.location.href = "http://127.0.0.1:8000/%E6%AD%A6%E6%B1%89%E5%88%86%E5%85%AC%E5%8F%B8%E6%B0%94%E8%80%97/visual1?name="+res.name
+      })
+    }
+  </script>
+
+
+前端页面发起fetch请求传递参数
+
+url path('visual/',visual_view),
+
+127.0.0.1/visual 和 127.0.0.1/visual?name=mark
+
+会到同一个visual_visual所以可以对parameter做一些处理
+
+url -> view ->html,如果有fetch可以改变流程
+'''

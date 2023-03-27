@@ -13,7 +13,7 @@
         var xRes = {{ xRes|safe }};
         var yRes = {{ yRes|safe }}
         var pieResult = {{pieResult|safe}}
-       
+        var dataName = {{dataName|safe}}
  
         // 指定图表的配置项和数据
         var option = {
@@ -22,14 +22,14 @@
             },
             tooltip: {},
             legend: {
-                data:['表数据']
+                data:[dataName.name]
             },
             xAxis: {
                 data: xRes
             },
             yAxis: {},
             series: [{
-                name: '数据',
+                name: dataName.name,
                 type: 'bar',
                 data: yRes
             }]

@@ -11,14 +11,38 @@ appName = str(BASE_DIR).split('\\')[-1]
 
 @login_required(login_url="/acount/login/")
 def visual1_view(request):
+    import json
+    
     #得到filename下模块名称表
     root = makeAtree()
     name = 'LCO2'
     pick = '计划'
+
+    print(request.get_full_path() )
+    if '=' in request.get_full_path() :
+        print('yes')
+        lst = request.get_full_path().split('=')
+        print(lst)
+        name = lst[1]
+    else:
+        print('no')
+
+    
+    # print("=" in 'http://127.0.0.1:8000/%E6%AD%A6%E6%B1%89%E5%88%86%E5%85%AC%E5%8F%B8%E6%B0%94%E8%80%97/visual1/?name=LO2')
+    
+    if request.method == 'POST':
+        a=json.loads(request.body.decode('utf-8'))
+        name = a['name']
+        return HttpResponse(json.dumps({'name':name}))
+    
+        
+
+    print(name)
     node = findNodeByName(root,name)
     ylst = []
     pieResult = []
     count = 1;
+    
     
     for i in node.children[0].children:
         
@@ -32,9 +56,10 @@ def visual1_view(request):
     for i in NodeOfLevel(root,2):
         dataNameLst.append(i.name)
 
-    
-    return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xlst),'yRes':json.dumps(ylst),'pieResult':json.dumps(pieResult),
-                                                        'namelst':dataNameLst,'name':name})
+    dataName = {'name':name+"消耗"}
+
+    return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xlst),'yRes':json.dumps(ylst),'pieResult':json.dumps(pieResult),'dataName':json.dumps(dataName),
+                                                        'namelst':dataNameLst})
 
 @login_required(login_url="/acount/login/")
 def visual2_view(request):

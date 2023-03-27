@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-%kk1-c5u*f+6&735g!jyyhpf@h*_8=52w2c7fdv69a#t@m4_ma
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['exb5wx.natappfree.cc','127.0.0.1']
 
 
 
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ABC.apps.AbcConfig',
     '武汉分公司气耗.apps.武汉分公司气耗Config',
     'app',
     'account',

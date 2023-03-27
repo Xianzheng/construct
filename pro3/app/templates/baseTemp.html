@@ -8,7 +8,7 @@
           为了让 Bootstrap 开发的网站对移动设备友好，确保适当的绘制和触屏缩放，
           需要在网页的 head 之中添加 viewport meta 标签,一般将bootstrap的css和js文件放进来的时候会自动生成
           -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+          <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
         <!--width=device-width 表示宽度是设备屏幕的宽度。
               initial-scale=1.0 表示初始的缩放比例。
               shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
@@ -46,8 +46,6 @@
             width: 55%;
             height: 100px;
             margin: 0 auto;
-            
-            
         }
         
         a{
@@ -63,12 +61,8 @@
             width: 50%;   
             margin: 30px auto;
             /* border: 1px solid black;  */
-            
-            
             /* margin-top: 30px;
             margin-left: 33%; */
-            
-            
         }
 
         .f1 {
@@ -195,9 +189,9 @@
             res.msg.forEach(element => {
                 let ele = document.getElementById('leftNavbar_content')
                 let addTag = document.createElement('a')
-                addTag.setAttribute('class','nav-link')
                 addTag.innerText = element
                 addTag.setAttribute('href','/'+element+'/table1/')
+                addTag.style = "text-align:center"
                 ele.append(addTag)
             });
             
@@ -239,7 +233,7 @@
 
       
     {% include './base/navbar.html' %}
-    {% include './base/leftNav.html' %}
+    <!--   -->
 
     <div style = " margin-left:100px; height: 100%;margin-top:100px"> 
     {% block content %}

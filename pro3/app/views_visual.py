@@ -11,6 +11,7 @@ appName = str(BASE_DIR).split('\\')[-1]
 
 @login_required(login_url="/acount/login/")
 def visual1_view(request):
+    
     #得到filename下模块名称表
     root = makeAtree()
     name = 'LCO2'
