@@ -6,10 +6,8 @@ def loadData(objLst,header:list) -> list:
 
     total = []
     # print('header is',header)
-    count = 0
     for obj in objLst:
         # temp装的的是每行的内容
-        count += 1
         dic = {}
         temp = []
         # idlst 给每行的内容绑上相同的id
@@ -24,7 +22,6 @@ def loadData(objLst,header:list) -> list:
             temp.append(n)
         dic['id'] = id
         dic['data'] = temp
-        dic['seq'] = count
 
         total.append(dic)
     # total look like [{'id':1,data:[...]},{'id':2,data:[...]}]
@@ -93,7 +90,3 @@ def getColoumnsCompare(lst,attr1,attr2):
     return lst3
 
 exclude = ['username','email','is_staff','last_login','password','last_name','date_joined','is_active','is_superuser']
-
-def getCurrentFolderRootName(path):
-   print(path.split('/'))
-   return path.split('/')[1]

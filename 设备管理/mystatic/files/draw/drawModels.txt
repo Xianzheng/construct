@@ -1,3 +1,4 @@
-table1:id auto,title string vb-使用部门
-table2:id auto,title string vb-设备名称,table1 foreignKey
-table3:id auto,设备编号 string,设备型号 string,设备规格 string,制造商 string,table2 foreignKey
+table1:id auto,title string vb-公司名
+table2:id auto,title string vb-气体,table1 foreignKey
+table3:id auto,title string vb-比较,table2 foreignKey
+table4:id auto,name float vb-消耗(吨),date date vb-选择月份,table3 foreignKey

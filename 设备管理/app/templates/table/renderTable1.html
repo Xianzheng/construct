@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <div style = 'width :60%; margin: 0 auto; text-align: center; margin-bottom: 5%;'>
+    <div style = 'width :60%; margin: 0 auto; text-align: center; margin-bottom:3%;'>
 
         <h2>{{tableName}}<h2>
         
@@ -16,6 +16,7 @@
                 {% for header, width in headerAndWidth %}
                     
                     <td width = {{width}}>{{header}}</td>
+                    
                 {% endfor %}
                 <td colspan="3">功能项</td>
             </tr>
@@ -24,9 +25,9 @@
         <tbody>
             {% if status == 0 or status == 1%}
             <!-- totalData look like [{'id': 1, 'data': ['2021年', '武汉厂区']}, {'id': 2, 'data': ['2021年', '赤壁厂区']}]  -->
-            {% for i in totalData %}
+            {% for i in page_obj%}
                 <tr>
-                    <td>{{forloop.counter}}</td>
+                    <td>{{i.seq}}</td>
                     <!-- status 0 代表有跳轉 -->
                     {% if status == 1 %}
                         <!-- j 为数据中的每一项 -->
@@ -83,5 +84,7 @@
 
     {% endif %}
 
+    
+    {% include '../module/pagination.html'%}
     
 {% endblock %}

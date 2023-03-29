@@ -8,6 +8,7 @@ from .forms import *
 from pathlib import Path
 from django.http.response import HttpResponse
 from django.core.management import call_command
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os,django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings")
 django.setup()
@@ -44,13 +45,29 @@ def table1_view(request):
         #遍历所有表的所有信息填入进空的lst中
         totalData = loadData(objLst, header1)
         # print('line28',totalData)
+        page_num = request.GET.get('page', 1)
+
+        paginator = Paginator(totalData, 8) # 6 employees per page
+
+
+        try:
+            page_obj = paginator.page(page_num)
+        except PageNotAnInteger:
+            # if page is not an integer, deliver the first page
+            page_obj = paginator.page(1)
+        except EmptyPage:
+            # if the page is out of range, deliver the last page
+            page_obj = paginator.page(paginator.num_pages)
+
+
+
 
         #返回渲染template
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':headerAndWidth,
                     'totalData':totalData,'status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app'})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'app','page_obj': page_obj})
     except:
         renderFile = './table/renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,
