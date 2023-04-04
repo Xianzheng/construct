@@ -7,6 +7,8 @@ def writeUrlLoad():
         f.write('from django.urls import path ,include\n')
         f.write('from .views import *\n')
         f.write('from .views_visual import *\n')
+        f.write('from .view_upload import *\n')
+        f.write('from .view_deleteApp import  *\n')
         f.write('urlpatterns = [\n')
         f.close()
 '''
@@ -45,6 +47,10 @@ def writeUrlBody():
         f.write("    path('getApp/',getApp_view),\n")
         f.write("    path('visual1/',visual1_view),\n")
         f.write("    path('visual2/',visual2_view),\n")
+        f.write("    path('upload/',upload_view),\n")
+        f.write("    path('getUploadFiles/',getUploadFiles_view),\n")
+        f.write("    path('getAppName/',getAppName_view),\n")
+        f.write("    path('deleteApp/',deleteApp_view),\n")
         f.write(']\n')
         f.close()
 

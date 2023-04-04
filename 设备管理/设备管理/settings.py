@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    '测试三.apps.测试三Config',
     'AAA.apps.AaaConfig',
     '测试二.apps.测试二Config',
     '测试.apps.测试Config',

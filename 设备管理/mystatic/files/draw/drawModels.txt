@@ -1,4 +1,1 @@
-table1:id auto,title string vb-公司名
-table2:id auto,title string vb-气体,table1 foreignKey
-table3:id auto,title string vb-比较,table2 foreignKey
-table4:id auto,name float vb-消耗(吨),date date vb-选择月份,table3 foreignKey
+table1:id auto,设备编号 string,资产编号

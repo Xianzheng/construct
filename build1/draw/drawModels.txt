@@ -1,0 +1,3 @@
+table1:id auto,title string vb-主任 max-100 ,date date vb-更改日期
+table2:id auto,title string vb-副主任,date date vb-更改日期,table1 foreignKey
+table3:id auto,name string vb-科员,old string vb-年限,date date vb-更改日期 string,table2 foreignKey

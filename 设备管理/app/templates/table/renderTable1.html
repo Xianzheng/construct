@@ -63,15 +63,22 @@
       </table>
 
 
-    {% if status == 0 %}
+      
         
-        <div style = 'width:150px;margin: 3% auto;text-align: center;'>
+        <div style =  "position: fixed;
+        left: 45%;
+        bottom: 100px;
+        width: 10%;
+        height: 40px;
+        background-color: #e3f2fd;
+        text-align: center;
+        z-index: 9999;">
 
             <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
             <a href = '{{goback}}'>返回</a>
         </div>
 
-    {% endif %}
+    
 
     {% if status == 1 %}
         
