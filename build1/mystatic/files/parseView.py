@@ -14,6 +14,7 @@ from .tools import getmodelfield, loadData, getHeader
 from .models import *
 from .forms import *
 from pathlib import Path
+from .view_plugin_tools import *
 import os,django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings")
 django.setup()
@@ -85,13 +86,15 @@ def {}_view(request):
         #遍历所有表的所有信息填入进空的lst中
         totalData = loadData(objLst, header1)
         # print('line28',totalData)
+        page_obj = getPaginationObject(request,totalData)
 
         #返回渲染template
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':headerAndWidth,
                     'totalData':totalData,'status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'APPNAME'})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,
+                    'appName':'APPNAME','page_obj':page_obj})
     except:
         renderFile = './table/renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,

@@ -35,13 +35,12 @@ def createApp(appName):
     
     #迁移out文件进入app
     coped_fileName = './out/'
-    print(projectName)
-    print(appName)
-    print('../{}/{}/'.format(projectName,appName))
-    # print(os.getcwd())
-    # return HttpResponse('/{}/{}/'.format(projectName,appName))
-    # mycopy('./{}/'.format(coped_fileName),'/{}/{}/'.format(projectName,appName))
     mycopy('./{}/'.format(coped_fileName),'../../{}/'.format(appName))
+
+    #迁移plugin文件进入app
+    coped_fileName = './plugin/'
+    mycopy('./{}/'.format(coped_fileName),'../../{}/'.format(appName))
+
     
     #配置url到mainUrl,切换到项目的主url
     os.chdir(projectMainPath)
@@ -49,8 +48,10 @@ def createApp(appName):
     addUrlToMainUrl(added_url)
 
     #配置setting,在settings的INSTALL_APP中导入App
-    added_app = '\'{}\','.format(appName+'.apps.'+appName.capitalize()+'Config')
+    added_app = '\'{}\','.format(appName)
     addAppToInstall(added_app)
+
+   
     
     #在app中装入template
     # os.chdir(projectPath+'/{}'.format(appName))#切换到项目目录

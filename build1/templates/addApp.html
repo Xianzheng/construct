@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<div class='addAppContainer' style="display: inline-block;">
-  <h2 style='text-align: center; margin-bottom:20px;'>创建应用</h2>
+<div class='addAppContainer' >
+  <h2 style='text-align: center; margin-top:5%'>创建应用</h2>
   <h5>添加应用名<h5>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">添加应用名</span>
+          <span id="inputGroup-sizing-default">添加应用名</span>
         </div>
         <input id='appName' type="text" class="form-control" aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default">
@@ -16,22 +16,20 @@
         <label class="form-label" for="customFile">上传配置文件</label>
         <input type="file" class="form-control" id="customFile"  style = "width: 90%;"/>
       </div>
-      <h5>配置文件示例子</h5>
-
-      
-      <div style="width : 260px;margin:0 auto">
-        <div style="width:100px;float: left;">
-          <input onclick="submit()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="创建" />
+     
+      <div style="width : 90%;margin:0 auto">
+        <div style="width:40%;float: left;margin-left:10%">
+          <input onclick="submit()" id="createApp"class="btn btn-primary" style="width: 80%; float:left;" type="submit" value="创建" />
         </div>
 
-        <div style="width:100px;float:left;margin-left:50px">
-          <input  onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="更新" />
+        <div style="width:40%;float:left;margin-left:10%">
+          <input  onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit" value="更新" />
         </div>
       </div>
 </div>
 
-<div class='addAppContainer1' style="display: inline-block;">
-  <h2 style='text-align: center; margin-bottom:20px;'>删除应用</h2>
+<div class='addAppContainer1' >
+  <h2 style='text-align: center; margin-top:5%;'>删除应用</h2>
   <h5>选择应用删除<h5>
     <select id= "fileSelect1" class="custom-select" onclick = "selectClick1()" id="inputGroupSelect01">
       <!-- <option selected>Choose...</option> -->
@@ -39,19 +37,70 @@
     </select>
       <div style="margin-bottom: 20%;">
       </div>
-      <h5>配置文件示例子</h5>
-
       
-      <div style="width : 260px;margin:0 auto">
-        <div style="width:100px;float: left;">
-          <input onclick="submitDeleteApp()" id="deleteApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="删除" />
-        </div>
-
-        <div style="width:100px;float:left;margin-left:50px">
-          <input  onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="更新" />
+      <div style="width : 90%;margin:0 auto">
+        <div style="width:40%;float: left;margin-left:10%">
+          <input onclick="submitDeleteApp()" id="deleteApp"class="btn btn-primary" style="width: 80%; display: block;"type="submit" value="删除" />
         </div>
       </div>
 </div>
+
+<<div class='addAppContainer'>
+  <h2 style='text-align: center; margin-bottom:20px;'>上传文件</h2>
+
+    
+  <div>
+      <label class="form-label" for="customFile">上传文件</label>
+      <input type="file" class="form-control" id="customFile1"  style = "width: 90%;"/>
+      </div>
+      
+      <div style="width : 260px;margin:0 auto">
+      <div style="width:100px;float: left;">
+          <input onclick="uploadFile()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="上传文件" />
+      </div>
+
+  </div>
+  <div style = "margin-top: 50px;">
+      <div>
+        <label class="form-label" for="customFile">选择文件解析</label>
+      </div>
+      <div style="width:200px">
+      <select id = "fileSelect"onclick = "selectClick()"class="custom-select" id="inputGroupSelect01">
+          <!-- <option selected>Choose...</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option> -->
+        </select>
+      </div>
+      
+      <div style="width : 260px;margin:0 auto">
+      <div style="width:100px;float: left;">
+          <input onclick="submit()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="上传文件" />
+      </div>
+
+  </div>
+</div>
+
+<script>
+  const uploadFile = () => {
+    // console.log(appName)
+    console.log('com here')
+    const inp = document.getElementById("customFile1");
+    const formData = new FormData();
+    formData.append("key", inp.files[0]);
+    formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
+     fetch('/app/upload/', {
+      method: "POST",
+      body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
+    }).then(res => res.json())
+      .then(res => {
+        alert('上传文件成功')
+        console.log(res)
+       
+      })
+  }
+
+</script>
 
 
 <script>
@@ -75,8 +124,6 @@
       })
   }
 
-</script>
-<script>
   const UPDATEDB = () => {
     fetch('/app/updateDB/',{
       method:"GET",
@@ -112,18 +159,21 @@
       })
   }
 
-  const submitDeleteApp = () =>{
-    // console.log('hello')
-    const appName = document.getElementById("fileSelect1").value;
-    // console.log(appName)
-    fetch('/app/deleteApp?appName='+appName+'/',{
+  const selectClick = () =>{
+    fetch('/app/getUploadFiles/',{
       method:"GET",
     }).then(res => res.json())
       .then(res => {
-        // console.log(res)
-        // console.log(res.fileList)
         console.log(res)
-        alert('删除成功')
+        console.log(res.fileList)
+        let ele = document.getElementById("fileSelect")
+        ele.innerText = ''
+        res.fileList.forEach(element => {
+           let addTag = document.createElement('option')
+           addTag.innerText = element
+           ele.append(addTag)
+           console.log(element)
+        });
         // alert('更新成功')
         // location.reload()
         // document.getElementById("updatedb").disabled = true

@@ -6,11 +6,13 @@ def loadData(objLst,header:list) -> list:
 
     total = []
     # print('header is',header)
+    count = 0
     for obj in objLst:
         # temp装的的是每行的内容
         dic = {}
         temp = []
         # idlst 给每行的内容绑上相同的id
+        count += 1
         id = obj.id
         for i in header:
             # getattr(obj,i)可以得到class instance 里 属性i的值
@@ -22,6 +24,7 @@ def loadData(objLst,header:list) -> list:
             temp.append(n)
         dic['id'] = id
         dic['data'] = temp
+        dic['seq'] = count
 
         total.append(dic)
     # total look like [{'id':1,data:[...]},{'id':2,data:[...]}]

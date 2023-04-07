@@ -13,12 +13,14 @@
         
         <div style="width : 260px;margin:0 auto">
         <div style="width:100px;float: left;">
-            <input onclick="submit()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="上传文件" />
+            <input onclick="uploadFile()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="上传文件" />
         </div>
 
     </div>
     <div style = "margin-top: 50px;">
-        <label class="form-label" for="customFile">选择文件解析</label>
+        <div>
+          <label class="form-label" for="customFile">选择文件解析</label>
+        </div>
         <div style="width:200px">
         <select id = "fileSelect"onclick = "selectClick()"class="custom-select" id="inputGroupSelect01">
             <!-- <option selected>Choose...</option>
@@ -38,7 +40,7 @@
 
 
 <script>
-  const submit = () => {
+  const uploadFile = () => {
     // console.log(appName)
     console.log('com here')
     const inp = document.getElementById("customFile");

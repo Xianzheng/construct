@@ -23,7 +23,7 @@ def removePath(app_name):
         originlst = f.readlines()
     f.close()
 
-    removePath ="{}".format(app_name,app_name)
+    removePath ="path('{}/',include('{}.urls'))".format(app_name,app_name)
 
     afterRemovelst = [i for i in originlst if removePath not in i]
 
@@ -49,7 +49,7 @@ def unistallApp(app_name):
         originlst = f.readlines()
     f.close()
 
-    removePath ="{}".format(app_name,app_name)
+    removePath ="'{}.apps.{}Config'".format(app_name,app_name)
 
     afterRemovelst = [i for i in originlst if removePath not in i]
 
@@ -102,4 +102,3 @@ def getPaginationObject(req,listData):
         page_obj = paginator.page(paginator.num_pages)
     
     return page_obj
-

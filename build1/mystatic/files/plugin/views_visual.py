@@ -38,7 +38,7 @@ def visual1_view(request):
         pieResult.append({'value':value, 'name':modelName})
     result = {'xRes':xRes,'yRes':yRes}
     
-    return render(request,renderFile,{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),'pieResult':json.dumps(pieResult)})
+    return render(request,renderFile,{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),'pieResult':json.dumps(pieResult),'appName':'app'})
 
 @login_required(login_url="/acount/login/")
 def visual2_view(request):
@@ -140,4 +140,4 @@ def visual2_view(request):
     queue.append(root)
 
     # print(data)
-    return render(request,'./visual/renderVisual2.html',{'info':json.dumps(data)})
+    return render(request,'./visual/renderVisual2.html',{'info':json.dumps(data),'appName':'app'})
