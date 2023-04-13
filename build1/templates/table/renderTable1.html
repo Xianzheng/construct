@@ -8,7 +8,7 @@
         
     </div>
 
-    <table class="table" style="width: 60%; margin:0 auto">
+    <table width="95%">
         <thead>
             {% if status == 0 or status == 1%}
             <tr>
@@ -47,10 +47,10 @@
 
                         {% endfor %}
                         <!-- 循环之后追加两个coloumn 更新修改-->
-                        <td><a href = '{{nextLayout}}/{{i.id}}'>下一层</a></td>
-                        <td><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
+                        <td ><a href = '{{nextLayout}}/{{i.id}}'>下一层</a></td>
+                        <td ><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
 
-                        <td><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
+                        <td ><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
                         
                     {% endif %}
                     

@@ -1,6 +1,5 @@
 import os
-from tools import mycopy, addAppToSetting, addAppurlsToProjectUrls, addCodeToFile, changeContent
-from bs import mycopyAndPaste
+from tools import *
 import shutil
 from glob import glob
 import time

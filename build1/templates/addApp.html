@@ -2,183 +2,40 @@
 
 {% block content %}
 
-<div class='addAppContainer' >
-  <h2 style='text-align: center; margin-top:5%'>创建应用</h2>
-  <h5>添加应用名<h5>
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span id="inputGroup-sizing-default">添加应用名</span>
-        </div>
-        <input id='appName' type="text" class="form-control" aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-default">
-      </div>
-      <div>
-        <label class="form-label" for="customFile">上传配置文件</label>
-        <input type="file" class="form-control" id="customFile"  style = "width: 90%;"/>
-      </div>
-     
-      <div style="width : 90%;margin:0 auto">
-        <div style="width:40%;float: left;margin-left:10%">
-          <input onclick="submit()" id="createApp"class="btn btn-primary" style="width: 80%; float:left;" type="submit" value="创建" />
-        </div>
+    {% include './module/createAppByConfigure.html' %}
 
-        <div style="width:40%;float:left;margin-left:10%">
-          <input  onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit" value="更新" />
-        </div>
-      </div>
-</div>
+    {% include './module/deleteApp.html' %}
 
-<div class='addAppContainer1' >
-  <h2 style='text-align: center; margin-top:5%;'>删除应用</h2>
-  <h5>选择应用删除<h5>
-    <select id= "fileSelect1" class="custom-select" onclick = "selectClick1()" id="inputGroupSelect01">
-      <!-- <option selected>Choose...</option> -->
+    {% include './module/uploadFiles.html' %}
+
+    {% include './module/createAppByExcel.html' %}
+
+    {% include './module/loadExcelDataToApp.html' %}
+
+
+
+    <script>
       
-    </select>
-      <div style="margin-bottom: 20%;">
-      </div>
-      
-      <div style="width : 90%;margin:0 auto">
-        <div style="width:40%;float: left;margin-left:10%">
-          <input onclick="submitDeleteApp()" id="deleteApp"class="btn btn-primary" style="width: 80%; display: block;"type="submit" value="删除" />
-        </div>
-      </div>
-</div>
-
-<<div class='addAppContainer'>
-  <h2 style='text-align: center; margin-bottom:20px;'>上传文件</h2>
-
-    
-  <div>
-      <label class="form-label" for="customFile">上传文件</label>
-      <input type="file" class="form-control" id="customFile1"  style = "width: 90%;"/>
-      </div>
-      
-      <div style="width : 260px;margin:0 auto">
-      <div style="width:100px;float: left;">
-          <input onclick="uploadFile()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="上传文件" />
-      </div>
-
-  </div>
-  <div style = "margin-top: 50px;">
-      <div>
-        <label class="form-label" for="customFile">选择文件解析</label>
-      </div>
-      <div style="width:200px">
-      <select id = "fileSelect"onclick = "selectClick()"class="custom-select" id="inputGroupSelect01">
-          <!-- <option selected>Choose...</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option> -->
-        </select>
-      </div>
-      
-      <div style="width : 260px;margin:0 auto">
-      <div style="width:100px;float: left;">
-          <input onclick="submit()" id="createApp"class="btn btn-primary" style="width: 100px; display: block;"type="submit" value="上传文件" />
-      </div>
-
-  </div>
-</div>
-
-<script>
-  const uploadFile = () => {
-    // console.log(appName)
-    console.log('com here')
-    const inp = document.getElementById("customFile1");
-    const formData = new FormData();
-    formData.append("key", inp.files[0]);
-    formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
-     fetch('/app/upload/', {
-      method: "POST",
-      body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
-    }).then(res => res.json())
-      .then(res => {
-        alert('上传文件成功')
-        console.log(res)
-       
-      })
-  }
-
-</script>
+      // add app need to update datase
+      const UPDATEDB = () => {
+        // setInterval(function(){ alert("Hello"); }, 3000);
+        fetch('/app/getProcess/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+            console.log(res)
+          })
+        fetch('/app/updateDB/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+            alert('更新成功')
+            location.reload()
+            document.getElementById("updatedb").disabled = true
+          })
+      }
 
 
-<script>
-  const submit = () => {
-    const appName = document.getElementById('appName').value
-    // console.log(appName)
-    // console.log('com here')
-    const inp = document.getElementById("customFile");
-    const formData = new FormData();
-    formData.append("key", inp.files[0]);
-    formData.append('name', appName)
-    formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
-     fetch('/app/addApp/', {
-      method: "POST",
-      body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
-    }).then(res => res.json())
-      .then(res => {
-        alert('创建成功')
-        // console.log(res)
-        document.getElementById("createApp").disabled = true
-      })
-  }
+    </script>
 
-  const UPDATEDB = () => {
-    fetch('/app/updateDB/',{
-      method:"GET",
-    }).then(res => res.json())
-      .then(res => {
-        alert('更新成功')
-        location.reload()
-        document.getElementById("updatedb").disabled = true
-      })
-  }
-  const selectClick1 = () =>{
-    // console.log('hello')
-    fetch('/app/getAppName/',{
-      method:"GET",
-    }).then(res => res.json())
-      .then(res => {
-        // console.log(res)
-        // console.log(res.fileList)
-        let ele = document.getElementById("fileSelect1")
-       
-        if (ele.value == ''){
-        
-          res.fileList.forEach(element => {
-            let addTag = document.createElement('option')
-            addTag.innerText = element
-            ele.append(addTag)
-            //  console.log(element)
-          });
-        }
-        // alert('更新成功')
-        // location.reload()
-        // document.getElementById("updatedb").disabled = true
-      })
-  }
-
-  const selectClick = () =>{
-    fetch('/app/getUploadFiles/',{
-      method:"GET",
-    }).then(res => res.json())
-      .then(res => {
-        console.log(res)
-        console.log(res.fileList)
-        let ele = document.getElementById("fileSelect")
-        ele.innerText = ''
-        res.fileList.forEach(element => {
-           let addTag = document.createElement('option')
-           addTag.innerText = element
-           ele.append(addTag)
-           console.log(element)
-        });
-        // alert('更新成功')
-        // location.reload()
-        // document.getElementById("updatedb").disabled = true
-      })
-  }
-</script>
-
-{% endblock %}
+    {% endblock %}

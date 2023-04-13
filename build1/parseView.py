@@ -78,7 +78,7 @@ def {}_view(request):
         header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__)),cs = None)
         # print(header)
         #render style
-        width = [200,250]
+        width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
         #render到那个template
         renderFile = './table/renderTable1.html' 
         #render header内容

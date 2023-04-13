@@ -12,7 +12,7 @@
         <!--width=device-width 表示宽度是设备屏幕的宽度。
               initial-scale=1.0 表示初始的缩放比例。
               shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
-        <title>bootstrap测试</title>
+        <title>设备管理分析系统</title>
       
         <link href="{% static 'bootstrap/css/bootstrap.css'%}" type="text/css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css'%}" />
@@ -130,7 +130,6 @@
             
             float: left;
             width:100%;
-            
             border:1px solid;
             border-color: black;
             border-radius: 5px;
@@ -153,22 +152,15 @@
 
         .addAppContainer {
         float: left;
-        width: 250px;
-        height: 35%;
-        margin: 3% 6%;
+        width: 200px;
+        height: 250px;
+        margin-top: 5%;
+        margin-left: 12%;
         background-color: #e3f2fd;
         /* border: 1px solid; */
         }
 
-        .addAppContainer1 {
-        float: left;
-        width: 250px;
-        height: 35%;
-        margin: 3% 6%;
-        background-color: #e3f2fd;
-        /* border: 1px solid; */
-        }
-
+        
 
         .footer{
             
@@ -244,7 +236,7 @@
     {% include './base/navbar.html' %}
     {% include './base/leftNav.html' %}
 
-    <div style = " margin-left:100px; height: 100%;margin-top:50px; border: 1px solid;"> 
+    <div style = " margin-left:100px; height: 100%;margin-top:50px; "> 
     {% block content %}
     {% endblock %}
     </div>

@@ -44,10 +44,14 @@ def deleteApp_view(request):
 
     deleteFolderContent(folderPath)
 
+    lst = [i for i in os.listdir(rootPath) if '.' not in i]
+
     #delete empty folder
-    for root, dirs, files in os.walk(rootPath):
-        if not os.listdir(root):
-            os.rmdir(root)
+    for item in lst:
+        if not os.listdir(item):
+            os.rmdir(item)
+    # os.rmdir(rootPath)
+    # print('os list is',os.listdir(rootPath))
     
 
     

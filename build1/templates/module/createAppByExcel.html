@@ -1,0 +1,105 @@
+<!-- Excel 生成 App -->
+<div class='addAppContainer'>
+    <h2 style='text-align: center; margin-top: 5%;'>Excel生成App</h2>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span id="inputGroup-sizing-default">创建应用名</span>
+      </div>
+      <input id='parseCreatedApp' type="text" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+  
+    <div style="margin-top: 20px;">
+      <div>
+        <label class="form-label" for="customFile">选择文件解析</label>
+      </div>
+      <div style="width:200px">
+        <select id="fileSelect" onclick="selectClick()" class="custom-select" id="inputGroupSelect01">
+          <!-- <option selected>Choose...</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option> -->
+        </select>
+      </div>
+  
+      <div style="width : 90%;margin:0 auto">
+      
+        <div style="width:40%;float: left;margin-left:10%">
+          <input onclick="createByParsing()" id="createApp" class="btn btn-primary" style="width: 80%; float:left;" 
+            type="submit" value="创建" />
+        </div>
+        <div style="width:40%;float:left;margin-left:10%">
+          <input onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
+            value="更新" />
+        </div>
+    
+    
+      </div>
+      <!-- createByParsing() 
+      UPDATEDB() -->
+    </div>
+  </div>
+
+  <script>
+      
+    // add app need to update datase
+    // const UPDATEDB = () => {
+    //   // setInterval(function(){ alert("Hello"); }, 3000);
+    //   fetch('/app/getProcess/', {
+    //     method: "GET",
+    //   }).then(res => res.json())
+    //     .then(res => {
+    //       console.log(res)
+    //     })
+    //   fetch('/app/updateDB/', {
+    //     method: "GET",
+    //   }).then(res => res.json())
+    //     .then(res => {
+    //       alert('更新成功')
+    //       location.reload()
+    //       document.getElementById("updatedb").disabled = true
+    //     })
+    // }
+
+     //select excel file to create file
+     const selectClick = () => {
+        fetch('/app/getUploadFiles/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+            // console.log(res)
+            // console.log(res.fileList)
+            let ele = document.getElementById("fileSelect")
+            if (ele.value == '') {
+              res.fileList.forEach(element => {
+                let addTag = document.createElement('option')
+                addTag.innerText = element
+                ele.append(addTag)
+                // console.log(element)
+              });
+            }
+            // alert('更新成功')
+            // location.reload()
+            // document.getElementById("updatedb").disabled = true
+        })
+    }
+
+    const createByParsing = () => {
+        console.log('Hello')
+        const fileName = document.getElementById('fileSelect').value
+        const parseCreatedApp = document.getElementById('parseCreatedApp').value
+        const formData = new FormData();
+        formData.append('parseCreatedApp', parseCreatedApp)
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+        formData.append('fileName', fileName)// console.log(fileName)
+        fetch('/app/parsingExcelToCreateApp/', {
+          method: "POST",
+          body: formData,
+        }).then(res => res.json())
+          .then(res => {
+
+            alert('创建App成功')
+          })
+      }
+
+</script>

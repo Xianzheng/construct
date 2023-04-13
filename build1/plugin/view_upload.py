@@ -11,7 +11,7 @@ appName = str(BASE_DIR).split('\\')[-1]
 
 def upload_view(request):
     if request.method == 'POST':
-
+        
         import json
         appName = request.POST.get('name')
         obj = request.FILES.get('key', '1')
@@ -19,7 +19,7 @@ def upload_view(request):
         print(appName)
         print(os.getcwd())
         oldPath = os.getcwd()
-        os.chdir(os.getcwd()+'//mystatic//uploadFiles')
+        os.chdir(os.getcwd()+'\\mystatic\\uploadFiles')
         f = open(obj.name,'wb')
         for chunk in obj.chunks():
             f.write(chunk)
@@ -49,10 +49,12 @@ def upload_view(request):
 def getUploadFiles_view(request):
     oldPath = os.getcwd()
 
-    os.chdir(os.getcwd()+'//mystatic//uploadFiles')
+    os.chdir(os.getcwd()+'\\mystatic\\uploadFiles')
     currentPath = os.getcwd()
     
-    lst = os.listdir(currentPath)
+    lst = os.listdir(currentPath) 
+
+    lst = [i for i in lst if '.xls' in i or 'xlsx' in i]
 
     os.chdir(oldPath)
 

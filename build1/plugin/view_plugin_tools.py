@@ -103,3 +103,8 @@ def getPaginationObject(req,listData):
     
     return page_obj
 
+def deleteEmptyFolder(rootPath):
+    for root, dirs, files in os.walk(rootPath):
+        if not os.listdir(root):
+            print(root)
+

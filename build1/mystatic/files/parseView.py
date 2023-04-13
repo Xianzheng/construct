@@ -76,7 +76,7 @@ def {}_view(request):
         header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__)),cs = None)
         # print(header)
         #render style
-        width = [200,250]
+        width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
         #render到那个template
         renderFile = './table/renderTable1.html' 
         #render header内容
@@ -177,7 +177,7 @@ def {1}_view(request,tableId):
         header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__) - 1),cs = None)
         # header1 是models原生attribute名，header是轉換過的verbose_name
         #render style
-        width = [100,100,100,100,100,100]
+        width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
         renderFile = './table/renderTable1.html' 
         headerAndWidth = zip(header,width)
         totalData = loadData(objLst, header1)
