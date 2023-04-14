@@ -1,0 +1,68 @@
+<div class='addAppContainer'>
+    <h2 style='text-align: center; margin-top:5%'>创建应用</h2>
+  
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span id="inputGroup-sizing-default">添加应用名</span>
+      </div>
+      <input id='appName' type="text" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div>
+      <label class="form-label" for="customFile">上传配置文件</label>
+      <input type="file" class="form-control" id="customFile" style="width: 90%;" />
+    </div>
+  
+    <div style="width : 90%;margin:0 auto">
+      <div style="width:40%;float: left;margin-left:10%">
+        <input onclick="submit()" id="createApp" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
+          value="创建" />
+      </div>
+  
+      <div style="width:40%;float:left;margin-left:10%">
+        <input onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
+          value="更新" />
+      </div>
+    </div>
+</div>
+
+<script>
+    //using configuration file to create App
+    const submit = () => {
+      const appName = document.getElementById('appName').value
+      // console.log(appName)
+      // console.log('com here')
+      const inp = document.getElementById("customFile");
+      const formData = new FormData();
+      formData.append("key", inp.files[0]);
+      formData.append('name', appName)
+      formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
+      fetch('/app/addApp/', {
+        method: "POST",
+        body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
+      }).then(res => res.json())
+        .then(res => {
+          alert('创建成功')
+          // console.log(res)
+          document.getElementById("createApp").disabled = true
+        })
+    }
+    // add app need to update datase
+    // const UPDATEDB = () => {
+    //   // setInterval(function(){ alert("Hello"); }, 3000);
+    //   fetch('/app/getProcess/', {
+    //     method: "GET",
+    //   }).then(res => res.json())
+    //     .then(res => {
+    //       console.log(res)
+    //     })
+    //   fetch('/app/updateDB/', {
+    //     method: "GET",
+    //   }).then(res => res.json())
+    //     .then(res => {
+    //       alert('更新成功')
+    //       location.reload()
+    //       document.getElementById("updatedb").disabled = true
+    //     })
+    // }
+</script>

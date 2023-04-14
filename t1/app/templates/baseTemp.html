@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--
+          为了让 Bootstrap 开发的网站对移动设备友好，确保适当的绘制和触屏缩放，
+          需要在网页的 head 之中添加 viewport meta 标签,一般将bootstrap的css和js文件放进来的时候会自动生成
+          -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+        <!--width=device-width 表示宽度是设备屏幕的宽度。
+              initial-scale=1.0 表示初始的缩放比例。
+              shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
+        <title>设备管理分析系统</title>
+      
+        <link href="{% static 'bootstrap/css/bootstrap.css'%}" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css'%}" />
+    <title>动能消耗统计系统</title>
+    <style>
+       *{
+            margin:0;
+            padding:0;
+        }
+        
+        html{
+            height:100%;
+        }
+        body{
+            height:100%;
+        }
+        input{
+            width: 300px;
+            height: 34px;
+            border: rgb(63, 63, 63) solid 2px;
+            margin-right: 30px;
+            display: block;
+            border-radius: 5px;
+        }        
+        
+
+        .main{
+            display: block;
+            background-color: #fff;
+            border-radius: 20px;
+            width: 55%;
+            height: 100px;
+            margin: 0 auto;
+            
+            
+        }
+        
+        a{
+            
+            /* margin:20px; */
+            text-decoration: none; 
+            outline: none;	
+            color: #000;
+        }
+        
+        .f {
+        
+            width: 50%;   
+            margin: 30px auto;
+            /* border: 1px solid black;  */
+            
+            
+            /* margin-top: 30px;
+            margin-left: 33%; */
+            
+            
+        }
+
+        .f1 {
+        
+        width: 50%;   
+        margin: 30px auto; 
+        /* border: 1px solid black;  */
+        margin-top: 30px;
+        margin-left: 40%;
+        padding: 10px;
+        
+    }
+        
+        .branch{
+            float: left;
+            width: 100px;
+            border: 1px solid black;
+            border-radius: 50px;
+            margin-top:30px;
+            margin-right:30px;
+            text-align: center;
+
+        }
+        
+        .box{
+            border-radius: 20px;
+            width: 1600px;
+            height: auto;
+            /* border: 1px solid; */
+            margin: 0 auto;
+        }
+        
+        table{
+            /* border: 1px solid black; */
+            border-radius: 5px;
+            border-collapse: collapse; 
+        }
+        
+        tr,td{
+            border: 1px solid black;
+            border-radius: 5px;
+            text-align: center;
+            /* border-left:1px solid */
+        }
+        
+        .box2{
+            float: left;
+            width:47.3%;
+            margin-right: 20px;
+            height: auto;
+            border:1px solid;
+            border-color: black;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .box1{
+            
+            float: left;
+            width:100%;
+            border:1px solid;
+            border-color: black;
+            border-radius: 5px;
+            margin-bottom: 50px;
+            
+        }
+        
+        a:hover{
+            color:red;    /*设置颜色为红色*/
+              /*字体变大*/
+            text-decoration:#000; /*去掉下划线*/
+        }
+        
+        .contractSpan{
+            display: block;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .addAppContainer {
+        float: left;
+        width: 200px;
+        height: 250px;
+        margin-top: 5%;
+        margin-left: 12%;
+        background-color: #e3f2fd;
+        /* border: 1px solid; */
+        }
+
+        
+
+        .footer{
+            
+            position: fixed;
+            left: 0px;
+            bottom: 0px;
+            width: 100%;
+            height: 40px;
+            z-index: 9999;
+            
+        }
+
+        
+    </style>
+<script src = "{% static 'js/echarts.min.js'%}"></script>
+<script type="text/javascript" language="JavaScript">
+    function auto(){
+        const formData = new FormData();
+    
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+        const resp = fetch('/app/getApp/', {
+        body: formData, 
+        method: "POST",
+        }).then(res => res.json())
+        .then(res => {
+            console.log(res.msg[0])
+            res.msg.forEach(element => {
+                let ele = document.getElementById('leftNavbar_content')
+                let addTag = document.createElement('a')
+                addTag.setAttribute('class','nav-link')
+                addTag.innerText = element
+                addTag.setAttribute('href','/'+element+'/table1/')
+                ele.append(addTag)
+            });
+            
+        })
+    }
+    
+    window.onload = auto()
+    
+
+    function delete_alert()
+    {
+         if(confirm("确定要删除吗?"))
+         {
+             return true;
+         }else{
+             return false;
+         }
+    }
+    function update_alert()
+    {
+         if(confirm("确定要修改吗?"))
+         {
+             return true;
+         }else{
+             return false;
+         }
+    }
+    function changeColor1(event){
+            
+            var ele = document.getElementById('a')
+            ele.style.backgroundColor="red" 
+    }
+</script>
+
+</head>
+<body>
+
+    
+
+      
+    {% include './base/navbar.html' %}
+    {% include './base/leftNav.html' %}
+
+    <div style = " margin-left:100px; height: 100%;margin-top:50px; "> 
+    {% block content %}
+    {% endblock %}
+    </div>
+        
+    {% include './base/footer.html' %}
+    
+
+    <!--jquery文件务必在bootstrap.js文件前引入-->
+  <script src="{% static 'bootstrap/js/jquery.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
+
+</body>
+</html>

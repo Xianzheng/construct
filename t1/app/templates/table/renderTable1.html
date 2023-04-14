@@ -1,0 +1,97 @@
+{% extends 'baseTemp.html' %}
+
+{% block content %}
+
+    <div style = 'width :60%; margin: 0 auto; text-align: center; margin-bottom:3%;'>
+
+        <h2>{{tableName}}<h2>
+        
+    </div>
+
+    <table width="95%">
+        <thead>
+            {% if status == 0 or status == 1%}
+            <tr>
+                <td width = {{width}}>序号</td>
+                {% for header, width in headerAndWidth %}
+                    
+                    <td width = {{width}}>{{header}}</td>
+                    
+                {% endfor %}
+                <td colspan="3">功能项</td>
+            </tr>
+        {% endif %}
+        </thead>
+        <tbody>
+            {% if status == 0 or status == 1%}
+            <!-- totalData look like [{'id': 1, 'data': ['2021年', '武汉厂区']}, {'id': 2, 'data': ['2021年', '赤壁厂区']}]  -->
+            {% for i in page_obj%}
+                <tr>
+                    <td>{{i.seq}}</td>
+                    <!-- status 0 代表有跳轉 -->
+                    {% if status == 1 %}
+                        <!-- j 为数据中的每一项 -->
+                        {% for j in i.data %}
+                                
+                                <td><a href = '#'>{{j}}</a></td>
+
+                        {% endfor %}
+
+                    {% endif %}
+                    <!-- status 1 显示表的细节，可以对每行内容进行修改删除 -->
+                    {% if status == 0 %}
+
+                        {% for j in i.data %}
+
+                            <td>{{j}}</td>
+
+                        {% endfor %}
+                        <!-- 循环之后追加两个coloumn 更新修改-->
+                        <td ><a href = '{{nextLayout}}/{{i.id}}'>下一层</a></td>
+                        <td ><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
+
+                        <td ><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
+                        
+                    {% endif %}
+                    
+                <tr>
+
+            {% endfor %}
+
+        {% endif %}
+        </tbody>
+      </table>
+
+
+      
+        
+        <div style =  "position: fixed;
+        left: 45%;
+        bottom: 100px;
+        width: 10%;
+        height: 40px;
+        background-color: #e3f2fd;
+        text-align: center;
+        z-index: 9999;">
+
+            <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
+            <a href = '{{goback}}'>返回</a>
+        </div>
+
+    
+
+    {% if status == 1 %}
+        
+        <div style = 'width:150px;margin: 10% auto;text-align: center;'>
+
+            <a href = '/app/analyze/{{tableId}}'>分析</a>
+            <a href = '/app/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
+            <a href = '{{goback}}'>返回</a>
+        </div>
+
+    {% endif %}
+
+    
+    {% include '../module/pagination.html'%}
+    
+{% endblock %}
