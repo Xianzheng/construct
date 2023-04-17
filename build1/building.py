@@ -112,7 +112,7 @@ if __name__ == '__main__':
     #app为根app
     createApp('app')
     #指定登陆后的appName
-    addCodeToFile(filePath=currentPath +'/account/views.py',index=20,add_content="appName = {}\n".format('\''+appName+'\''))
+    # addCodeToFile(filePath=currentPath +'/account/views.py',index=20,add_content="appName = {}\n".format('\''+appName+'\''))
     
     os.chdir(projectPath)
     os.system('python manage.py makemigrations')

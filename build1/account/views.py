@@ -18,7 +18,6 @@ import datetime
 # Create your views here.
 def writeToLog(request,string):
     with open('Log.txt','a',encoding= 'utf-8') as f:
-appName = 'app'
         f.write(string)
         f.write('\n')
 

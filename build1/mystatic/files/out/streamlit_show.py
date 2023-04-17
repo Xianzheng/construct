@@ -5,7 +5,7 @@ import streamlit as st  # pip install streamlit
 st.set_page_config(page_title="数据分析板块", page_icon=":柱状图", layout="wide")
 
 
-df = pd.read_excel('设备台帐信息2022.11.08.xls')
+df = pd.read_excel('static.xls')
 
 
 # print(df.columns)
@@ -56,7 +56,7 @@ for i in 生产状态series.index:
 
 st.title("设备数据看板")
 st.markdown("----")
-total_sales = int(df_selection["单价(元)"].sum())
+total_sales = int(df_selection["单价元"].sum())
 
 
 left_column, middle_column, right_column = st.columns(3)
@@ -75,12 +75,12 @@ with right_column:
     st.subheader("生产：{}，非生产: {}".format(dic1["生产"],dic1["非生产"]))
 
 sales_by_product_line = (
-    df_selection.groupby(by=["设备名称"]).sum()[["单价(元)"]].sort_values(by="单价(元)")
+    df_selection.groupby(by=["设备名称"]).sum()[["单价元"]].sort_values(by="单价元")
 )
 
 fig_product_sales = px.bar(
     sales_by_product_line,
-    y="单价(元)",
+    y="单价元",
     x=sales_by_product_line.index,
     title="<b>设备单价</b>",
     color_discrete_sequence=["#0083B8"] * len(sales_by_product_line),
