@@ -47,10 +47,10 @@
 
                         {% endfor %}
                         <!-- 循环之后追加两个coloumn 更新修改-->
-                        <td width="100px"><a href = '{{nextLayout}}/{{i.id}}'>下一层</a></td>
-                        <td width="100px"><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
+                        <!-- <td ><a href = '{{nextLayout}}/{{i.id}}'>下一层</a></td> -->
+                        <td ><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
 
-                        <td width="100px"><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
+                        <td ><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
                         
                     {% endif %}
                     
@@ -70,12 +70,12 @@
         bottom: 100px;
         width: 10%;
         height: 40px;
-        background-color: #e3f2fd;
+        /* background-color: #e3f2fd; */
         text-align: center;
         z-index: 9999;">
 
-            <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
-            <a href = '{{goback}}'>返回</a>
+            <!-- <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
+            <a href = '{{goback}}'>返回</a> -->
         </div>
 
     

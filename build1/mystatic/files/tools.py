@@ -36,12 +36,15 @@ def addAppToSetting(added_filePath,added_app,add_to_path):
     with open(added_filePath,'r',encoding='utf-8') as f:
         content = f.readlines()
         index = content.index('INSTALLED_APPS = [\n') + 7
-        
-        content.insert(index,'    {}\n'.format(added_app))
-        with open(add_to_path,'w',encoding='utf-8') as f1:
-            f1.write('')
-            f1.write(''.join(content))
-            f1.close()
+        #如果添加得得app已经存在于Setting中就不添加
+        if '    {}\n'.format(added_app) in content:
+            pass
+        else:
+            content.insert(index,'    {}\n'.format(added_app))
+            with open(add_to_path,'w',encoding='utf-8') as f1:
+                f1.write('')
+                f1.write(''.join(content))
+                f1.close()
     f.close()
 
 
@@ -54,10 +57,14 @@ def addAppurlsToProjectUrls(added_filePath,added_app,add_to_path):
         if 'from django.urls import path\n' in content:
             index1 = content.index('from django.urls import path\n')
             content[index1] = 'from django.urls import path,include\n'
-        content.insert(index,'    {}\n'.format(added_app))
-        with open(add_to_path,'w',encoding='utf-8') as f1:
-            f1.write(''.join(content))
-            f1.close()
+        #如果添加得url已经已经存在就不添加
+        if '    {}\n'.format(added_app) in content:
+            pass
+        else:
+            content.insert(index,'    {}\n'.format(added_app))
+            with open(add_to_path,'w',encoding='utf-8') as f1:
+                f1.write(''.join(content))
+                f1.close()
     f.close()
 
 def readFileParseToList(filePath) -> list:
