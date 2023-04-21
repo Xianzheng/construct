@@ -1,0 +1,5 @@
+该项目生成的app支持上传配置文件生成APP,和删除App，
+
+还不支持插件编写，excel文件生成APP,导入，导出数据，
+
+NavBar和LeftBar还不动态化，不过完成了build系列的里程碑

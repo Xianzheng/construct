@@ -1,0 +1,4 @@
+build系列环境使用python3.76为基础，虚拟环境为.\venv\Scripts\activate
+随build系列的迭代逐步增加库
+
+每个系列以在本目录生成可执行django系统为目标，内置run.bat执行每个版本优化功能,完善代码

@@ -1,1 +1,0 @@
-table1:id auto,设备编号 string,资产编号
