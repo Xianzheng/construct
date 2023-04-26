@@ -15,7 +15,9 @@
         <title>设备管理分析系统</title>
       
         <link href="{% static 'bootstrap/css/bootstrap.css'%}" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css'%}" />
+
+        
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style1.css'%}" />
     <title>动能消耗统计系统</title>
     <style>
        *{
@@ -178,10 +180,19 @@ table tfoot tr td{
 
         .addAppContainer {
         float: left;
-        width: 200px;
+        width: 280px;
         height: 250px;
         margin-top: 5%;
-        margin-left: 12%;
+        margin-left: 8%;
+        background-color: #e3f2fd;
+        /* border: 1px solid; */
+        }
+        .addAppContainerSpecial {
+        float: left;
+        width: 500px;
+        height: 350px;
+        margin-top: 5%;
+        margin-left: 8%;
         background-color: #e3f2fd;
         /* border: 1px solid; */
         }
@@ -262,7 +273,7 @@ table tfoot tr td{
     {% include './base/navbar.html' %}
     {% include './base/leftNav.html' %}
 
-    <div style = " margin-left:100px; height: 100%;margin-top:50px; "> 
+    <div  style = "width: 100%; margin-left:100px; height: 100%;margin-top:50px; "> 
     {% block content %}
     {% endblock %}
     </div>
@@ -272,6 +283,7 @@ table tfoot tr td{
 
     <!--jquery文件务必在bootstrap.js文件前引入-->
   <script src="{% static 'bootstrap/js/jquery.js'%}"></script>
+  <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
   <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
 
 </body>

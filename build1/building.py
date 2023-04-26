@@ -70,8 +70,10 @@ def createProject():
     os.system('django-admin startproject '+projectName)
     #复制模板setting到 project中
     shutil.copy(currentPath+'./settings.py',projectMainPath+'./settings.py') 
+    shutil.copy(currentPath+'/run/run.bat',projectPath+'./run.bat') 
     os.chdir(currentPath)
     #复制building的mystatic的所有文件和文件夹内的内容到project的 mysstatic中
+    mycopyAndPaste(currentPath +'/mystatic',projectPath+'/mystatic')
     mycopyAndPaste(currentPath +'/mystatic',projectPath+'/mystatic')
     os.chdir(projectMainPath)
     #修改setting中的projectName

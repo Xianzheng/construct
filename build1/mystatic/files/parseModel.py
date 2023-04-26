@@ -12,28 +12,35 @@ def getKeywordContent(key,remainder):
     因为有vb的内容一般长'vb-名字'这样，
     所以取vb-后面的内容为KeywordContent
     '''
-    if getKeywordIndex('vb',remainder) != None:
-        vbIndex = getKeywordIndex('vb',remainder)
-        vbContent = remainder[vbIndex].split('-')[-1]
-        return vbContent
+    
+    if getKeywordIndex(key,remainder) != None:
+        index = getKeywordIndex(key,remainder)
+        content = remainder[index].split('-')[-1]
+        return content
+    
     return None
 
 def addField(key,lst,string):
     '''
     拿到Keyword之后再对attibute中增加Field verbose_name 是什么
     '''
+    # print('key is',key)
     if lst:
-        vbContent = getKeywordContent(key,lst)
-        if vbContent:
-            print(vbContent)
-            return string[:-1] + 'verbose_name = '+'\''+vbContent+'\')'
+        content = getKeywordContent(key,lst)
+        if content:
+            if key == 'vb':
+                return string[:-1] + 'verbose_name = '+'\''+content+'\',)'
+            if key == 'blank':
+                return string[:-1] + 'blank = '+'\''+content+'\')'
             
     return string
 
 def writeAttribute(**attri):#*agr,**kagr
+    #table1: id auto,设备编号 string vb-设备编号 blank=True,
     # print(itemtype)
     remainder = attri['lst'] #除了attribute name, 和 type剩余的  都放在一个lst里后续添加,rint
-    
+    # print('remainder is',remainder)
+    # print(attri['type'])
     string = ''
 
     if attri['type'] == 'auto':     
@@ -44,6 +51,7 @@ def writeAttribute(**attri):#*agr,**kagr
         string = '    '+\
             attri['name']+' = '+"models.CharField(max_length=20,default = '',)"
         string = addField('vb',remainder,string)
+        string = addField('blank',remainder,string)
 
     if attri['type'] == 'int':     
         string = '    '+attri['name']+' = '+"models.IntegerField(default = 0,)"
@@ -82,7 +90,7 @@ with open('./out/admin.py','w',encoding='utf-8') as f1:
     f1.close()
 
 with open('./draw/drawModels.txt','r',encoding = 'utf-8') as f:
-    
+    #model 一般长这样 table1: id auto,设备编号 string vb-设备编号 blank-True,
     lst = f.readlines()
 
     for index in range(len(lst)):

@@ -1,0 +1,208 @@
+{% load static %}
+        <style>
+            ul,
+            li {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            
+            
+            body {
+                background-color: #e3e3e3;
+                margin: 0px;
+            }
+            
+            .box {
+                width: 200px;
+                background-color: #ffffff;
+                height: 240px;
+                float: left;
+            }
+            
+            .Path {
+                color: #ffffff !important;
+                background-color: #1890ff !important;
+                border-bottom: 1px solid #ffffff;
+                transition: all .01s;
+            }
+            
+            .box li {
+                padding: 8px;
+                border-bottom: 1px solid #ffffff;
+                background-color: #f4f4f4;
+                cursor: pointer;
+                transition: all .5s;
+            }
+            
+            #btn {
+                height: 240px;
+                float: left;
+                width: 80px;
+                text-align: center;
+            }
+            
+            #btn button {
+                width: 50px;
+                height: 30px;
+                display: block;
+                margin: 20px auto;
+                line-height: 30px;
+                color: white;
+                cursor: pointer;
+                background-color: #1890ff;
+                border-radius: 5px;
+                transition: all .5s;
+                border: none;
+            }
+            
+        </style>
+    <div class="addAppContainerSpecial">
+        <div style="width:200px;float: left;">
+            
+            <select id="fileSelect3" onclick="selectClick3()" class="custom-select" ">
+              <!-- <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option> -->
+            </select>
+        </div>
+        <div>
+            <span style="display:inline">选择文件裁剪</span>
+        </div>
+        <div style="display:block">
+          <input onclick="loadFile()" id="createApp" class="btn btn-primary" style="width: 20%; margin:0 auto;"
+            type="submit" value="解析数据"  />
+        </div>
+        <div>
+            <li class="box">
+                <ul style="height:250px;overflow-y:scroll;" id="shuttleLeft">
+                    
+                </ul>
+            </li>
+            <li id="btn">
+                <button id="toRight">></button>
+                <button id="toLeft"><</button>
+            </li>
+            <li class="box">
+                <ul id="shuttleRight">
+                    <!-- <li>祈澈菇凉1</li>
+                    <li>祈澈菇凉2</li>
+                    <li>祈澈菇凉3</li> -->
+                </ul>
+            </li>
+        </div>
+        <div style="display:block">
+            <input onclick="cut()" id="createApp" class="btn btn-primary" style="width: 20%; margin:0 auto;"
+              type="submit" value="剪裁"  />
+          </div>
+        <script src="{% static 'bootstrap/js/jquery.js'%}"></script>
+    </div>
+    <script>
+        const selectClick3 = () => {
+            fetch('/app/getUploadFiles/', {
+            method: "GET",
+            }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+                // console.log(res.fileList)
+                let ele = document.getElementById("fileSelect3")
+                console.log(ele.value)
+                if (ele.value == '') {
+                res.fileList.forEach(element => {
+                    let addTag = document.createElement('option')
+                    addTag.innerText = element
+                    ele.append(addTag)
+                    // console.log(element)
+                });
+                }
+                
+            })
+        }
+        const loadFile = () =>{
+            const fileName = document.getElementById("fileSelect3").value;
+            const formData = new FormData();
+            formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+            formData.append('fileName', fileName)// console.log(fileName)
+            fetch('/app/getChoice/', {
+                method: "POST",
+                body: formData,
+                }).then(res => res.json())
+                .then(res => {
+                    // console.log(res)
+                    // console.log(res.fileList)
+                    let ele = document.getElementById("shuttleLeft")
+                    console.log(res)
+                    console.log
+                    // console.log(ele.value)
+                    // if (ele.value == '') {
+                        res.forEach(element => {
+                            console.log(element)
+                            let addTag = document.createElement('li')
+                            addTag.setAttribute("value",element)
+                            addTag.innerText = element
+                            ele.append(addTag)
+                            // console.log(element)
+                        });
+                    // }
+                    
+                })
+        }
+        const cut = () =>{
+            var choose = []
+            const fileName = document.getElementById("fileSelect3").value;
+            const ul=document.getElementById("shuttleRight").getElementsByTagName("li");
+            //得到穿梭框右边的选择
+            for(let i=0;i<ul.length;i++){
+               const chooseString=ul[i].getAttribute("value");
+               choose.push(chooseString)
+            }
+            //添加条件制备把选中的项传到后端做裁剪条件
+            const formData = new FormData();
+            formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+            formData.append('choose', choose)
+            formData.append('fileName', fileName)
+            //像后端发送条件，并得到裁剪后excel文件
+            fetch('/app/cutFile/', {
+                method: "POST",
+                body: formData,
+                }).then(res => res.json())
+                .then(res => {
+                    alert(res.msg)
+                    
+                })
+        }
+    </script>
+    <script>
+        //穿梭框左侧选中
+        $("#shuttleLeft").on('click', 'li', function() {
+            if($(this).hasClass('Path')) {
+                $(this).removeClass('Path');
+            } else {
+                $(this).addClass('Path');
+            }
+        });
+        //穿梭框右侧选中
+        $("#shuttleRight").on('click', 'li', function() {
+            if($(this).hasClass('Path')) {
+                $(this).removeClass('Path');
+            } else {
+                $(this).addClass('Path');
+            }
+        });
+        //向右移动
+        $("#toRight").click(function() {
+            if($("#shuttleLeft .Path").length == 0) return false;
+
+            $("#shuttleLeft").find('.Path').appendTo("#shuttleRight");
+            $("#shuttleRight li").removeClass('Path');
+        });
+        //向左移动
+        $("#toLeft").click(function() {
+            if($("#shuttleRight .Path").length == 0) return false;
+            $("#shuttleRight .Path").appendTo("#shuttleLeft");
+            $("#shuttleLeft li").removeClass('Path');
+        });
+
+        
+    </script>

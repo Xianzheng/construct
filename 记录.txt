@@ -2,3 +2,16 @@ build系列环境使用python3.76为基础，虚拟环境为.\venv\Scripts\activ
 随build系列的迭代逐步增加库
 
 每个系列以在本目录生成可执行django系统为目标，内置run.bat执行每个版本优化功能,完善代码
+
+2023/04/23
+
+修复表update的问题其实就是修改model
+build1 parseModel.py 考虑和把blank=True 加进去
+思考怎么用react JS做出现有功能，先不考虑连接后端，先用伪数据做出前端显示功能
+功能包括，上传文件，创建App，删除App，通过excel解析生成App，Excel上传数据
+
+考虑前后端分离和django一体化的具体区别
+
+动态添加li的时候setAttribtute value，一面innetText,或innetHtml得不到数据
+
+给ul添加滚动条， 直接在 ul上添加style=“height:800px;overflow-y:scroll;”

@@ -1,0 +1,8 @@
+2023/04/21
+build和build1用的是前后端一体化，在build2设计中走前后端分离的开发路线
+
+前端用react JS
+
+后端用django Restful framework
+
+设计还是走python parsing 路线生成框架，先搭React Js

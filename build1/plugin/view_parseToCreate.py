@@ -39,7 +39,7 @@ def parsingExcelToCreateApp_view(request):
     #写入内容 #table1:id auto,设备编号 string,资产编号
     string = 'table1: id auto,'
     for i in mainDf.columns[1:]:
-        string += '{} string vb-{},'.format(re.sub(specialChar,'',i),i)
+        string += '{} string vb-{} blank-True,'.format(re.sub(specialChar,'',i),i)
     string = string[:-1]
     # print(string)
 
