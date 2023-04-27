@@ -1,8 +1,8 @@
 <!-- Excel 生成 App -->
 <div class='addAppContainer'>
-    <h2 style='text-align: center; margin-top: 5%;'>Excel生成App</h2>
+    <h2 style='text-align: center; margin-top: 5%;'>Excel创建应用</h2>
     <div class="input-group mb-3">
-      <div class="input-group-prepend">
+      <div class="input-group-prepend" style="display:block">
         <span id="inputGroup-sizing-default">创建应用名</span>
       </div>
       <input id='parseCreatedApp' type="text" class="form-control" aria-label="Sizing example input"
@@ -22,16 +22,16 @@
         </select>
       </div>
   
-      <div style="width : 90%;margin:0 auto">
+      <div style="width : 90%;margin:20px 25%">
       
         <div style="width:40%;float: left;margin-left:10%">
           <input onclick="createByParsing()" id="createApp" class="btn btn-primary" style="width: 80%; float:left;" 
             type="submit" value="创建" />
         </div>
-        <div style="width:40%;float:left;margin-left:10%">
+        <!-- <div style="display:none;width:40%;float:left;margin-left:10%">
           <input onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
             value="更新" />
-        </div>
+        </div> -->
     
     
       </div>
@@ -97,8 +97,11 @@
           body: formData,
         }).then(res => res.json())
           .then(res => {
-
             alert('创建App成功')
+            UPDATEDB()
+
+            // document.getElementById('updatedb').click()
+
           })
       }
 

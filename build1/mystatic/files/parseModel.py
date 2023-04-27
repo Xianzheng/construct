@@ -31,7 +31,7 @@ def addField(key,lst,string):
             if key == 'vb':
                 return string[:-1] + 'verbose_name = '+'\''+content+'\',)'
             if key == 'blank':
-                return string[:-1] + 'blank = '+'\''+content+'\')'
+                return string[:-1] + 'blank = '+content+')'
             
     return string
 

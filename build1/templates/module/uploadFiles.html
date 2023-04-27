@@ -9,16 +9,16 @@
     <div style="margin-bottom: 20px;">
     </div>
   
-    <div style="width : 90%;margin:0 auto">
+    <div style="width : 90%;margin:25px 25%">
       
       <div style="width:40%;float: left;margin-left:10%">
         <input onclick="uploadFile()" id="createApp" class="btn btn-primary" style="width: 80%; float:left;" 
           type="submit" value="上传" />
       </div>
-      <div style="width:40%;float:left;margin-left:10%">
+      <!-- <div style="width:40%;float:left;margin-left:10%">
         <input onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
           value="更新" />
-      </div>
+      </div> -->
   
   
     </div>
@@ -27,21 +27,31 @@
 
   <script>
     const uploadFile = () => {
+      
       // console.log(appName)
       // console.log('com here')
       const inp = document.getElementById("customFile1");
-      const formData = new FormData();
-      formData.append("key", inp.files[0]);
-      formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
-      fetch('/app/upload/', {
-        method: "POST",
-        body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
-      }).then(res => res.json())
-        .then(res => {
-          alert('上传文件成功')
-          // console.log(res)
+      let flag = false
 
-        })
+      if(inp.files[0] != null){
+        flag = true
+      }
+
+      if (flag == true){
+        const formData = new FormData();
+        formData.append("key", inp.files[0]);
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
+        fetch('/app/upload/', {
+          method: "POST",
+          body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
+        }).then(res => res.json())
+          .then(res => {
+            alert('上传文件成功')
+            // console.log(res)
+          })
+       }else{
+        alert('上传文件失败,请指定上传文件')
+       }
     }
 
     // const UPDATEDB = () => {

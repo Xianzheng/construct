@@ -15,16 +15,19 @@ def upload_view(request):
         import json
         appName = request.POST.get('name')
         obj = request.FILES.get('key', '1')
-        print(obj)
-        print(appName)
-        print(os.getcwd())
+        # print(obj)
+        # print(appName)
+        # print(os.getcwd())
         oldPath = os.getcwd()
-        os.chdir(os.getcwd()+'\\mystatic\\uploadFiles')
-        f = open(obj.name,'wb')
-        for chunk in obj.chunks():
-            f.write(chunk)
-        f.close()
-        os.chdir(oldPath)
+        try:
+            os.chdir(os.getcwd()+'\\mystatic\\uploadFiles')
+            f = open(obj.name,'wb')
+            for chunk in obj.chunks():
+                f.write(chunk)
+            f.close()
+            os.chdir(oldPath)
+        except:
+            os.chdir(oldPath)
 
         
         # creat_app = appName

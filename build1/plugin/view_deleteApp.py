@@ -61,8 +61,11 @@ def getAppName_view(request):
 
     oldPath = os.getcwd()
 
+    rootName = oldPath.split('\\')[-1]
+    print(rootName)
     appNameList = os.listdir(oldPath)
 
-    appNameList = [i for i in appNameList if i not in ['account', 'app', 'db.sqlite3', 'Log.txt', 'manage.py', 'mystatic']]
+    appNameList = [i for i in appNameList 
+                    if '.' not in i and i not in [appName,rootName,'mystatic','account']]
     
     return HttpResponse(json.dumps({'fileList':appNameList}))

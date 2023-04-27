@@ -2,6 +2,8 @@ from django.urls import path ,include
 from .views import *
 from .views_visual import *
 from .view_cutExcel import *
+from .view_dealData import *
+from .view_dealStatic import *
 from .view_deleteApp import *
 from .view_parseToCreate import *
 from .view_plugin_tools import *
@@ -20,6 +22,8 @@ urlpatterns = [
     path('visual2/',visual2_view),
     path('getChoice/',getChoice_view),
     path('cutFile/',cutFile_view),
+    path('dealData/',dealData_view),
+    path('dealStatic/',dealStatic_view),
     path('deleteApp/',deleteApp_view),
     path('getAppName/',getAppName_view),
     path('parsingExcelToCreateApp/',parsingExcelToCreateApp_view),
