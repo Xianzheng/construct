@@ -1,0 +1,65 @@
+<div class='addAppContainer'>
+    <h2 style='text-align: center; margin-top:5%;'>删除应用</h2>
+    <h5>选择应用删除<h5>
+    <select id="fileSelect1" class="custom-select" onclick="selectClick1()" id="inputGroupSelect01">
+        <!-- <option selected>Choose...</option> -->
+
+    </select>
+    <div style="margin-bottom: 20%;">
+    </div>
+
+    <div style="width : 90%;margin:0 auto">
+        <div style="width:40%;float: left;margin-left:10%">
+        <input onclick="submitDeleteApp()" id="deleteApp" class="btn btn-primary" style="width: 80%; display: block;"
+            type="submit" value="删除" />
+        </div>
+    </div>
+  
+</div>
+
+<script>
+    const submitDeleteApp = () => {
+        // console.log('hello')
+        const appName = document.getElementById("fileSelect1").value;
+        // console.log(appName)
+        fetch('/app/deleteApp?appName=' + appName + '/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+            // console.log(res)
+            // console.log(res.fileList)
+            console.log(res)
+            window.location.reload()
+            alert('删除成功')
+            // alert('更新成功')
+            // location.reload()
+            // document.getElementById("updatedb").disabled = true
+          })
+      }
+
+      //select App to delete
+      const selectClick1 = () => {
+        // console.log('hello')
+        fetch('/app/getAppName/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+            // console.log(res)
+            // console.log(res.fileList)
+            let ele = document.getElementById("fileSelect1")
+
+            if (ele.value == '') {
+
+              res.fileList.forEach(element => {
+                let addTag = document.createElement('option')
+                addTag.innerText = element
+                ele.append(addTag)
+                //  console.log(element)
+              });
+            }
+            // alert('更新成功')
+            // location.reload()
+            // document.getElementById("updatedb").disabled = true
+          })
+      }
+</script>

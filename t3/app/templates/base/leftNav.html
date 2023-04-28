@@ -1,0 +1,42 @@
+<div class="row mt-5" width="80px;"style = "float: left ;height: 100%;background-color: #e3f2fd;
+text-align: left;">
+    <div class="col">
+        <nav class="nav flex-column" id = 'leftNavbar_content'>
+            <a class="nav-link" href="/app/addApp/">管理</a>
+            <!-- <a class="nav-link" href="#">垂直排列</a>
+            <a class="nav-link" href="#">布局</a>
+            <a class="nav-link" href="#">内容</a>
+            <a class="nav-link" href="#">组件</a> -->
+        </nav>
+    </div>
+</div>
+
+<script>
+     function auto(){
+        const formData = new FormData();
+    
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+        const resp = fetch('/app/getApp/', {
+        body: formData, 
+        method: "POST",
+        }).then(res => res.json())
+        .then(res => {
+           
+            res.msg.forEach(element => {
+                if(element != 'app'){
+                    let ele = document.getElementById('leftNavbar_content')
+                    let addTag = document.createElement('a')
+                    addTag.setAttribute('class','nav-link')
+                    addTag.innerText = element
+                    addTag.setAttribute('href','/'+element+'/table1/')
+                    ele.append(addTag)
+                }
+                
+            });
+            
+        })
+    }
+    
+    window.onload = auto()
+
+</script>

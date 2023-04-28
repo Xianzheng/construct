@@ -15,3 +15,12 @@ build1 parseModel.py 考虑和把blank=True 加进去
 动态添加li的时候setAttribtute value，一面innetText,或innetHtml得不到数据
 
 给ul添加滚动条， 直接在 ul上添加style=“height:800px;overflow-y:scroll;”
+
+ const selectClick2 = async () => {
+
+       await fetch('/app/getUploadFiles/', {
+          method: "GET",
+        })
+}
+
+async，await可以把同步转异步
