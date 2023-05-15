@@ -14,4 +14,6 @@ BASE_DIR = Path(__file__).resolve().parent
 appName = str(BASE_DIR).split('\\')[-1]
 
 def dealStatic_view(request):
+    # userGroup = [i.name for i in request.user.groups.all()]
+    # print(userGroup)
     return render(request,'dealStatic.html')

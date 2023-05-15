@@ -1,0 +1,201 @@
+<div id= 'addUser_lock'class='addAppContainer' style="display:none">
+  <div  style="width:80px;margin: 30% auto;">
+    <svg  style="display:block; margin-left:5px"class="bi bi-lock" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" >
+      <path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+    </svg>
+    <span>权限不足</span>
+  </div>
+</div>
+<div id = 'addUser_work' class='addAppContainer'>
+    <h2 style='text-align: center; margin-top: 5%;'>添加用户</h2>
+    <div class="input-group mb-3">
+      <div class="input-gidroup-prepend">
+        <span id="inputGroup-sizing-default">用户名</span>
+      </div>
+      <input id='addUsername' type="text" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend ">
+        <span id="inputGroup-sizing-default">密码</span>
+      </div>
+      <input id='addUserpass' type="text" class="form-control" 
+        style ="margin-left: 12px;"
+        aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div>
+      <label class="form-label" for="customFile">选择账户权限</label>
+    </div>
+    <div style="width:200px">
+      <select id="groupPermission" class="custom-select" id="inputGroupSelect01">
+          <option value=""selected>选择</option>
+          <option value="1">一般账户</option>
+          <option value="2">管理员</option>
+          <option value="3">开发者</option>
+      </select>
+    </div>
+  
+    
+      
+      <!-- <div>
+        <label class="form-label" for="customFile">上传文件</label>
+        <input type="file" class="form-control" id="userImg" style="width: 90%;" />
+      </div> -->
+      
+  
+    
+  
+      
+  
+        <!-- <div class="progress">
+          <div id= "processBar" class="progress-bar" role="progressbar"  aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        </div> -->
+  
+        <div style="width:100px;float: left;"></div>
+          <input onclick="checkAndCreate()" id="createApp" class="btn btn-primary" style="width: 50%; margin:0 auto; display: block;"
+            type="submit" value="创建用户" />
+        
+      
+  
+    
+  </div>
+
+  <script>
+    window.onload = autoCheckPermission('3','addUser_lock','addUser_work');
+    const checkAndCreate = () =>{
+
+      let flag = checkAllEelementValue("addUsername","addUserpass","groupPermission")
+      console.log(flag)
+      if (flag){
+        // alert("没问题")
+        addUser()
+      }else if(flag == null){
+        alert('请检查元素Id或参数')
+      }else{
+        alert('请输入创建用户名,密码和权限')
+      }
+
+    }
+
+    const addUser = () =>{
+      let username = document.getElementById("addUsername").value
+      let password = document.getElementById("addUserpass").value
+      let groupPermission = document.getElementById("groupPermission").value
+
+      data = {'username':username,'password':password,'groupPermission':groupPermission}
+      // const formData = new FormData();
+      //   formData.append('username', username)
+      //   formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+      //   formData.append('password', password)// console.log(fileName)
+      //   formData.append('groupPermission', groupPermission)// console.log(fileName)
+      
+        myFetch('POST','/app/addUser/',data)
+          .then(res => {
+            // console.log(res)
+            if (res.msg == 'existed'){
+              alert('用户已存在')
+            }
+            if (res.msg == 'success'){
+              alert('创建成功')
+            }
+            // UPDATEDB()
+
+            // document.getElementById('updatedb').click()
+
+        })
+    }
+/*
+    const selectClick2 = async () => {
+
+       await fetch('/app/getUploadFiles/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+             console.log(res)
+            // console.log(res.fileList)
+            let ele = document.getElementById("fileSelect2")
+            if (ele.value == '') {
+              res.fileList.forEach(element => {
+                let addTag = document.createElement('option')
+                addTag.innerText = element
+                ele.append(addTag)
+                // console.log(element)
+              });
+            }
+            
+          })
+
+          linkAge("fileSelect2",'app_name')
+          
+      }
+
+
+      const checkAndLoad = () =>{
+
+        let flag = checkAllEelementValue("fileSelect2","app_name")
+        console.log(flag)
+        if (flag){
+
+          loadData()
+        }else if(flag == null){
+          alert('请检查元素Id或参数')
+        }else{
+          alert('请输入创建应用名或选择创建文件')
+        }
+
+      }
+
+      const loadData = () => {
+        // alert('Hello1')
+        //<div id= "processBar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        setInterval(function(){ 
+          fetch('/app/getProcess/', {
+          method: "GET",
+        }).then(res => res.json())
+          .then(res => {
+            console.log(res)
+            console.log(res.process)
+            let ele = document.getElementById("processBar")
+            if(res.process > 80){
+              ele.setAttribute("style","width: 98%")
+              ele.setAttribute("aria-valuenow","98")
+            }else if(res.process > 75){
+              ele.setAttribute("style","width: 75%")
+              ele.setAttribute("aria-valuenow","75")
+            }else if(res.process > 50){
+              ele.setAttribute("style","width: 50%")
+              ele.setAttribute("aria-valuenow","50")
+            }else if(res.process > 25){
+              // ele.setAttribute("style","width: 25%")
+              ele.setAttribute("style","width: 25%")
+              ele.setAttribute("aria-valuenow","25")
+            }else {
+              ele.style.width = "5%"
+              ele.setAttribute("aria-valuenow","5")
+            }
+          })
+         }, 3000);
+        const fileName = document.getElementById('fileSelect2').value
+        const appName = document.getElementById('app_name').value
+        // alert(fileName)
+        // alert(appName)
+        const formData = new FormData();
+        formData.append('appName', appName)
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+        formData.append('fileName', fileName)// console.log(fileName)
+        fetch('/app/autoAdd_data/', {
+          method: "POST",
+          body: formData,
+        }).then(res => res.json())
+          .then(res => {
+
+            alert('导入数据成功')
+            location.reload()
+
+          })
+      }
+    */
+  </script>

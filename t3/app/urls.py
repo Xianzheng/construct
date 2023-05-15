@@ -8,6 +8,7 @@ from .view_deleteApp import *
 from .view_parseToCreate import *
 from .view_plugin_tools import *
 from .view_upload import *
+from .view_manageUser import *
 urlpatterns = [
     path('table1/',table1_view),
     path('table2/<tableId>',table2_view),
@@ -31,4 +32,8 @@ urlpatterns = [
     path('autoAdd_data/',autoAdd_data_view),
     path('upload/',upload_view),
     path('getUploadFiles/',getUploadFiles_view),
+    path('manageUser/',manageUser_view),
+    path('addUser/',addUser_view),
+    path('checkUserPermission/',checkUserPermission_view)
+    
 ]

@@ -1,4 +1,1 @@
-table1:id auto,title string vb-公司名
-table2:id auto,title string vb-气体,table1 foreignKey
-table3:id auto,title string vb-比较,table2 foreignKey
-table4:id auto,name float vb-消耗(吨),date date vb-选择月份,table3 foreignKey
+table1: id auto,设备编号 string vb-设备编号 blank-True,资产编号 string vb-资产编号 blank-True,设备名称 string vb-设备名称 blank-True,设备型号 string vb-设备型号 blank-True,设备规格 string vb-设备规格 blank-True,制造厂 string vb-制造厂 blank-True,出厂年月 string vb-出厂年月 blank-True,使用部门 string vb-使用部门 blank-True,安装地点 string vb-安装地点 blank-True,立卡年月 string vb-立卡年月 blank-True,启用年月 string vb-启用年月 blank-True,分类 string vb-ABC分类 blank-True,财务分类 string vb-财务分类 blank-True,原值元 string vb-原值(元) blank-True,完好状态 string vb-完好状态 blank-True,当前管理状态 string vb-当前管理状态 blank-True,状态变动日期 string vb-状态变动日期 blank-True,使用年限年 string vb-使用年限(年) blank-True,供货商 string vb-供货商 blank-True,出厂编号 string vb-出厂编号 blank-True,单价元 string vb-单价(元) blank-True,设备属性 string vb-设备属性 blank-True,生产用途 string vb-生产用途 blank-True,责任人 string vb-责任人 blank-True,备注 string vb-备注 blank-True

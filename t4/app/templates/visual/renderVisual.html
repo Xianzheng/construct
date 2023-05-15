@@ -1,0 +1,52 @@
+{% extends '../baseTemp.html' %}
+
+{% block content %}
+
+    
+    <div id="main" style="width: 600px;height:400px;margin:0 auto"></div>
+    <div id="main1" style = "width: 600px;height:400px;margin:0 auto"></div>
+    <script type="text/javascript">
+        
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var xRes = {{ xRes|safe }};
+        var yRes = {{ yRes|safe }}
+        var pieResult = {{pieResult|safe}}
+ 
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '数据分析'
+            },
+            tooltip: {},
+            legend: {
+                data:['表数据']
+            },
+            xAxis: {
+                data: xRes
+            },
+            yAxis: {},
+            series: [{
+                name: '表数据',
+                type: 'bar',
+                data: yRes
+            }]
+        };
+ 
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        var myChart1 = echarts.init(document.getElementById('main1'));
+        myChart1.setOption({
+        series : [
+            {
+                name: '访问来源',
+                type: 'pie',    // 设置图表类型为饼图
+                radius: '55%',  // 饼图的半径，外半径为可视区尺寸（容器高宽中较小一项）的 55% 长度。
+                data:pieResult,
+            }
+        ]
+        })
+    </script>
+{% endblock %}

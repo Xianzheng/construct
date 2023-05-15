@@ -19,7 +19,7 @@ rootFilePath = str(BASE_DIR).split('\\')[-1]
 @login_required(login_url="/acount/login/")
 def table1_view(request):
     modelName = 'table1'
-    nextModleName = 'table2'
+    nextModleName = ''
     if nextModleName == '':
         nextModleName = modelName
     modelInstance = globals()[modelName]
@@ -51,221 +51,14 @@ def table1_view(request):
                     'totalData':totalData,'status':0,
                     'tableName':'厂区表','tableId':0,
                     'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,
-                    'appName':'AAA','page_obj':page_obj})
+                    'appName':'赤壁子公司','page_obj':page_obj})
     except:
         renderFile = './table/renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':'',
                     'totalData':'','status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'AAA'})
-                
-@login_required(login_url="/acount/login/")
-def table2_view(request,tableId):
-    rootName = 'table1'
-    rootInstance = globals()[rootName]
-    modelName = 'table2'
-    nextModleName = 'table3'
-    if nextModleName == '':
-        nextModleName = modelName
-    modelInstance = globals()[modelName]
-
-    modelnameLst = ['table1', 'table2', 'table3', 'table4']
-
-    #确定上一层model名并生成实例
-    prevmodelname = ''
-    for index in range(len(modelnameLst)):
-        if modelnameLst[index] == modelName: 
-            if index != 0:
-                prevmodelname = modelnameLst[index - 1]
-    # print('******',prevmodelname)
-    rootName = prevmodelname
-    rootInstance = globals()[rootName]
-
-     #确定返回为什么
-    goback = ''
-    if prevmodelname == modelnameLst[0]:
-        goback = '/'+rootFilePath+'/'+prevmodelname
-    else:
-        goback = '/'+rootFilePath+'/'+prevmodelname+'/' + str(rootInstance.objects.all()[0].id)
-
-    
-    # 如果是返回,用上一层的tableId肯定找不到bindkey,找到上一层instance的bind
-    try:
-        bindkey = rootInstance.objects.get(id = tableId)
-    except:
-        ins = modelInstance.objects.get(id = tableId)
-        tableId = ins.bind.id
-    try:
-        bindkey = rootInstance.objects.get(id = tableId)
-        
-        objLst = modelInstance.objects.filter(bind = bindkey) 
-        obj = objLst[0]
-        cs = getmodelfield(rootFilePath, modelName,exclude)
-        
-        header = getHeader(obj.__dict__,start = 1, end = (len(obj.__dict__) - 1),cs = cs)
-        # print(53,header)
-        header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__) - 1),cs = None)
-        # header1 是models原生attribute名，header是轉換過的verbose_name
-        #render style
-        width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
-        renderFile = './table/renderTable1.html' 
-        headerAndWidth = zip(header,width)
-        totalData = loadData(objLst, header1)
-        # print('line 65',totalData)
-        return render(request,renderFile,
-                    {'headerAndWidth':headerAndWidth,
-                    'totalData':totalData,'status':0,
-                    'tableId':tableId,'tableName':'分厂区',
-                    'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'AAA'})
-    except:
-        renderFile = './table/renderTable1.html'  
-        return render(request,renderFile,
-                    {'headerAndWidth':[],
-                    'totalData':[],'status':0,
-                    'tableId':tableId,'tableName':'',
-                    'modelName':modelName,'goback': goback,
-                    'nextLayout':'#','appName':'AAA'})
- 
-                
-@login_required(login_url="/acount/login/")
-def table3_view(request,tableId):
-    rootName = 'table2'
-    rootInstance = globals()[rootName]
-    modelName = 'table3'
-    nextModleName = 'table4'
-    if nextModleName == '':
-        nextModleName = modelName
-    modelInstance = globals()[modelName]
-
-    modelnameLst = ['table1', 'table2', 'table3', 'table4']
-
-    #确定上一层model名并生成实例
-    prevmodelname = ''
-    for index in range(len(modelnameLst)):
-        if modelnameLst[index] == modelName: 
-            if index != 0:
-                prevmodelname = modelnameLst[index - 1]
-    # print('******',prevmodelname)
-    rootName = prevmodelname
-    rootInstance = globals()[rootName]
-
-     #确定返回为什么
-    goback = ''
-    if prevmodelname == modelnameLst[0]:
-        goback = '/'+rootFilePath+'/'+prevmodelname
-    else:
-        goback = '/'+rootFilePath+'/'+prevmodelname+'/' + str(rootInstance.objects.all()[0].id)
-
-    
-    # 如果是返回,用上一层的tableId肯定找不到bindkey,找到上一层instance的bind
-    try:
-        bindkey = rootInstance.objects.get(id = tableId)
-    except:
-        ins = modelInstance.objects.get(id = tableId)
-        tableId = ins.bind.id
-    try:
-        bindkey = rootInstance.objects.get(id = tableId)
-        
-        objLst = modelInstance.objects.filter(bind = bindkey) 
-        obj = objLst[0]
-        cs = getmodelfield(rootFilePath, modelName,exclude)
-        
-        header = getHeader(obj.__dict__,start = 1, end = (len(obj.__dict__) - 1),cs = cs)
-        # print(53,header)
-        header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__) - 1),cs = None)
-        # header1 是models原生attribute名，header是轉換過的verbose_name
-        #render style
-        width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
-        renderFile = './table/renderTable1.html' 
-        headerAndWidth = zip(header,width)
-        totalData = loadData(objLst, header1)
-        # print('line 65',totalData)
-        return render(request,renderFile,
-                    {'headerAndWidth':headerAndWidth,
-                    'totalData':totalData,'status':0,
-                    'tableId':tableId,'tableName':'分厂区',
-                    'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'AAA'})
-    except:
-        renderFile = './table/renderTable1.html'  
-        return render(request,renderFile,
-                    {'headerAndWidth':[],
-                    'totalData':[],'status':0,
-                    'tableId':tableId,'tableName':'',
-                    'modelName':modelName,'goback': goback,
-                    'nextLayout':'#','appName':'AAA'})
- 
-                
-@login_required(login_url="/acount/login/")
-def table4_view(request,tableId):
-    rootName = 'table3'
-    rootInstance = globals()[rootName]
-    modelName = 'table4'
-    nextModleName = ''
-    if nextModleName == '':
-        nextModleName = modelName
-    modelInstance = globals()[modelName]
-
-    modelnameLst = ['table1', 'table2', 'table3', 'table4']
-
-    #确定上一层model名并生成实例
-    prevmodelname = ''
-    for index in range(len(modelnameLst)):
-        if modelnameLst[index] == modelName: 
-            if index != 0:
-                prevmodelname = modelnameLst[index - 1]
-    # print('******',prevmodelname)
-    rootName = prevmodelname
-    rootInstance = globals()[rootName]
-
-     #确定返回为什么
-    goback = ''
-    if prevmodelname == modelnameLst[0]:
-        goback = '/'+rootFilePath+'/'+prevmodelname
-    else:
-        goback = '/'+rootFilePath+'/'+prevmodelname+'/' + str(rootInstance.objects.all()[0].id)
-
-    
-    # 如果是返回,用上一层的tableId肯定找不到bindkey,找到上一层instance的bind
-    try:
-        bindkey = rootInstance.objects.get(id = tableId)
-    except:
-        ins = modelInstance.objects.get(id = tableId)
-        tableId = ins.bind.id
-    try:
-        bindkey = rootInstance.objects.get(id = tableId)
-        
-        objLst = modelInstance.objects.filter(bind = bindkey) 
-        obj = objLst[0]
-        cs = getmodelfield(rootFilePath, modelName,exclude)
-        
-        header = getHeader(obj.__dict__,start = 1, end = (len(obj.__dict__) - 1),cs = cs)
-        # print(53,header)
-        header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__) - 1),cs = None)
-        # header1 是models原生attribute名，header是轉換過的verbose_name
-        #render style
-        width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
-        renderFile = './table/renderTable1.html' 
-        headerAndWidth = zip(header,width)
-        totalData = loadData(objLst, header1)
-        # print('line 65',totalData)
-        return render(request,renderFile,
-                    {'headerAndWidth':headerAndWidth,
-                    'totalData':totalData,'status':0,
-                    'tableId':tableId,'tableName':'分厂区',
-                    'modelName':modelName,'goback': goback,
-                    'nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'AAA'})
-    except:
-        renderFile = './table/renderTable1.html'  
-        return render(request,renderFile,
-                    {'headerAndWidth':[],
-                    'totalData':[],'status':0,
-                    'tableId':tableId,'tableName':'',
-                    'modelName':modelName,'goback': goback,
-                    'nextLayout':'#','appName':'AAA'})
- 
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'赤壁子公司'})
                 
 @login_required(login_url="/login/")
 def addSubTable_view(request,tableId,tableModel):
@@ -277,7 +70,7 @@ def addSubTable_view(request,tableId,tableModel):
     # print(globals().keys())
     form = globals()[formName]
     model = globals()[modelName]
-    modelnameLst = ['table1', 'table2', 'table3', 'table4']
+    modelnameLst = ['table1']
     prevmodelname = ''
     for index in range(len(modelnameLst)):
         if modelnameLst[index] == modelName: 
@@ -301,8 +94,8 @@ def addSubTable_view(request,tableId,tableModel):
             
             rd = tableModel[0].lower() + tableModel[1:]
             if tableId == '0':
-                return redirect('/AAA/'+rd+'/')
-            return redirect('/AAA/'+rd+'/'+tableId)
+                return redirect('/赤壁子公司/'+rd+'/')
+            return redirect('/赤壁子公司/'+rd+'/'+tableId)
     else:
 
         path = request.path
@@ -314,10 +107,10 @@ def addSubTable_view(request,tableId,tableModel):
         goback = ''
         print(tableId)
         if tableId == '0':
-            goback = '/AAA/'+rd
+            goback = '/赤壁子公司/'+rd
             print('yes')
         else:
-            goback = '/AAA/'+rd+'/'+tableId
+            goback = '/赤壁子公司/'+rd+'/'+tableId
             print('no')
         print(goback)
         
@@ -325,14 +118,14 @@ def addSubTable_view(request,tableId,tableModel):
        
 
     return render(request,'form.html',{'form':form,
-    'tableName':title,'goback':goback,'appName':'AAA'})
+    'tableName':title,'goback':goback,'appName':'赤壁子公司'})
 
 def updateRow_view(request,modelName,rowId,tableId):
     modelInstance = globals()[modelName]
     obj = modelInstance.objects.get(id = rowId)
     formName = modelName +'_Form'
     form = globals()[formName]
-    modelnameLst = ['table1', 'table2', 'table3', 'table4']
+    modelnameLst = ['table1']
     if request.method == 'POST':
         form = form(request.POST,instance = obj)
         if form.is_valid():
@@ -347,7 +140,7 @@ def updateRow_view(request,modelName,rowId,tableId):
     goback = '/'+rootFilePath+'/'+modelName+'/'+tableId
     return render(request,'form.html',
     {'form':form,'tableName':title,
-    'tableId':tableId,'action':action,'goback':goback,'appName':'AAA'})
+    'tableId':tableId,'action':action,'goback':goback,'appName':'赤壁子公司'})
 
 
 

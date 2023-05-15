@@ -24,3 +24,12 @@ build1 parseModel.py 考虑和把blank=True 加进去
 }
 
 async，await可以把同步转异步
+
+動態引用庫方法
+import importlib
+# table1 = importlib.import_module('.models', package=appName)
+module=importlib.import_module(appName+".models")
+add = module.table1
+
+#请求乱码转中文
+urllib.parse.unquote(app_name)

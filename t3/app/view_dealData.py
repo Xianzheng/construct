@@ -15,3 +15,7 @@ appName = str(BASE_DIR).split('\\')[-1]
 
 def dealData_view(request):
     return render(request,'dealData.html')
+
+def checkUserPermission_view(request):
+    userGroup = [i.name for i in request.user.groups.all()]
+    return HttpResponse(json.dumps({'msg':userGroup}))

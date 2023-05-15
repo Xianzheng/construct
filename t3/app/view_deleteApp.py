@@ -23,6 +23,26 @@ def deleteApp_view(request):
     
     appName = appName.split('/')[0]
 
+    name = urllib.parse.unquote(appName)
+
+    import importlib
+    # table1 = importlib.import_module('.models', package=appName)
+    module=importlib.import_module(name+".models")
+    toDelete =getattr(module,'table1')
+
+
+    #得到table Instance
+    modelsList = getModelList('./{}/models.py'.format(name))
+    #得到modelsList的所有表名，得到Instance 并删除
+    
+   
+    
+    for tableName in modelsList[::-1]:
+        print(tableName)
+        tableInstance = getattr(module,tableName)
+        tableInstance.objects.all().delete()
+
+  
     '''
         remove path from main Path
     '''
@@ -54,7 +74,7 @@ def deleteApp_view(request):
     # print('os list is',os.listdir(rootPath))
     
 
-    
+   
     return HttpResponse(json.dumps({'fileList':'删除成功'}))
 
 def getAppName_view(request):

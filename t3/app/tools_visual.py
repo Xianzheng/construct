@@ -10,6 +10,6 @@ def getModelList(filename):
     functions = [n for n in node.body if isinstance(n, ast.FunctionDef)]
     classes = [n.name for n in node.body if isinstance(n, ast.ClassDef)]
 
-    for i in functions:
-        print(i)
+    # for i in functions:
+    #     print(i)
     return classes

@@ -199,6 +199,39 @@
             var ele = document.getElementById('a')
             ele.style.backgroundColor="red" 
     }
+
+    const checkUserPermission = async () => {
+
+        return await fetch('/app/checkUserPermission/', {
+        method: "POST",
+        }).then(res => res.json())
+        
+        
+    }
+
+    const autoCheckPermission = (level,lockId,showId) => {
+        checkUserPermission().then(res => {
+            let flag = false
+            res.msg.forEach(element => {
+            if (element == level){
+                flag = true
+            }
+            });
+            console.log(flag)
+            if (flag){
+            let ele1 = document.getElementById(lockId)
+            ele1.style.display = 'none'
+            let ele2 = document.getElementById(showId)
+            ele2.style.display = 'block'
+            
+            }else{
+            let ele1 = document.getElementById(lockId)
+            ele1.style.display = 'block'
+            let ele2 = document.getElementById(showId)
+            ele2.style.display = 'none'
+            }
+        })
+   }
 </script>
 
 </head>

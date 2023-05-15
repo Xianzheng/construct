@@ -1,9 +1,41 @@
+<style>
+    
+    .dropdown:hover>.dropdown-menu {
+      
+      display: block;
+    }
 
+    .dropdown>.dropdown-toggle:active {
+      /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
+    .dropdown-menu{
+      width: 5px;
+    }
+  </style>
 
     <nav class="navbar navbar-light" id="navbar_content" style="background-color: #e3f2fd; width: 100%;">
         <!-- Navbar content -->
         
-        <a class="navbar-brand" href="#">导航栏</a>
+        <div class="dropdown">
+            <button
+              style="background-color: #e3f2fd; border-style: none;"
+              type="button"
+              id="dropleftMenuButton"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <svg width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+            </button> 
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width:100px" >
+              <li style="background-color: #e3f2fd; width: 100%; text-align: center;"><a style="color: black; "href="/device/table1/">前端</a></li>
+              <li style="background-color: #e3f2fd; width: 100%; text-align: center;"><a style="color: black; "href="/app/addApp/">后端</a></li>
+              
+            </ul>
+        </div> 
         <!-- <a href = "/{{appName}}/table1/" >总表</a>
         
         <a href = "/{{appName}}/table1/" >厂区表</a>
@@ -12,7 +44,13 @@
         <a href = "/app/addApp/">构建</a>
         <a href = "/logout/">测</a> -->
         
+        
+        
     </nav>
+    
+
+    
+  
 
 
     <script>
@@ -24,7 +62,7 @@
         let arrayText = []
         if (appName == 'app'){
             // arrayText = [['表图','visual1'],['结构图','visual2'],['构建','addApp']]
-            arrayText = [['操作库','dealStatic'],['操作数据','dealData'],['构建','addApp']]
+            arrayText = [['操作库','dealStatic'],['操作数据','dealData'],['构建','addApp'],['权限管理','manageUser']]
         } else {
             arrayText = [['总表','table1'],['查询','searchInput'],['导出','export'],['视觉化','screamlitShow']]
         }
@@ -46,4 +84,20 @@
         addTag2.innerHTML = '登出'
         addTag2.setAttribute('href','/logout/')
         ele.append(addTag2)
+        
+        let addTag3 = document.createElement('div')
+        addTag3
+
     </script>
+
+
+<!-- <div class="btn-group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Right-aligned menu
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <button class="dropdown-item" type="button">Action</button>
+      <button class="dropdown-item" type="button">Another action</button>
+      <button class="dropdown-item" type="button">Something else here</button>
+    </div>
+  </div> -->

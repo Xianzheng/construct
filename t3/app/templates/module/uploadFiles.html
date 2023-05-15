@@ -1,4 +1,14 @@
-  <div class='addAppContainer'>
+  
+  <div id= 'upload_lock'class='addAppContainer' style="display:none">
+    <div  style="width:80px;margin: 30% auto;">
+      <svg  style="display:block; margin-left:5px"class="bi bi-lock" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" >
+        <path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+      </svg>
+      <span>权限不足</span>
+    </div>
+  </div>
+
+  <div id='upload_work' class='addAppContainer' style="display:block">
     <h2 style='text-align: center; margin-top: 5%;'>上传文件</h2>
   
     <div>
@@ -10,23 +20,28 @@
     </div>
   
     <div style="width : 90%;margin:25px 25%">
-      
+
       <div style="width:40%;float: left;margin-left:10%">
+        
         <input onclick="uploadFile()" id="createApp" class="btn btn-primary" style="width: 80%; float:left;" 
           type="submit" value="上传" />
+        
       </div>
-      <!-- <div style="width:40%;float:left;margin-left:10%">
-        <input onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
-          value="更新" />
-      </div> -->
-  
-  
+
     </div>
   
 </div>
 
   <script>
+    
+
+   
+
+   window.onload = autoCheckPermission('3','upload_lock','upload_work');
+
+
     const uploadFile = () => {
+      
       
       // console.log(appName)
       // console.log('com here')

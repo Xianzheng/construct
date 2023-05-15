@@ -20,6 +20,8 @@ rootFilePath = str(BASE_DIR).split('\\')[-1]
         
 @login_required(login_url="/acount/login/")
 def table1_view(request):
+    userGroup = [i.name for i in request.user.groups.all()]
+    # print(userGroup)
     modelName = 'table1'
     nextModleName = 'table2'
     if nextModleName == '':

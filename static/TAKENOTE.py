@@ -139,3 +139,31 @@ url path('visual/',visual_view),
 
 url -> view ->html,如果有fetch可以改变流程
 '''
+
+'''
+
+给ul添加滚动条， 直接在 ul上添加style=“height:800px;overflow-y:scroll;”
+
+ const selectClick2 = async () => {
+
+       await fetch('/app/getUploadFiles/', {
+          method: "GET",
+        })
+}
+
+async，await可以把同步转异步
+
+動態引用庫方法
+import importlib
+# table1 = importlib.import_module('.models', package=appName)
+module=importlib.import_module(appName+".models")
+add = module.table1
+
+#请求乱码转中文
+urllib.parse.unquote(app_name)
+
+
+request.get_full_path()
+
+
+'''

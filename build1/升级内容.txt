@@ -15,3 +15,5 @@
 生成该系统可解析的代码写入drawModels.txt文件中,
 并将该文件写入进 .\construct\t1\mystatic\files\draw
 进文件夹中，再整常创建App
+
+已完成Excel生成表单系统，并具有初步的权限管理机制，
