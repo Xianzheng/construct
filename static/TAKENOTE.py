@@ -165,5 +165,67 @@ urllib.parse.unquote(app_name)
 
 request.get_full_path()
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!--
+          为了让 Bootstrap 开发的网站F对移动设备友好，确保适当的绘制和触屏缩放，
+          需要在网页的 head 之中添加 viewport meta 标签,一般将bootstrap的css和js文件放进来的时候会自动生成
+          -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0,shrink-to-fit=no">
+        <!--width=device-width 表示宽度是设备屏幕的宽度。
+              initial-scale=1.0 表示初始的缩放比例。
+              shrink-to-fit=no 自动适应手机屏幕的宽度。这里的shrink-to-fit=no"是我自己加进去的-->
+        <title>bootstrap测试</title>
+      
+        <link href="./bootstrap/css/bootstrap.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div id="popover1" class="col-sm-12 col-xs-12 col-md-9">
+        <div><a href ="#"class="change-trigger" title="" >Popover Example</a></div>
+
+        <div id="select-div" class="hide" style="display: none;">
+            <div><a href="#">使用时长</a></div>
+            <div><a href="#">维修情况</a></div>
+            <div><a href="#">维修情况</a></div>
+        </div>
+    </div>
+    <script src="./js_lib/jquery-3.6.4.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.bundle.min.js"></script> 
+    <script src="./js_lib/popper.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.js"></script>
+    <script>
+    $('.change-trigger').popover({
+        placement : 'Right',
+        // title : 'Change',
+        trigger : 'manual',
+        html : true,
+        content : function(){
+            var content = '';
+            content = $('#select-div').html();
+            return content;
+        } 
+    }).on("mouseenter", function() {
+		// console.log($(".hx-flot_window li a").css)
+		var _this = this; // 这里的this触发的dom,需要存起来 否则在下面 .popover的逻辑中this会变为弹出的dom
+		$(this).popover("show");
+		$(".popover").on("mouseleave", function() {
+			$(_this).popover('hide');
+		});
+	}).on("mouseleave", function() {
+		var _this = this;
+		setTimeout(function() {
+			if (!$(".popover:hover").length) {
+				$(_this).popover("hide");
+			}
+		}, 100);
+	});
+    
+    </script>
+</body>
+</html>
+
 
 '''

@@ -1,3 +1,4 @@
+{% load static%}
 <div class="row mt-5" width="80px;"style = "float: left ;height: 100%;background-color: #e3f2fd;
 text-align: left;">
     <div class="col">
@@ -7,10 +8,27 @@ text-align: left;">
             <a class="nav-link" href="#">布局</a>
             <a class="nav-link" href="#">内容</a>
             <a class="nav-link" href="#">组件</a> -->
+           
+                <a href ="#"class="change-trigger" title="" >Popover</a>
+        
+                
+
+                <a href ="#"class="change-trigger" title="" >Popover</a>
         </nav>
     </div>
+    <div id="select-div" class="hide" style="display: none;">
+        <div><a href="#">使用时长</a></div>
+        <div><a href="#">维修情况</a></div>
+        <div><a href="#">维修情况</a></div>
+    </div>
 </div>
+<script src="{% static 'js_lib/jquery-3.6.4.min.js'%}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.bundle.min.js'%}"></script> 
+<script src="{% static 'js_lib/popper.min.js'%}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
 
+<script>
+    </script>
 <script>
      function auto(){
         const formData = new FormData();
@@ -26,10 +44,40 @@ text-align: left;">
                 if(element != 'app'){
                     let ele = document.getElementById('leftNavbar_content')
                     let addTag = document.createElement('a')
-                    addTag.setAttribute('class','nav-link')
+                    // addTag.setAttribute('href','#')
+                    addTag.setAttribute('class','change-trigger')
+                    console.log(element)
                     addTag.innerText = element
                     addTag.setAttribute('href','/'+element+'/table1/')
+                    
                     ele.append(addTag)
+                    $('.change-trigger').popover({
+                        placement : 'right',
+                        // title : 'Change',
+                        trigger : 'manual',
+                        html : true,
+                        content : function(){
+                            var content = '';
+                            content = $('#select-div').html();
+                            content = content.replaceAll('#','/'+element+'/table1/');
+                            console.log(content)
+                            return content;
+                        } 
+                    }).on("mouseenter", function() {
+                        // console.log($(".hx-flot_window li a").css)
+                        var _this = this; // 这里的this触发的dom,需要存起来 否则在下面 .popover的逻辑中this会变为弹出的dom
+                        $(this).popover("show");
+                        $(".popover").on("mouseleave", function() {
+                            $(_this).popover('hide');
+                        });
+                    }).on("mouseleave", function() {
+                        var _this = this;
+                        setTimeout(function() {
+                            if (!$(".popover:hover").length) {
+                                $(_this).popover("hide");
+                            }
+                        }, 100);
+                    });
                 }
                 
             });
@@ -38,5 +86,7 @@ text-align: left;">
     }
     
     window.onload = auto()
+    
+    
 
 </script>
