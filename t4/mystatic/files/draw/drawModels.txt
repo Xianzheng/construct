@@ -1,1 +1,0 @@
-table1: id auto,设备编号 string vb-设备编号 blank-True,设备名称 string vb-设备名称 blank-True

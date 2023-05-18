@@ -1,0 +1,76 @@
+{% extends 'baseTemp.html' %}
+{% block content %}
+
+<div class = 'f1'>
+    <h4 style="margin-left: 100px;letter-spacing: 2px;">{{title}}</h4>
+    <form action="{{action}}" method="post">
+        {% csrf_token %}
+        {{ form }}   
+        <datalist></datalist>
+        <input type="submit" style ="margin-top: 25px;" value="确定">
+        <a style="margin-left: 130px" href = "{{goback}}">返回</a>
+    </form>
+    <div id = 'space'></div>
+</div>
+
+<script>
+  /*
+  <input datalst="abc">
+  <datalist id="abc">
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+  </datalist>
+  将所有设备名称的可旋项注入到datalst
+  */
+    function loadDataList(id,key){
+        let div = document.getElementById('space')
+        let datalist = document.createElement('datalist')
+        datalist.setAttribute('id',id)
+        div.append(datalist)
+        
+        myFetch('GET','/app/loadBasicData/')
+        .then(res =>{
+            // console.log(res)
+            let ele = document.getElementById(id)
+            // console.log(ele)
+              res.msg.forEach(element => {
+                
+                let addTag = document.createElement('option')
+                addTag.innerText = element[key]
+                ele.append(addTag)
+                // console.log(element)
+              });
+        })
+    }
+
+    console.log(window.location.toString())
+    console.log(decodeURIComponent('http://127.0.0.1:8000/%E4%BD%BF%E7%94%A8%E6%97%B6%E9%95%BF/addSubTable/0/table1'))
+
+  
+    window.onload = loadDataList("使用时长_设备名称",'设备名称')
+    window.onload = loadDataList("使用时长_设备编号",'设备编号')
+    /*
+    选中a的值把对应b的值赋到id为id的tag上
+    */
+    function linkageAandB(val,id,a,b){
+
+        // console.log(a)
+
+        myFetch('GET','/app/loadBasicData/')
+        .then(res =>{
+            
+              res.msg.forEach(element => {
+
+                if (element[a] == val){
+                    document.getElementById(id).value = element[b]
+                }
+                
+              });
+            
+        })
+    }
+
+    
+</script>
+{% endblock %}
