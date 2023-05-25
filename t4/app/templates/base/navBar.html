@@ -1,0 +1,159 @@
+<style>
+    
+    .dropdown:hover>.dropdown-menu {
+      
+      display: block;
+    }
+
+    .dropdown>.dropdown-toggle:active {
+      /*Without this, clicking will make it sticky*/
+        pointer-events: none;
+    }
+
+    .dropdown-menu{
+      width: 5px;
+    }
+
+    .circle {
+      width: 45px;
+      height: 45px;
+      border-style: solid;
+      border-width: 1px;
+      border-radius: 50%;
+      -moz-border-radius: 50%; -webkit-border-radius : 50%;
+      border-color: #1E90FF;
+      -webkit-border-radius: 50%;
+    }
+    
+    .circle-text {
+      font-family:"黑体",Helvetica,"Arial","Microsoft YaHei","宋体",sans-serif;;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      font-size: 15px;
+      font-weight:normal;
+      color: #1E90FF;
+    }
+  </style>
+
+    <nav class="navbar navbar-light" id="navbar_content" style="background-color: #e3f2fd; width: 100%;">
+        <!-- Navbar content -->
+        <div>
+          <div class="dropdown"  style="float: left;margin-right: 10px;">
+              <button
+                style="background-color: #e3f2fd; border-style: none;"
+                type="button"
+                id="dropleftMenuButton"
+                data-mdb-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <svg width="16" height="16" fill="currentColor" class="bi bi-justify" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2 12.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+              </button> 
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width:100px" >
+                <li style="background-color: #e3f2fd; width: 100%; text-align: center;"><a style="color: black; "href="/device/table1/">前端</a></li>
+                <li style="background-color: #e3f2fd; width: 100%; text-align: center;"><a style="color: black; "href="/app/addApp/">后端</a></li>
+                
+              </ul>
+          </div> 
+          <div  style="float: left;">
+          
+          <div class="dropdown"  style="float: left;">
+            <button
+              style="background-color: #e3f2fd; border-style: none;"
+              type="button"
+              id="dropleftMenuButton"
+              data-mdb-toggle="dropdown"
+              aria-expanded="false"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+            </svg>
+            <span>方贤正</span>
+            
+            </button> 
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width:100px" >
+              <li style="background-color: #e3f2fd; width: 100%; text-align: center;"><a style="color: black; "href="/device/table1/">用户信息</a></li>
+              <li style="background-color: #e3f2fd; width: 100%; text-align: center;"><a style="color: black; "href="/app/addApp/">修改密码</a></li>
+              
+            </ul>
+        </div> 
+          </div>
+      </div>
+      
+        <!-- <a href = "/{{appName}}/table1/" >总表</a>
+        
+        <a href = "/{{appName}}/table1/" >厂区表</a>
+        <a href = "/{{appName}}/visual1/" >视觉化1</a>
+        <a href = "/{{appName}}/visual2/" >视觉化2</a>
+        <a href = "/app/addApp/">构建</a>
+        <a href = "/logout/">测</a> -->
+        
+        
+        
+    </nav>
+    
+    
+
+    
+  
+
+
+    <script>
+      // let username = document.getElementById("addUsername").value
+      // let password = document.getElementById("addUserpass").value
+      // let groupPermission = document.getElementById("groupPermission").value
+        
+        // const getUserInfo = () =>{
+        //   myFetch('POST','/app/checkUserPermission/').then(res=>console.log(res.msg))
+        // }
+        // window.onload = getUserInfo()
+        let ele = document.getElementsByClassName('navbar navbar-light').navbar_content
+        let url = window.location.href
+        let lst = url.split('/')
+        let appName = lst[3]
+        console.log(appName)
+        let arrayText = []
+        if (appName == 'app'){
+            // arrayText = [['表图','visual1'],['结构图','visual2'],['构建','addApp']]
+            arrayText = [['操作库','dealStatic'],['操作数据','dealData'],['构建','addApp'],['权限管理','manageUser']]
+        } else {
+            arrayText = [['总表','table1'],['查询','searchInput'],['导出','export'],['视觉化','visual1']]
+        }
+        arrayText.forEach(element => {
+            let addTag = document.createElement('a')
+            addTag.innerHTML = element[0]
+            addTag.setAttribute('href','/'+appName+'/'+element[1]+'/')
+            ele.append(addTag)
+        })
+        // let addTag3 = document.createElement('a')
+        // addTag3.innerHTML = '上传文件'
+        // addTag3.setAttribute('href','/app/upload/')
+        // ele.append(addTag3)
+        // let addTag1 = document.createElement('a')
+        // addTag1.innerHTML = '构建'
+        // addTag1.setAttribute('href','/app/addApp/')
+        // ele.append(addTag1)
+        let addTag2 = document.createElement('a')
+        addTag2.innerHTML = '登出'
+        addTag2.setAttribute('href','/logout/')
+        ele.append(addTag2)
+        
+        let addTag3 = document.createElement('div')
+        addTag3
+
+    </script>
+
+
+<!-- <div class="btn-group">
+    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Right-aligned menu
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+      <button class="dropdown-item" type="button">Action</button>
+      <button class="dropdown-item" type="button">Another action</button>
+      <button class="dropdown-item" type="button">Something else here</button>
+    </div>
+  </div> -->

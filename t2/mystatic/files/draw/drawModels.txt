@@ -1,1 +1,1 @@
-table1: id auto,设备 string vb-设备 blank-True,名称 string vb-名称 blank-True,规格型号 string vb-规格型号 blank-True,承修单 string vb-承修单 blank-True,维修费 string vb-维修费 blank-True,维修主要 string vb-维修主要 blank-True,原因分 string vb-原因分 blank-True,验收时 string vb-验收时 blank-True,保质期 string vb-保质期 blank-True,付款 string vb-付款 blank-True
+table1: id auto,设备编号 string vb-设备编号 blank-True,资产编号 string vb-资产编号 blank-True,设备名称 string vb-设备名称 blank-True,设备型号 string vb-设备型号 blank-True,设备规格 string vb-设备规格 blank-True,制造厂 string vb-制造厂 blank-True,使用部门 string vb-使用部门 blank-True

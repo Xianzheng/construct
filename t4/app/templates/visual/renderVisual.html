@@ -1,0 +1,107 @@
+{% extends '../baseTemp.html' %}
+
+{% block content %}
+
+    
+    <div id="main" style="width: 1000px;height:400px;margin:50px auto"></div>
+    <div id="main1" style = "width: 1000px;height:400px;margin:50px auto"></div>
+     <script type="text/javascript">
+        
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var xRes = {{ xRes|safe }}
+        var yRes = {{ yRes|safe }}//yRes 是本月数据
+        var yRes1 = {{ yRes1|safe }}//yRes1 是 去年同期数据
+        var yRes2 = {{ yRes2|safe }}//yRes1 是 上月数据
+        var pieResult = {{pieResult|safe}}
+
+        console.log(xRes)
+ 
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '同比数据'
+            },
+            tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+            legend: {
+                data:['2022年2月消耗','2023年2月消耗']
+            },
+            xAxis: {
+                type: 'category',
+               
+                axisLabel: {
+                    color: '#333',
+                    rotate: 100,
+                    //  让x轴文字方向为竖向
+                    interval: 0,
+                    formatter: function(value) {
+                        return value.split('').join('\n')
+                    }
+                },
+                data: xRes
+            },
+            yAxis: {},
+            series: [{
+                name: '2022年2月消耗',
+                type: 'bar',
+                data: yRes
+            },
+            {
+                name: '2023年2月消耗',
+                    type: 'bar',
+                    data: yRes1
+            }]
+        }; 
+ 
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        var myChart1 = echarts.init(document.getElementById('main1'));
+        var option = {
+            title: {
+                text: '环比数据'
+            },
+            tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        }
+                    },
+            legend: {
+                data:['2023年1月消耗','2023年2月消耗']
+            },
+            xAxis: {
+                type: 'category',
+               
+                axisLabel: {
+                    color: '#333',
+                    rotate: 100,
+                    //  让x轴文字方向为竖向
+                    interval: 0,
+                    formatter: function(value) {
+                        return value.split('').join('\n')
+                    }
+                },
+                data: xRes
+            },
+            yAxis: {},
+            series: [{
+                name: '2023年2月消耗',
+                type: 'bar',
+                data: yRes
+            },
+            {
+                name: '2023年1月消耗',
+                    type: 'bar',
+                    data: yRes2
+            }]
+        }; 
+        myChart1.setOption(option);
+    </script>
+{% endblock %}

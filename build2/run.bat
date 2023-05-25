@@ -1,5 +1,5 @@
 
 call ..\venv\Scripts\activate
 
-python building.py t2
+python building.py t4
 

@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent
 appName = str(BASE_DIR).split('\\')[-1]
 
 def loadBasicData_view(request):
-    thirdAppName = '基础数据W'
+    thirdAppName = 'basicdata'
     tLib = getThirdAppLib(request,thirdAppName)
     contents = tLib.objects.all()
     seriResult = serializers.serialize('json', contents)

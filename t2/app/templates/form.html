@@ -24,6 +24,9 @@
   将所有设备名称的可旋项注入到datalst
   */
     function loadDataList(id,key){
+
+       
+
         let div = document.getElementById('space')
         let datalist = document.createElement('datalist')
         datalist.setAttribute('id',id)
@@ -44,12 +47,14 @@
         })
     }
 
-    console.log(window.location.toString())
-    console.log(decodeURIComponent('http://127.0.0.1:8000/%E4%BD%BF%E7%94%A8%E6%97%B6%E9%95%BF/addSubTable/0/table1'))
+    
 
-  
-    window.onload = loadDataList("使用时长_设备名称",'设备名称')
-    window.onload = loadDataList("使用时长_设备编号",'设备编号')
+    var fullPath = window.location.toString()
+    fullPath = decodeURIComponent(fullPath)
+    const strHeader = fullPath.split('/')[3]
+
+    window.onload = loadDataList(strHeader+"_设备名称",'设备名称')
+    window.onload = loadDataList(strHeader+"_设备编号",'设备编号')
     /*
     选中a的值把对应b的值赋到id为id的tag上
     */

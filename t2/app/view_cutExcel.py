@@ -25,7 +25,7 @@ def getChoice_view(request):
     
     choiceLst = list(set(mainDf['使用部门']))
 
-    print(choiceLst)
+    # print(choiceLst)
     # for index,content in enumerate(mainDf.columns[1:]):
     #     choiceLst.append(content)
 

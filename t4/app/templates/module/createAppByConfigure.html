@@ -1,0 +1,93 @@
+<div id= 'createByTxt_lock'class='addAppContainer' style="display:none">
+  <div  style="width:80px;margin: 30% auto;">
+    <svg  style="display:block; margin-left:5px"class="bi bi-lock" width="3em" height="3em" viewBox="0 0 16 16" fill="currentColor" >
+      <path fill-rule="evenodd" d="M11.5 8h-7a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1zm-7-1a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-7zm0-3a3.5 3.5 0 1 1 7 0v3h-1V4a2.5 2.5 0 0 0-5 0v3h-1V4z"/>
+    </svg>
+    <span>权限不足</span>
+  </div>
+</div>
+<div id= 'createByTxt_work' class='addAppContainer'>
+    <h2 style='text-align: center; margin-top:5%'>Txt创建应用</h2>
+  
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span id="inputGroup-sizing-default">添加应用名：</span>
+      </div>
+      <input id='appName' type="text" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div>
+      <label class="form-label" for="customFile">上传配置文件</label>
+      <input type="file" class="form-control" id="customFile" style="width: 90%;" />
+    </div>
+  
+    <div style="width : 90%;margin:20px 25%">
+      <div style="width:40%;float: left;margin-left:10%">
+        <input onclick="checkAndsubmit()" id="createApp" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
+          value="创建" />
+      </div>
+  
+      <!-- <div style="width:40%;float:left;margin-left:10%">
+        <input onclick="UPDATEDB()" id="updatedb" class="btn btn-primary" style="width: 80%; float:left;" type="submit"
+          value="更新" />
+      </div> -->
+    </div>
+</div>
+
+<script>
+      window.onload = autoCheckPermission('3','createByTxt_lock','createByTxt_work');
+      const checkAndsubmit = () =>{
+        // console.log(document.getElementById("customFile").value)
+
+        let flag = checkAllEelementValue("customFile","appName")
+        // console.log(flag)
+        if (flag){
+
+          submit()
+        }else if(flag == null){
+          alert('请检查元素Id或参数')
+        }else{
+          alert('请输入创建应用名或选择创建文件')
+        }
+
+      }
+    //using configuration file to create App
+    const submit = () => {
+      const appName = document.getElementById('appName').value
+      // console.log(appName)
+      // console.log('com here')
+      const inp = document.getElementById("customFile");
+      const formData = new FormData();
+      formData.append("key", inp.files[0]);
+      formData.append('name', appName)
+      formData.append('csrfmiddlewaretoken', '{{csrf_token}}')//如果
+      fetch('/app/addApp/', {
+        method: "POST",
+        body: formData //自动修改请求头,formdata的默认请求头的格式是 multipart/form-data
+      }).then(res => res.json())
+        .then(res => {
+          alert('创建成功')
+          UPDATEDB()
+          // console.log(res)
+          // document.getElementById("createApp").disabled = true
+        })
+    }
+    // add app need to update datase
+    // const UPDATEDB = () => {
+    //   // setInterval(function(){ alert("Hello"); }, 3000);
+    //   fetch('/app/getProcess/', {
+    //     method: "GET",
+    //   }).then(res => res.json())
+    //     .then(res => {
+    //       console.log(res)
+    //     })
+    //   fetch('/app/updateDB/', {
+    //     method: "GET",
+    //   }).then(res => res.json())
+    //     .then(res => {
+    //       alert('更新成功')
+    //       location.reload()
+    //       document.getElementById("updatedb").disabled = true
+    //     })
+    // }
+</script>
