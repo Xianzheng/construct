@@ -23,11 +23,36 @@
             title: {
                 text: '同比数据'
             },
+            label: {
+                    show: true, //开启显示
+                    position: 'top', //在上方显示
+                    formatter: '{c}',//显示百分号
+                    textStyle: { //数值样式
+                        color: 'black',//字体颜色
+                        fontSize: 10//字体大小
+            }
+        },
             tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
+                            type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+                            
+                        },
+                        backgroundColor: 'rgba(50,50,50,0.7)', // 提示框浮层的背景颜色。
+                        formatter: function(params){
+                            let a = parseInt(params[0].data)
+                            let b = parseInt(params[1].data)
+                            let c = ((b - a)/b)* 100
+                            c = c.toFixed(2);
+                            let unit = params[0].name.slice(-1)
+                            return "<div style='padding:5px 10px'>"+
+                                params[0].name +"<br>" +
+                                params[0].marker + params[0].seriesName +": "+ params[0].data + unit+'<br>' + 
+                                params[1].marker+ params[1].seriesName +": "+ params[1].data + unit+'<br>' + 
+                                "同比："+c+"%"
+                                "</div>"
+}
+
                     },
             legend: {
                 data:['2022年2月消耗','2023年2月消耗']
@@ -70,8 +95,24 @@
             tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
-                            type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                        }
+                            type: 'shadow',        // 默认为直线，可选为：'line' | 'shadow'
+                            
+                        },
+                        backgroundColor: 'rgba(50,50,50,0.7)', // 提示框浮层的背景颜色。
+                        formatter: function(params){
+                            let a = parseInt(params[0].data)
+                            let b = parseInt(params[1].data)
+                            let c = ((b - a)/b)* 100
+                            c = c.toFixed(2);
+                            let unit = params[0].name.slice(-1)
+                            return "<div style='padding:5px 10px'>"+
+                                params[0].name +"<br>" +
+                                params[0].marker + params[0].seriesName +": "+ params[0].data + unit+'<br>' + 
+                                params[1].marker+ params[1].seriesName +": "+ params[1].data + unit+'<br>' + 
+                                "环比："+c+"%"
+                                "</div>"
+}
+
                     },
             legend: {
                 data:['2023年1月消耗','2023年2月消耗']
