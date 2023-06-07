@@ -10,6 +10,7 @@ import os,json
 BASE_DIR = Path(__file__).resolve().parent
 appName = str(BASE_DIR).split('\\')[-1]
 
+
 @login_required(login_url="/acount/login/")
 def visual1_view(request):
     #得到filename下模块名称表
@@ -40,6 +41,7 @@ def visual1_view(request):
     # return render(request,renderFile,{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),'pieResult':json.dumps(pieResult),'appName':'app'})
     return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),
                                                         'yRes1':json.dumps(yRes1),'yRes2':json.dumps(yRes2),'appName':'app'})
+
 @login_required(login_url="/acount/login/")
 def visual2_view(request):
     #得到modes.py下的所有class

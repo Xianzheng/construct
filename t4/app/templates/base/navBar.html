@@ -109,18 +109,19 @@
         // const getUserInfo = () =>{
         //   myFetch('POST','/app/checkUserPermission/').then(res=>console.log(res.msg))
         // }
+        
         // window.onload = getUserInfo()
         let ele = document.getElementsByClassName('navbar navbar-light').navbar_content
         let url = window.location.href
         let lst = url.split('/')
         let appName = lst[3]
-        console.log(appName)
+        // console.log(appName)
         let arrayText = []
         if (appName == 'app'){
             // arrayText = [['表图','visual1'],['结构图','visual2'],['构建','addApp']]
             arrayText = [['操作库','dealStatic'],['操作数据','dealData'],['构建','addApp'],['权限管理','manageUser']]
         } else {
-            arrayText = [['总表','table1'],['查询','searchInput'],['导出','export'],['视觉化','visual1']]
+            arrayText = [['*更新','updateDB'],['总表','table1'],['查询','searchInput'],['导出','export'],['视觉化','visual1']]
         }
         arrayText.forEach(element => {
             let addTag = document.createElement('a')
@@ -135,6 +136,7 @@
         // let addTag1 = document.createElement('a')
         // addTag1.innerHTML = '构建'
         // addTag1.setAttribute('href','/app/addApp/')
+        
         // ele.append(addTag1)
         let addTag2 = document.createElement('a')
         addTag2.innerHTML = '登出'
