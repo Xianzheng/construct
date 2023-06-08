@@ -17,5 +17,6 @@ urlpatterns = [
     path('screamlitShow/',screamlitShow_view),
     path('searchInput/',searchInput_view),
     path('searchOutput/',searchOutput_view),
-    path('monthDataAnalyze/<data>/',monthDataAnalyze_view)
+    path('monthDataAnalyze/<data>/',monthDataAnalyze_view),
+    path('updateDB/',updateDB_view),
 ]

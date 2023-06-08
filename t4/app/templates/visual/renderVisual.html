@@ -12,15 +12,15 @@
         var myChart = echarts.init(document.getElementById('main'));
 
         var xRes = {{ xRes|safe }}
-        var yRes = {{ yRes|safe }}//yRes 是本月数据
-        var yRes1 = {{ yRes1|safe }}//yRes1 是 去年同期数据
-        var yRes2 = {{ yRes2|safe }}//yRes1 是 上月数据
-       
+        var yRes = {{ yRes|safe }}//yRes 是去年同月数据
+        var yRes1 = {{ yRes1|safe }}//yRes1 是 今年近月数据
+        var yRes2 = {{ yRes2|safe }}//yRes1 是 今年上月数据
+        var currentYear = {{ currentYear|safe }}
+        var currentMonth = {{ currentMonth|safe }}
        
 
-        console.log(xRes)
-
- 
+       
+        
         // 指定图表的配置项和数据
         var option = {
             title: {
@@ -35,6 +35,7 @@
                         fontSize: 10//字体大小
             }
         },
+            
             tooltip: {
                         trigger: 'axis',
                         axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -43,22 +44,39 @@
                         },
                         backgroundColor: 'rgba(50,50,50,0.7)', // 提示框浮层的背景颜色。
                         formatter: function(params){
-                            let a = parseInt(params[0].data)
-                            let b = parseInt(params[1].data)
-                            let c = ((b - a)/b)* 100
-                            c = c.toFixed(2);
-                            let unit = params[0].name.slice(-1)
-                            return "<div style='padding:5px 10px'>"+
-                                params[0].name +"<br>" +
-                                params[0].marker + params[0].seriesName +": "+ params[0].data + unit+'<br>' + 
-                                params[1].marker+ params[1].seriesName +": "+ params[1].data + unit+'<br>' + 
-                                "同比："+c+"%"
-                                "</div>"
+                            if(params[0] != null && params[1] != null){
+                                let a = parseInt(params[0].data)
+                                let b = parseInt(params[1].data)
+                                let c = ((b - a)/b)* 100
+                                let result = ''
+                             
+                                if (c >= 0){
+                                    c = c.toFixed(2);
+                                    result =   "环比上涨"+c+"%"
+                                }else {
+                                    c = c.toFixed(2);
+                                    result =  "环比下降"+c+"%"
+                                }
+
+                                let unit = params[0].name.slice(-1)
+                                return "<div style='padding:5px 10px'>"+
+                                    params[0].name +"<br>" +
+                                    params[0].marker + params[0].seriesName +": "+ params[0].data + unit+'<br>' + 
+                                    params[1].marker+ params[1].seriesName +": "+ params[1].data + unit+'<br>' + 
+                                    result
+                                    "</div>"
+                            }else{
+                                return "<div style='padding:5px 10px'>"+
+                                    
+                                    '同比缺少去年数据'+'<br>' + 
+                                    "</div>"
+                            }
 }
 
                     },
             legend: {
-                data:['2022年2月消耗','2023年2月消耗']
+                data:[(currentYear -1 ).toString()+'年'+currentMonth.toString()+'月消耗',
+                currentYear.toString()+'年'+currentMonth.toString()+'月消耗']
             },
             xAxis: {
                 type: 'category',
@@ -76,24 +94,33 @@
             },
             yAxis: {},
             series: [{
-                name: '2022年2月消耗',
+                name: (currentYear -1 ).toString()+'年'+currentMonth.toString()+'月消耗',
                 type: 'bar',
                 data: yRes
             },
             {
-                name: '2023年2月消耗',
+                name: currentYear.toString()+'年'+currentMonth.toString()+'月消耗',
                     type: 'bar',
                     data: yRes1
             }]
         }; 
- 
+        
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
+        // console.log('yRes1',yRes1.length,'yRes',yRes)
+        
+            myChart.setOption(option);
+        
+
+
+
+
+
+
 
         var myChart1 = echarts.init(document.getElementById('main1'));
-        var option = {
+        var option1 = {
             title: {
-                text: '同比数据'
+                text: '环比数据'
             },
             label: {
                     show: true, //开启显示
@@ -113,22 +140,41 @@
                         },
                         backgroundColor: 'rgba(50,50,50,0.7)', // 提示框浮层的背景颜色。
                         formatter: function(params){
+                            if(params[0] != null && params[1] != null){
                             let a = parseInt(params[0].data)
-                            let b = parseInt(params[1].data)
-                            let c = ((b - a)/b)* 100
-                            c = c.toFixed(2);
-                            let unit = params[0].name.slice(-1)
-                            return "<div style='padding:5px 10px'>"+
-                                params[0].name +"<br>" +
-                                params[0].marker + params[0].seriesName +": "+ params[0].data + unit+'<br>' + 
-                                params[1].marker+ params[1].seriesName +": "+ params[1].data + unit+'<br>' + 
-                                "环比："+c+"%"
-                                "</div>"
+                             let b = parseInt(params[1].data)
+                             let c = ((b - a)/b)* 100
+                             let result = ''
+                             
+                             if (c >= 0){
+                                c = c.toFixed(2);
+                                result =   "环比上涨"+c+"%"
+                             }else {
+                                c = c.toFixed(2);
+                                result =  "环比下降"+c+"%"
+                             }
+                             
+                             
+                             
+                             let unit = params[0].name.slice(-1)
+                             return "<div style='padding:5px 10px'>"+
+                                 params[0].name +"<br>" +
+                                 params[0].marker + params[0].seriesName +": "+ params[0].data + unit+'<br>' + 
+                                 params[1].marker+ params[1].seriesName +": "+ params[1].data + unit+'<br>' + 
+                                 result
+                                 "</div>"
+                                } else {
+                                    return "<div style='padding:5px 10px'>"+
+                                    
+                                    '环比缺少上月数据'+'<br>' + 
+                                    "</div>"
+                                }
 }
 
                     },
             legend: {
-                data:['2023年1月消耗','2023年2月消耗']
+                data:[currentYear.toString()+'年'+(currentMonth-1).toString()+'月消耗',
+                currentYear.toString()+'年'+currentMonth.toString()+'月消耗']
             },
             xAxis: {
                 type: 'category',
@@ -147,15 +193,17 @@
             yAxis: {},
             series: [
             {
-                name: '2023年1月消耗',
+                name: currentYear.toString()+'年'+(currentMonth-1).toString()+'月消耗',
                     type: 'bar',
                     data: yRes2
             },{
-                name: '2023年2月消耗',
+                name: currentYear.toString()+'年'+currentMonth.toString()+'月消耗',
                 type: 'bar',
                 data: yRes1
             }]
         }; 
-        myChart1.setOption(option);
+        myChart1.setOption(option1);
+
+    
     </script>
 {% endblock %}

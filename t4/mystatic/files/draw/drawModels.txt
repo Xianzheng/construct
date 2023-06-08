@@ -1,1 +1,1 @@
-table1: id auto,年份 string vb-年份 blank-True,月份 string vb-月份 blank-True,水使用量吨 string vb-水使用量(吨) blank-True
+table1: id auto,年份 string vb-年份 blank-True,月份 string vb-月份 blank-True

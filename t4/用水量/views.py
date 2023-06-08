@@ -31,6 +31,8 @@ def table1_view(request):
         cs = getmodelfield(rootFilePath, modelName,exclude)
         header = getHeader(obj.__dict__,start = 1, end = len(obj.__dict__) -1,cs = cs)
         header1 = getHeader(obj.__dict__,start = 2, end = (len(obj.__dict__)),cs = None)
+        header1.pop()
+        header.pop()
         # print(header)
         #render style
         width = [100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,100,150,]
@@ -39,7 +41,15 @@ def table1_view(request):
         #render header内容
         headerAndWidth = zip(header,width)
         #得到表的value
-        objLst = modelInstance.objects.all()
+        url = request.get_full_path()
+        url = urllib.parse.unquote(url)
+        
+        print(url)
+        if 'department=' in url:
+            department = url.split('department=')[-1]
+            objLst = modelInstance.objects.filter(使用部门=department)
+        else:
+            objLst = modelInstance.objects.all()
         #遍历所有表的所有信息填入进空的lst中
         totalData = loadData(objLst, header1)
         # print('line28',totalData)
@@ -89,7 +99,13 @@ def addSubTable_view(request,tableId,tableModel):
                 bindTable = prevmodelname
                 bindModel = globals()[bindTable]
                 instance.bind = bindModel.objects.get(id = tableId)
+            url =  request.get_full_path()
+            url = urllib.parse.unquote(url)
+            print('url is ',url)
+            if 'department=' in url:
+                departmemt = url.split('department=')[-1]
                 
+                instance.使用部门 = departmemt
             instance.save()
             
             rd = tableModel[0].lower() + tableModel[1:]
@@ -164,5 +180,12 @@ def deleteRow_view(request,modelName,rowId,tableId):
     print(goback)
        
     return redirect(goback)
+
+from django.core.management import call_command
+def updateDB_view(request):
+    import json
+    call_command("makemigrations")
+    call_command("migrate")
+    return HttpResponse(json.dumps({'msg':'done update'}))
 
 

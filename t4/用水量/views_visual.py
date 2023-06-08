@@ -25,8 +25,8 @@ def visual1_view(request):
     xRes = list(r.keys())
     yRes = list(r.values())
 
-    for i in db:
-        db1 = getThirdAppLib(request,appName).objects.filter(年份 = '2023', 月份 = '2')
+    
+    db1 = getThirdAppLib(request,appName).objects.filter(年份 = '2023', 月份 = '2')
     for i in db1:
         r1 = dict(list(i.__dict__.items())[4:])
     
@@ -39,8 +39,7 @@ def visual1_view(request):
     yRes2 = list(r2.values())
 
     # return render(request,renderFile,{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),'pieResult':json.dumps(pieResult),'appName':'app'})
-    return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),
-                                                        'yRes1':json.dumps(yRes1),'yRes2':json.dumps(yRes2),'appName':'app'})
+    return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),'yRes1':json.dumps(yRes1),'yRes2':json.dumps(yRes2),'appName':'app'})
 
 @login_required(login_url="/acount/login/")
 def visual2_view(request):

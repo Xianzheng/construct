@@ -8,6 +8,7 @@ from .forms import *
 from pathlib import Path
 from .view_plugin_tools import *
 import os,django
+from django.core.management import call_command
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_name.settings")
 django.setup()
 import sys
@@ -164,5 +165,11 @@ def deleteRow_view(request,modelName,rowId,tableId):
     print(goback)
        
     return redirect(goback)
+
+def updateDB_view(request):
+    import json
+    call_command("makemigrations")
+    call_command("migrate")
+    return HttpResponse(json.dumps({'msg':'done update'}))
 
 

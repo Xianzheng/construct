@@ -50,7 +50,7 @@
                         <!-- <td width="100px"><a href = '{{nextLayout}}/{{i.id}}'>下一层</a></td> -->
                         <td width="100px"><a href = '/{{appName}}/updateRow/{{modelName}}/{{i.id}}/{{tableId}}'>更新</a></td>
 
-                        <td width="100px"><a onclick = 'return delete_alert()' href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
+                        <td width="100px"><a  href = '/{{appName}}/deleteRow/{{modelName}}/{{i.id}}/{{tableId}}'>刪除</a></td>
 
                         <td width="100px"><a href = '/{{appName}}/monthDataAnalyze/{{i.data}}'>分析</a></td>
                         
@@ -76,7 +76,7 @@
         text-align: center;
         z-index: 9999;">
 
-            <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}'>添加</a>
+            <a href = '/{{appName}}/addSubTable/{{tableId}}/{{modelName}}?url={{request.get_full_path}}'>添加</a>
             <!-- <a href = '{{goback}}'>返回</a> -->
         </div>
 

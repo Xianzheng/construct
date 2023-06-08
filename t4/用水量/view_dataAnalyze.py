@@ -26,32 +26,41 @@ def monthDataAnalyze_view(request,data):
     db = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear - 1) , 月份 = str(currentMonth))
     if db:
         for i in db:
-            r = dict(list(i.__dict__.items())[4:])
-        xRes = list(r.keys())
+            r = dict(list(i.__dict__.items())[4:-1])
+            print(r)
         yRes = list(r.values())
     else:
-        xRes = []
         yRes = []
 
     # yRes是上一年的数据
 
     
     db1 = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear), 月份 = str(currentMonth))
-    for i in db1:
-        r1 = dict(list(i.__dict__.items())[4:])
-    
-    yRes1 = list(r1.values())
+    if db1:
+        for i in db1:
+            r1 = dict(list(i.__dict__.items())[4:-1])
+        
+        xRes1 = list(r1.keys())
+        yRes1 = list(r1.values())
+
+    else:
+        yRes1 = []
 
     #yRes1是今年数据
 
     db2 = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear), 月份 = str(currentMonth - 1))
-    for i in db2:
-        r2 = dict(list(i.__dict__.items())[4:])
-    
-    yRes2 = list(r2.values())
+    if db2:
+        for i in db2:
+            r2 = dict(list(i.__dict__.items())[4:-1])
+        
+        yRes2 = list(r2.values())
+    else:
+        yRes2 = []
 
     #yRes2是上个月数据
 
     # return render(request,renderFile,{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),'pieResult':json.dumps(pieResult),'appName':'app'})
-    return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes),
-                                                        'yRes1':json.dumps(yRes1),'yRes2':json.dumps(yRes2),'appName':'app'})
+    return render(request,'./visual/renderVisual.html',{'xRes':json.dumps(xRes1),'yRes':json.dumps(yRes),
+                                                        'yRes1':json.dumps(yRes1),'yRes2':json.dumps(yRes2),
+                                                        'currentYear':json.dumps(currentYear),'currentMonth':json.dumps(currentMonth),
+                                                        'appName':'app'})
