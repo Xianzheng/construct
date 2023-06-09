@@ -34,7 +34,10 @@ class table1_Form(forms.ModelForm):
         fields = "__all__"
 
         exclude = ['id','bind','使用部门']
-
-
         
+        widgets = {
+                    '年份':  forms.Select(choices=choiceYear),
+                    '月份':  forms.Select(choices=choiceMonth),
+                }
+
             

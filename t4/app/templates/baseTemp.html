@@ -210,8 +210,13 @@
 
     const checkUserPermission = async () => {
 
+        const formData = new FormData();
+              //首先融入csrf token
+        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
+
         return await fetch('/app/checkUserPermission/', {
-        method: "POST",
+          method: "POST",
+          body:formData,
         }).then(res => res.json())
         
         

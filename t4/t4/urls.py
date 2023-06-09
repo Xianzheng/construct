@@ -1,4 +1,4 @@
-"""t4 URL Configuration
+"""t2 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -18,10 +18,10 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('t/',include('t.urls')),
-    path('产业园/',include('产业园.urls')),
-    path('用水量/',include('用水量.urls')),
+ 
     path('武汉厂区/',include('武汉厂区.urls')),
+    path('用水量/',include('用水量.urls')),
+    path('产业园/',include('产业园.urls')),
     path('app/',include('app.urls')),
     path('',include('account.urls')),
 ]

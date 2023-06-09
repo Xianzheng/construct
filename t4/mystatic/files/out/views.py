@@ -59,14 +59,14 @@ def table1_view(request):
                     'totalData':totalData,'status':0,
                     'tableName':'厂区表','tableId':0,
                     'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,
-                    'appName':'t','page_obj':page_obj})
+                    'appName':'测试一','page_obj':page_obj})
     except:
         renderFile = './table/renderTable1.html'  
         return render(request,renderFile,{'modelName':modelName,
                     'headerAndWidth':'',
                     'totalData':'','status':0,
                     'tableName':'厂区表','tableId':0,
-                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'t'})
+                    'goback':'/logout/','nextLayout':'/'+rootFilePath+'/'+nextModleName,'appName':'测试一'})
                 
 @login_required(login_url="/login/")
 def addSubTable_view(request,tableId,tableModel):
@@ -113,12 +113,12 @@ def addSubTable_view(request,tableId,tableModel):
 
             if tableId == '0':
                 if 'department=' in url:
-                    return redirect('/t/'+rd+'/?department='+department)
+                    return redirect('/测试一/'+rd+'/?department='+department)
                 else:
-                    return redirect('/t/'+rd+'/')
+                    return redirect('/测试一/'+rd+'/')
             
                 
-            return redirect('/t/'+rd+'/'+tableId)
+            return redirect('/测试一/'+rd+'/'+tableId)
     else:
 
         path = request.path
@@ -130,10 +130,10 @@ def addSubTable_view(request,tableId,tableModel):
         goback = ''
         print(tableId)
         if tableId == '0':
-            goback = '/t/'+rd
+            goback = '/测试一/'+rd
             print('yes')
         else:
-            goback = '/t/'+rd+'/'+tableId
+            goback = '/测试一/'+rd+'/'+tableId
             print('no')
         print(goback)
         
@@ -141,7 +141,7 @@ def addSubTable_view(request,tableId,tableModel):
        
 
     return render(request,'form.html',{'form':form,
-    'tableName':title,'goback':goback,'appName':'t'})
+    'tableName':title,'goback':goback,'appName':'测试一'})
 
 def updateRow_view(request,modelName,rowId,tableId):
     modelInstance = globals()[modelName]
@@ -163,7 +163,7 @@ def updateRow_view(request,modelName,rowId,tableId):
     goback = '/'+rootFilePath+'/'+modelName+'/'+tableId
     return render(request,'form.html',
     {'form':form,'tableName':title,
-    'tableId':tableId,'action':action,'goback':goback,'appName':'t'})
+    'tableId':tableId,'action':action,'goback':goback,'appName':'测试一'})
 
 
 
