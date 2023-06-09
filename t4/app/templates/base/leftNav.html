@@ -1,4 +1,10 @@
 {% load static%}
+
+<style>
+    .popMargin{
+        margin-bottom: 20px;
+    }
+</style>
 <div class="row mt-5" width="80px;"style = "float: left ;height: 100%;background-color: #e3f2fd;
 text-align: left;">
     <div class="col">
@@ -12,9 +18,9 @@ text-align: left;">
         </nav>
     </div>
     <div id="select-div" class="hide" style="display: none;">
-        <div><a href="#1">用水量</a></div>
-        <div><a href="#2">用电量</a></div>
-        <div><a href="#3">CO2消耗</a></div>
+        <div class = 'popMargin'><a href="#1">用水量</a></div>
+        <div class = 'popMargin'><a href="#2">用电量</a></div>
+        <div class = 'popMargin'><a href="#3">CO2消耗</a></div>
     </div>
 </div>
 <script src="{% static 'js_lib/jquery-3.6.4.min.js'%}"></script>

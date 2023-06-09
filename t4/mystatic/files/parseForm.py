@@ -40,13 +40,39 @@ def writeFormBody():
     with open('./out/forms.py','a',encoding='utf-8') as f:
         for index in range(len(modelnameLst)):
             string = """
+choiceYear = (
+        ('2022', '2022'),
+        ('2023', '2023'),
+        ('2024', '2024'),
+        ('2025', '2025'),
+        ('2026', '2026'),
+        ('2027', '2027'),
+        ('2028', '2028'),
+        ('2029', '2029W'),
+    )
+
+choiceMonth = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5'),
+        ('6', '6'),
+        ('7', '7'),
+        ('8', '8'),
+        ('9', '9'),
+        ('10', '10'),
+        ('11', '11'),
+        ('12', '12'),
+    )
+
 class {}_Form(forms.ModelForm):
     class Meta:
         model = {}
 
         fields = "__all__"
 
-        exclude = ['id','bind']\n
+        exclude = ['id','bind','使用部门']\n
 
         
             """
@@ -57,7 +83,8 @@ class {}_Form(forms.ModelForm):
                 print(attriName)
                 addString = """
         widgets = {
-                    {}: forms.widgets.DateInput(attrs={'type':{}}),
+                    '年份':  forms.Select(choices=choiceYear),
+                    '月份':  forms.Select(choices=choiceMonth),
                 }
                 """
                 addString = addString.replace('{}','\''+attriName+'\'')

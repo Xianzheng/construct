@@ -44,7 +44,7 @@ def table1_view(request):
         url = request.get_full_path()
         url = urllib.parse.unquote(url)
         
-        print(url)
+        # print(url)
         if 'department=' in url:
             department = url.split('department=')[-1]
             objLst = modelInstance.objects.filter(使用部门=department)
@@ -101,17 +101,24 @@ def addSubTable_view(request,tableId,tableModel):
                 instance.bind = bindModel.objects.get(id = tableId)
             url =  request.get_full_path()
             url = urllib.parse.unquote(url)
-            print('url is ',url)
+            department = ''
+        
             if 'department=' in url:
-                departmemt = url.split('department=')[-1]
+                department = url.split('department=')[-1]
                 
-                instance.使用部门 = departmemt
+                instance.使用部门 = department
             instance.save()
             
             rd = tableModel[0].lower() + tableModel[1:]
             if tableId == '0':
-                return redirect('/用水量/'+rd+'/')
-            return redirect('/用水量/'+rd+'/'+tableId)
+                if 'department=' in url:
+                    return redirect('/用水量/'+rd+'/?department='+department)
+                else:
+                    return redirect('/用水量/'+rd)
+            
+                
+            return redirect('/用水量/'+rd+'/'+tableId+'/')
+            
     else:
 
         path = request.path
