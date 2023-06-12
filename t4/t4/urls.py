@@ -18,6 +18,7 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('用电量/',include('用电量.urls')),
  
     path('武汉厂区/',include('武汉厂区.urls')),
     path('用水量/',include('用水量.urls')),

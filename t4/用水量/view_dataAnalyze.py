@@ -22,8 +22,10 @@ def monthDataAnalyze_view(request,data):
     currentMonth = int(data[1])
     # return HttpResponse('hello')
     modelsList = getModelList('./{}/models.py'.format(appName))
+    department = getUrlParameter(request,'department=')
+   
     #创建一个字典收集结果，如果把字典放在for循环里每次都是空的字典
-    db = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear - 1) , 月份 = str(currentMonth))
+    db = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear - 1) , 月份 = str(currentMonth),使用部门 = department)
     if db:
         for i in db:
             r = dict(list(i.__dict__.items())[4:-1])
@@ -35,7 +37,7 @@ def monthDataAnalyze_view(request,data):
     # yRes是上一年的数据
 
     
-    db1 = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear), 月份 = str(currentMonth))
+    db1 = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear), 月份 = str(currentMonth),使用部门 = department)
     if db1:
         for i in db1:
             r1 = dict(list(i.__dict__.items())[4:-1])
@@ -48,7 +50,7 @@ def monthDataAnalyze_view(request,data):
 
     #yRes1是今年数据
 
-    db2 = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear), 月份 = str(currentMonth - 1))
+    db2 = getThirdAppLib(request,appName).objects.filter(年份 = str(currentYear), 月份 = str(currentMonth - 1),使用部门 = department)
     if db2:
         for i in db2:
             r2 = dict(list(i.__dict__.items())[4:-1])
@@ -64,3 +66,7 @@ def monthDataAnalyze_view(request,data):
                                                         'yRes1':json.dumps(yRes1),'yRes2':json.dumps(yRes2),
                                                         'currentYear':json.dumps(currentYear),'currentMonth':json.dumps(currentMonth),
                                                         'appName':'app'})
+
+def constantDataAnalyze_view(request,data):
+    pass
+

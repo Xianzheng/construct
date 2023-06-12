@@ -353,7 +353,7 @@ def getApp_view(request):
     lst = []
     temp = os.listdir()
     for i in temp:
-        if i not in ['account','mystatic',projectname,'用水量'] and not i.count('.'):
+        if i not in ['account','mystatic',projectname,'用水量','用电量'] and not i.count('.'):
             lst.append(i)
     return HttpResponse(json.dumps({'msg':lst}))
 

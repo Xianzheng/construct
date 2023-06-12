@@ -47,9 +47,9 @@ def table1_view(request):
         # print(url)
         if 'department=' in url:
             department = url.split('department=')[-1]
-            objLst = modelInstance.objects.filter(使用部门=department)
+            objLst = modelInstance.objects.filter(使用部门=department).order_by('年份','月份')
         else:
-            objLst = modelInstance.objects.all()
+            objLst = modelInstance.objects.all().order_by('年份','月份')
         #遍历所有表的所有信息填入进空的lst中
         totalData = loadData(objLst, header1)
         # print('line28',totalData)

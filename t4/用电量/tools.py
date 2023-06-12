@@ -1,5 +1,6 @@
 import datetime
 from django.apps import apps
+import urllib
 def loadData(objLst,header:list) -> list:
     #遍历所有表的所有信息填入total list中
     #最后total会变成比如[[],[],[]]

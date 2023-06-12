@@ -1,5 +1,6 @@
 import datetime
 from django.apps import apps
+import urllib
 def loadData(objLst,header:list) -> list:
     #遍历所有表的所有信息填入total list中
     #最后total会变成比如[[],[],[]]
@@ -108,6 +109,13 @@ def mySerialize(serializerObj):
             collector[j] = i['fields'][j]
         mySerializer.append(collector)
     return mySerializer
+def getUrlParameter(request,token):
+    url = request.get_full_path()
+    url = urllib.parse.unquote(url)
+    params = url.split(token)[-1]
+    return params
+
+    
     
 
 exclude = ['username','email','is_staff','last_login','password','last_name','date_joined','is_active','is_superuser']
