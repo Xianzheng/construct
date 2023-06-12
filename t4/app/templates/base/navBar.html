@@ -125,12 +125,12 @@
             // arrayText = [['表图','visual1'],['结构图','visual2'],['构建','addApp']]
             arrayText = [['操作库','dealStatic'],['操作数据','dealData'],['构建','addApp'],['权限管理','manageUser']]
         } else {
-            arrayText = [['*更新','updateDB'],['总表','table1'],['查询','searchInput'],['导出','export'],['视觉化','visual1']]
+            arrayText = [['*更新','updateDB'],['总表','table1'],['查询','searchInput'],['导出','export'],['趋势图','constantDataAnalyze']]
         }
         arrayText.forEach(element => {
             let addTag = document.createElement('a')
             addTag.innerHTML = element[0]
-            addTag.setAttribute('href','/'+appName+'/'+element[1]+'/')
+            addTag.setAttribute('href','/'+appName+'/'+element[1]+'/?previousUrl='+window.location.href)
             ele.append(addTag)
         })
         // let addTag3 = document.createElement('a')

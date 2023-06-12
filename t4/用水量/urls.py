@@ -19,4 +19,5 @@ urlpatterns = [
     path('searchOutput/',searchOutput_view),
     path('monthDataAnalyze/<data>/',monthDataAnalyze_view),
     path('updateDB/',updateDB_view),
+    path('constantDataAnalyze/',constantDataAnalyze_view),
 ]

@@ -74,7 +74,12 @@ def writeUrlBody():
         f.write("    path('updateRow/<modelName>/<rowId>/<tableId>',updateRow_view),\n")
         f.write("    path('deleteRow/<modelName>/<rowId>/<tableId>',deleteRow_view),\n")
         for i in deflst:
-            f.write("    path('{}/',{}),\n".format(i[:-5],i))
+            print(i)
+            #如果是 函数名是monthDataAnalyze_view ，urlpatterns 写成 path('monthDataAnalyze/<data>/',monthDataAnalyze_view),
+            if i == 'monthDataAnalyze_view':
+                f.write("    path('{}/<data>/',{}),\n".format(i[:-5],i))
+            else:
+                f.write("    path('{}/',{}),\n".format(i[:-5],i))
         # f.write("    path('visual1/',visual1_view),\n")
         # f.write("    path('visual2/',visual2_view),\n")
         # f.write("    path('upload/',upload_view),\n")

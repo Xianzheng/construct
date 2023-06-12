@@ -67,6 +67,25 @@ def monthDataAnalyze_view(request,data):
                                                         'currentYear':json.dumps(currentYear),'currentMonth':json.dumps(currentMonth),
                                                         'appName':'app'})
 
-def constantDataAnalyze_view(request,data):
-    pass
+def constantDataAnalyze_view(request):
+    #显示路径，通过路径得到app name 和 deparment name
+    url = request.get_full_path()
+    #decode网页中文乱码
+    url = urllib.parse.unquote(url)
+    #通过'/'分离路径信息,lst[1]是projectName
+    appName = url.split('/')[1]
+    #通过'department='分离，lst[-1]是department name
+    departmentName = url.split('department=')[-1]
+
+    
+
+    xRes = []
+    yRes = []
+    lib = getThirdAppLib(request,appName)
+    obj = lib.objects.filter(使用部门=departmentName).order_by('年份','月份')
+    for item in obj:
+        xRes.append('{}年{}月'.format(item.年份,item.月份))
+        yRes.append(item.水使用量吨)
+    
+    return render(request,'./visual/renderVisual1.html',{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes)})
 
