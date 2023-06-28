@@ -49,7 +49,7 @@ text-align: left;">
                     addTag.setAttribute('class','change-trigger')
                     // console.log(element)
                     addTag.innerText = element
-                    addTag.setAttribute('href','/'+element+'/table1/')
+                    addTag.setAttribute('href','#')//先注释了href后面开启 '/'+element+'/table1/'
                     addTag.style.marginTop = '30px'
                     
                     ele.append(addTag)
@@ -63,7 +63,7 @@ text-align: left;">
                             content = $('#select-div').html();
                             content = content.replace('#1','/用水量/table1/?department='+element);
                             content = content.replace('#2','/用电量/table1/?department='+element);
-                            content = content.replace('#3','/CO2消耗/table1/?department='+element);
+                            // content = content.replace('#3','/CO2消耗/table1/?department='+element);#先不显示用气
                            
                             return content;
                         } 

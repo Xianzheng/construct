@@ -77,7 +77,8 @@ def constantDataAnalyze_view(request):
     #通过'department='分离，lst[-1]是department name
     departmentName = url.split('department=')[-1]
 
-    
+    yResAttri = getHandWriteAttri('table1','tempModel')[-2];
+    # print(yResAttri)
 
     xRes = []
     yRes = []
@@ -85,7 +86,7 @@ def constantDataAnalyze_view(request):
     obj = lib.objects.filter(使用部门=departmentName).order_by('年份','月份')
     for item in obj:
         xRes.append('{}年{}月'.format(item.年份,item.月份))
-        yRes.append(item.水使用量吨)
+        yRes.append(getattr(item,yResAttri))
     
     return render(request,'./visual/renderVisual1.html',{'xRes':json.dumps(xRes),'yRes':json.dumps(yRes)})
 

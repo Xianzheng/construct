@@ -120,6 +120,25 @@ class {}:
             f2.write('admin.site.register({})\n'.format(name))
             f2.close()
 
+#后来添加上去的（6.13）
+with open('./out/models.py','a',encoding='utf-8') as f1:
+        # print(string)
+        string1 = """
+
+    def __str__(self) -> str:
+        return '{}{}年{}月用水量'.format(self.使用部门,self.年份,self.月份)
+
+class tempModel(models.Model):
+    def __str__(self) -> str:
+        return 
+    pass
+        """
+
+        f1.write('\n')
+        f1.write(string1)
+        f1.write('\n')
+        f1.close()
+
         
 
 

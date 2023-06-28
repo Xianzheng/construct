@@ -10,3 +10,8 @@ class table1(models.Model):
 
     def __str__(self) -> str:
         return '{}{}年{}月用水量'.format(self.使用部门,self.年份,self.月份)
+
+class tempModel(models.Model):
+    def __str__(self) -> str:
+        return 
+    pass

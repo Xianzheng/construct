@@ -6,7 +6,7 @@ from .view_export import *
 from .view_plugin_tools import *
 from .view_screamlitShow import *
 from .view_search import *
-urlpatterns = [
+urlpatterns = (
     path('table1/',table1_view),
     path('addSubTable/<tableId>/<tableModel>',addSubTable_view),
     path('updateRow/<modelName>/<rowId>/<tableId>',updateRow_view),
@@ -14,8 +14,9 @@ urlpatterns = [
     path('visual1/',visual1_view),
     path('visual2/',visual2_view),
     path('monthDataAnalyze/<data>/',monthDataAnalyze_view),
+    path('constantDataAnalyze/',constantDataAnalyze_view),
     path('export/',export_view),
     path('screamlitShow/',screamlitShow_view),
     path('searchInput/',searchInput_view),
     path('searchOutput/',searchOutput_view),
-]
+)

@@ -14,6 +14,7 @@ urlpatterns = [
     path('visual1/',visual1_view),
     path('visual2/',visual2_view),
     path('monthDataAnalyze/<data>/',monthDataAnalyze_view),
+    path('constantDataAnalyze/',constantDataAnalyze_view),
     path('export/',export_view),
     path('screamlitShow/',screamlitShow_view),
     path('searchInput/',searchInput_view),

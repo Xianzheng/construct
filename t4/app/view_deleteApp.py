@@ -33,7 +33,10 @@ def deleteApp_view(request):
 
     #得到table Instance
     modelsList = getModelList('./{}/models.py'.format(name))
+    #class 包含temp 的不会被删除
+    modelsList = [i for i in modelsList if 'temp' not in i]
     #得到modelsList的所有表名，得到Instance 并删除
+    # print(modelsList)
     
    
     

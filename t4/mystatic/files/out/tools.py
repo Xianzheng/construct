@@ -1,5 +1,7 @@
 import datetime
 from django.apps import apps
+from .models import * 
+import urllib
 def loadData(objLst,header:list) -> list:
     #遍历所有表的所有信息填入total list中
     #最后total会变成比如[[],[],[]]
@@ -113,6 +115,26 @@ def getUrlParameter(request,token):
     url = urllib.parse.unquote(url)
     params = url.split(token)[-1]
     return params
+
+def getHandWriteAttri(modelName,tempModelName):
+    '''
+    description:
+        得到一个class 所有非默认的参数
+    implements method:
+        通过globals()['className']得到一个class的的所有Attri,包括默认加手写
+        减去一个class的默认的Attri
+    requirements: form .models import *
+    params: 
+        tempModelName:'tempModel'
+        modelName: 'table1'
+    '''
+    modelTempAttriList = list(globals()[tempModelName].__dict__.keys())
+    modelAttrilist = list(globals()[modelName].__dict__.keys())
+    handWriteAttriList = [i for i in modelAttrilist if i not in modelTempAttriList]
+    return handWriteAttriList
+
+
+    
     
 
 exclude = ['username','email','is_staff','last_login','password','last_name','date_joined','is_active','is_superuser']
