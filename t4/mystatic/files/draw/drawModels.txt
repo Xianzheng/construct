@@ -1,1 +1,1 @@
-table1: id auto,年份 string vb-年份 blank-True,月份 string vb-月份 blank-True,电使用量千瓦时 string vb-电使用量(千瓦时) blank-True,使用部门 string vb-使用部门 blank-True
+table1: id auto,年份 string vb-年份 blank-True,月份 string vb-月份 blank-True

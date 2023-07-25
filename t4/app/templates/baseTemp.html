@@ -246,6 +246,35 @@
         })
    }
 
+              // loadData(testData);
+    //同步检查账号等级
+   const syncCheckAccountLevel = () =>{
+    var csrf = '{{csrf_token}}'
+        $.ajax({
+          async: false,
+            type: "POST",
+            data:{'csrfmiddlewaretoken': csrf},
+            url : '/app/checkUserPermission/',
+            datatype : 'json',
+            success : function(data) {
+              accountLevel=data;
+              // loadData(testData);
+            }
+        });
+        
+   }
+
+   const getAccountLevel = () => {
+        
+        syncCheckAccountLevel()
+        accountLevel = $.parseJSON(accountLevel)
+        
+   }
+  //  function loadData(testData) {
+  //           var data = testData;
+  //           return data;
+  //       }
+
    const myFetch = async (method,url,data) => {
 
           console.log('data is',data)

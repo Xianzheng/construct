@@ -7,8 +7,36 @@
 </style>
 <div class="row mt-5" width="80px;"style = "float: left ;height: 100%;background-color: #e3f2fd;
 text-align: left;">
+    <ul>
+        <li><a href="#">前端课程 +</a>
+            <ul>
+                <li><a href="#">javaScript</a></li>
+                <li><a href="#">CSS</a></li>
+                <li><a href="#">JQuery</a></li>
+            </ul>
+        </li>
+        <li><a href="#">手机开发</a>
+            <ul>
+                <li><a href="#">ios</a></li>
+                <li><a href="#">安卓</a></li>
+            </ul>
+        </li>
+        <li><a href="#">后台编程</a></li>
+    </ul>   
     <div class="col">
         <nav class="nav flex-column" id = 'leftNavbar_content'>
+            
+            <!-- <div class="btn-group">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div> -->
             
             <!-- <a class="nav-link" href="#">垂直排列</a>
             <a class="nav-link" href="#">布局</a>
@@ -20,18 +48,24 @@ text-align: left;">
     <div id="select-div" class="hide" style="display: none;">
         <div class = 'popMargin'><a href="#1">用水量</a></div>
         <div class = 'popMargin'><a href="#2">用电量</a></div>
-        <div class = 'popMargin'><a href="#3">CO2消耗</a></div>
+        <!-- <div class = 'popMargin'><a href="#3">CO2消耗</a></div> -->
     </div>
 </div>
 <script src="{% static 'js_lib/jquery-3.6.4.min.js'%}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js'%}"></script> 
 <script src="{% static 'js_lib/popper.min.js'%}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.js'%}"></script>
-
+<script src = "{% static 'js_lib/jquery.js'%}"></script>
 <script>
     </script>
 <script>
      function auto(){
+            $("li").has("ul").mouseover(function () {
+                $(this).children("ul").css("display", "block");
+            }).mouseout(function () {
+                $(this).children("ul").css("display", "none");
+            })
+        const marginBottom = '40px'
         const formData = new FormData();
     
         formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
@@ -40,9 +74,58 @@ text-align: left;">
         method: "POST",
         }).then(res => res.json())
         .then(res => {
+            
+            console.log(res.msg1)
+
            
+            
             res.msg.forEach(element => {
                 if(element != 'app'){
+                    
+                    console.log(element,element in res.msg1)
+
+                    /*
+                    if (element in res.msg1){
+                        $("#leftNavbar_content").append(
+                            
+                            `<div class="btn-group" style="margin-bottom:${marginBottom}">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ${element}
+                                    </button>
+                                    <div id ="fill" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        
+                                    </div>
+                                </div>`
+                            
+                        )
+                        console.log('bbb',element)
+                        console.log('bbb',res.msg1[element])
+                        res.msg1[element].forEach( element1 => {
+                            console.log(element1)
+                            $("#fill").append(`<div  class = "change-trigger"><a class="dropdown-item" href="#")>${element1}</a><br/></div>`)
+                        })
+
+                    }else {
+                    
+
+                        $("#leftNavbar_content").append(
+                            
+                            `<div class="btn-group" style="margin-bottom:${marginBottom}">
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ${element}
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>`
+                            
+                        )
+                    }*/
+                    
                     let ele = document.getElementById('leftNavbar_content')
                     let addTag = document.createElement('a')
                     // addTag.setAttribute('href','#')
@@ -51,6 +134,7 @@ text-align: left;">
                     addTag.innerText = element
                     addTag.setAttribute('href','#')//先注释了href后面开启 '/'+element+'/table1/'
                     addTag.style.marginTop = '30px'
+
                     
                     ele.append(addTag)
                     $('.change-trigger').popover({

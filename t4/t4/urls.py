@@ -18,6 +18,10 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('产业园_二分厂/',include('产业园_二分厂.urls')),
+    path('产业园_一分厂/',include('产业园_一分厂.urls')),
+    path('综合楼/',include('综合楼.urls')),
+    path('赤壁子公司/',include('赤壁子公司.urls')),
     path('用电量/',include('用电量.urls')),
  
     path('武汉厂区/',include('武汉厂区.urls')),

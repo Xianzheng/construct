@@ -62,7 +62,7 @@
           </div> 
           <div  style="float: left;">
           
-          <div class="dropdown"  style="float: left;">
+          <div id ="userinfo" class="dropdown"  style="float: left;">
             <button
               style="background-color: #e3f2fd; border-style: none;"
               type="button"
@@ -105,34 +105,17 @@
     <script src = "{% static 'js_lib/jquery.js'%}"></script>
     <script>
 
-      // let username = document.getElementById("addUsername").value
-      // let password = document.getElementById("addUserpass").value
-      // let groupPermission = document.getElementById("groupPermission").value
-        
-        // const getUserInfo = () =>{
-        //   myFetch('POST','/app/checkUserPermission/').then(res=>console.log(res.msg))
-        // }
-        const formData = new FormData();
-              //首先融入csrf token
-        formData.append('csrfmiddlewaretoken', '{{csrf_token}}')
-        var csrf = '{{csrf_token}}'
-        var testData;
-        $.ajax({
-          async: false,
-            type: "POST",
-            data:{'csrfmiddlewaretoken': csrf},
-            url : '/app/checkUserPermission/',
-            datatype : 'json',
-            success : function(data) {
-              testData=data;
-              loadData(testData);
-            }
-        });
-        function loadData(testData) {
-            var data = testData;
-            return data;
+        //accountLevel is a global value
+        var accountLevel
+        //getAccountLevel 会使用ajax同步 赋值accountLevel, 并把字符串型转为JSON，一把会用fetch这个需求场景只能用同步了
+        getAccountLevel()
+        const level = accountLevel.msg
+
+        if (!level.includes('3')) {
+          document.getElementById("userinfo").style.display = "none"
         }
-        console.log(testData)
+        
+        
         // window.onload = getUserInfo()
         let ele = document.getElementsByClassName('navbar navbar-light').navbar_content
         let url = window.location.href
@@ -147,7 +130,14 @@
             // arrayText = [['表图','visual1'],['结构图','visual2'],['构建','addApp']]
             arrayText = [['操作库','dealStatic'],['操作数据','dealData'],['构建','addApp'],['权限管理','manageUser']]
         } else {
-            arrayText = [['*更新','updateDB'],['总表','table1'],['查询','searchInput'],['导出','export'],['趋势图','constantDataAnalyze']]
+          //如果账号等级是"3" 
+            if (level.includes('3')) {
+              arrayText = [['*更新','updateDB'],['总表','table1'],['查询','searchInput'],['导出','export'],['趋势图','constantDataAnalyze']]
+            }else{
+              arrayText = [['查询','searchInput'],['导出','export'],['趋势图','constantDataAnalyze']]
+            }
+
+            
         }
         arrayText.forEach(element => {
             let addTag = document.createElement('a')

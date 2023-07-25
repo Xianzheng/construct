@@ -350,11 +350,28 @@ def updateDB_view(request):
 def getApp_view(request):
     import json
     projectname = str(BASE_DIR).split('\\')[-2]
-    lst = []
+    lst = [] #一级表
     temp = os.listdir()
     for i in temp:
-        if i not in ['account','mystatic',projectname,'用水量','用电量'] and not i.count('.'):
+        if i not in ['account','mystatic',projectname,'用水量','用电量'] and not i.count('.') and not '_' in i:
             lst.append(i)
-    return HttpResponse(json.dumps({'msg':lst}))
+    lst1 = [] #二级表
+    for i in temp:
+        if '_' in i:
+            lst1.append(i)
+    dic = {}
+    print(lst)
+    print(lst1)
+
+    for i in lst1:
+        for j in lst:
+            if j in i:
+                if j in dic:
+                    dic[j].append(i)
+                    
+                else:
+                    dic[j] = [i]
+    print(dic)
+    return HttpResponse(json.dumps({'msg':lst,'msg1':dic}))
 
 

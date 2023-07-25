@@ -49,7 +49,8 @@ def login_view(request):
             print('用户 {} ip {} 登陆'.format(request.user.first_name,ip))
             string = '用户 {} ip {} 时间 {} 登陆 '.format(request.user.first_name,ip,getCurrentTime())
             writeToLog(request,string)
-            return redirect('/{}/table1'.format(appName))#这里必须要127.0.0.1后的完整url
+            # return redirect('/{}/table1'.format(appName))#这里必须要127.0.0.1后的完整url
+            return redirect('/用水量/table1/?department=产业园')
     else:
         grouplst = Group.objects.all()
         #第一次创建组1，2，3
