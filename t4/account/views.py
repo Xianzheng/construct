@@ -6,16 +6,44 @@ from django.contrib.auth.models import User, Group
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 
+from django.contrib.auth import authenticate
+
 from django.http.response import HttpResponse
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
 appName = 'app'
-
+import json
 
 import datetime
+'''
+    API part
+'''
 # Create your views here.
+def test_connect_api(request):
+    return HttpResponse(json.dumps({'msg':'Hello'}))
+
+# check if LoginUser exist
+def checkIfLogin_api(request):
+    if request.method == 'POST':
+        # json.loads(request.body.decode('utf-8')) is a dictionary looks like
+        # {'data': {'user': 'mark', 'pass': 'a1} in order to make it more simple data = ...[data]
+        data = json.loads(request.body.decode('utf-8'))['data']
+        # print(data['password'])
+        # filter 不能同时查询账号和密码很奇怪
+        auth = authenticate(**data)
+        if auth != None:
+            return HttpResponse(json.dumps({'msg':'login Success'}))
+        else:
+            return HttpResponse(json.dumps({'msg':'login failed'}))
+        #username="john", password="secret"
+    return HttpResponse(json.dumps({'msg':'Hello1'}))
+
+
+'''
+    Backend part
+'''
 def writeToLog(request,string):
     with open('Log.txt','a',encoding= 'utf-8') as f:
         f.write(string)
