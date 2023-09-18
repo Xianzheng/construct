@@ -13,6 +13,13 @@ from django.http.response import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 
+'''
+for api library
+'''
+from .serializer import *
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import api_view
 appName = 'app'
 import json
 
@@ -25,22 +32,25 @@ def test_connect_api(request):
     return HttpResponse(json.dumps({'msg':'Hello'}))
 
 # check if LoginUser exist
+@api_view(['GET','POST'])
 def checkIfLogin_api(request):
     if request.method == 'POST':
+        
         # json.loads(request.body.decode('utf-8')) is a dictionary looks like
         # {'data': {'user': 'mark', 'pass': 'a1} in order to make it more simple data = ...[data]
         data = json.loads(request.body.decode('utf-8'))['data']
         # print(data['password'])
         # filter 不能同时查询账号和密码很奇怪
         auth = authenticate(**data)
-        if auth != None:
-            return HttpResponse(json.dumps({'msg':'login Success'}))
+        if auth != None:    
+            serializer = UserSerializer(User.objects.get(username=data['username']))
+            # return Response(serializer.data,status=status.HTTP_200_OK)
+            return Response(serializer.data)
         else:
             return HttpResponse(json.dumps({'msg':'login failed'}))
         #username="john", password="secret"
-    return HttpResponse(json.dumps({'msg':'Hello1'}))
-
-
+    serializer = UserSerializer(User.objects.all(),many=True)
+    return Response(serializer.data)
 '''
     Backend part
 '''

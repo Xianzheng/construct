@@ -1,0 +1,105 @@
+1. adjust appName of template（solved）
+
+2. take note about how to initally add django user using app.py（solved）
+
+3. how to using code to copy and paste in python（solved）
+
+4. modify and make code more concise（solved）
+
+5. solving how to insert input when invoke python shell（solved）
+
+涉密和网络，OA和会议网
+///
+2023/2/8
+上午:
+
+增加了views_visual.py,tools_visual.py（solved）
+
+在app/urls.py增加path('visual1_view',visual1_view)#这个应该可以动态生成（solved）
+
+再在template里加入render_visual.html
+
+创建JS folder加入入 echarts.min.js
+
+对pycharm做了梳理
+
+下午:
+
+验证venv是否可移植
+
+用python,pyininstaller制作了 j.exe
+
+J.ext加入进环境变， cmd 运行 j hello.java 先运行javac再运行java
+
+2023/2/09计划
+
+1.明日计划完成统计model数据向render_visual发送生成Bar 图,思考如何做 Tree图
+
+（完成统计图后考虑搜索怎么做）
+
+2.对Java做测试，思考如何做小任务综合平台集成已经完成的项目
+
+///
+
+2023/2/9
+上午
+解决 明日计划完成统计model数据向render_visual发送生成Bar 图
+传输json数据到tempalte js 里需要
+在view里
+def home(request):
+    List = ['列表1', '列表2']
+    Dict = {'键1': '值1', '键2': '值2'}
+    return render(request, 'home.html', {
+            'List': json.dumps(List),
+            'Dict': json.dumps(Dict)
+        })
+
+在template需要
+<script type="text/javascript">
+    var List = {{ List|safe }};//列表
+    var Dict = {{ Dict|safe }};//字典
+</script>
+
+星期二
+
+供应链这个阶段怎么做
+
+主数据系统行成方案
+
+如何和OA，PLM集成
+
+财务结算，结合用友
+
+主数据
+
+先找供应商接触
+
+2月14号与财务交流，技术规格书，招标书，邀请多家厂商进行交流，不仅看方案软件平台，单个来
+
+内部讨论：
+（华天，鼎杰，用友。。等五家）
+2月底准备好，3月份完成准备工作具备招标条件，4月份签订商务合同，8月份试运行上线，11月1号正式上线
+
+下星期一过来
+
+软件有没有供应商推荐稍微有点名气的
+
+
+
+OA如何与其他平台如何集成 
+
+考虑如何把树结构变成图形的代码优化，
+根据django-model转化为tree转化为json代码，
+到template
+
+
+华天软件：山东山大华天软件有限公司1993，1100多号人，重实施
+业务领域PLM,CAD三维设计，MOM，SRM，MES
+汽车高科技电子，有武汉分公司50人
+
+用友计划驱动供应链
+
+2023/3/23
+
+通过parsing excel文件获取数据，BOM放入数据库中
+

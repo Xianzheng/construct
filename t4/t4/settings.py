@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     '产业园',
     'account',
     'corsheaders',
- 
+    'rest_framework',
     'app',
 ]
 
